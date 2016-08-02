@@ -1,0 +1,113 @@
+"========================================
+"============Plug config=================
+"========================================
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+"call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/bundle')
+Plug 'terryma/vim-multiple-cursors' 										"Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'Valloric/YouCompleteMe'  , { 'do': './install.py --clang-completer' }
+Plug 'kien/ctrlp.vim' 														"fuzzy find files
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } 						"file drawer, open with :NERDTreeToggle
+Plug 'benmills/vimux'
+" ======== Color Plugs ===============
+Plug 'w0ng/vim-hybrid'
+Plug 'altercation/vim-colors-solarized'
+Plug 'sickill/vim-monokai'
+
+"======================================
+call plug#end()
+
+"========================================
+"============ Plug END ==================
+"========================================
+
+"=============My vim options===========
+set nocompatible              	" be iMproved, required
+filetype plugin indent on
+syntax on
+set ai							"???
+set hlsearch					"higth light search
+set incsearch           		" search as characters are entered
+set nu							"Number the lines
+set t_Co=256					"Set colour to 256
+set wildmenu					"Show machin possibilitys in : prompt 
+set ts=4						"Tap size
+set scrolloff=5					"when scrolling allways show 5 lines 
+"set paste						"eases the paste
+set cursorline          		" highlight current line
+"============= AirLine =============
+set laststatus=2 "to vim airline apear
+let g:airline#extensions#tabline#enabled = 1 	 " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
+"AirlineTheme murmur
+
+"======= Colors and Thems ==========
+"--hybrid--
+"let g:hybrid_custom_term_colors = 1
+"let g:hybrid_reduced_contrast = 1
+"colorscheme hybrid 
+"--end--
+"-------------
+"--solarized--
+set background=dark
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termcolors = 256
+colorscheme solarized
+"--end--
+"-------------
+"--monokai--
+"colorscheme monokai
+"--monokai--
+
+"==========Adicional spec=============
+"vim-cpp-enhanced-highlight
+let c_no_curly_error=1
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "desabeling auto comment
+set formatoptions-=cro "desabeling auto comment
+
+"NERDTree automatically
+autocmd StdinReadPre * let s:std_in=5
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " incompatible YCM
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"YCM
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'                      
+let g:ycm_confirm_extra_conf = 0
+
+"Crontab compatibility workaround for using vim 
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+"==========My Mapings==============
+map <C-a> :NERDTreeToggle<CR>
+map <leader>rr :source ~/.vimrc<CR> 
+map <leader>n :bnext<CR>
+map <leader>p :set paste<CR>
+nnoremap <leader><space> :nohlsearch<CR> 	" turn off search highlight
+
+"========To be improved============
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+"nmap <M-j> mz:m+<cr>`z
+"nmap <M-k> mz:m-2<cr>`z
+"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+"
+"if has("mac") || has("macunix")
+"    nmap <D-j> <M-j>
+"    nmap <D-k> <M-k>
+"    vmap <D-j> <M-j>
+"    vmap <D-k> <M-k>
+"endif
+"
