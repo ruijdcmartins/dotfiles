@@ -22,7 +22,6 @@ Plug 'benmills/vimux'
 Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
 Plug 'sickill/vim-monokai'
-
 "======================================
 call plug#end()
 
@@ -31,23 +30,23 @@ call plug#end()
 "========================================
 
 "=============My vim options===========
-set nocompatible              	" be iMproved, required
-filetype plugin indent on
+set nocompatible				"be iMproved, required
+filetype indent plugin on
 syntax on
-set ai							"???
+set ai							"auto indent
 set hlsearch					"higth light search
-set incsearch           		" search as characters are entered
-set nu							"Number the lines
-set t_Co=256					"Set colour to 256
-set wildmenu					"Show machin possibilitys in : prompt 
-set ts=4						"Tap size
+set incsearch					"search as characters are entered
+set nu							"number the lines
+set t_Co=256					"set colour to 256
+set wildmenu					"show machin possibilitys in : prompt 
+set ts=4						"tap size
 set scrolloff=5					"when scrolling allways show 5 lines 
 "set paste						"eases the paste
-set cursorline          		" highlight current line
+set cursorline					"highlight current line
 "============= AirLine =============
 set laststatus=2 "to vim airline apear
-let g:airline#extensions#tabline#enabled = 1 	 " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
+let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' "show just the filename
 "AirlineTheme murmur
 
 "======= Colors and Thems ==========
@@ -67,7 +66,7 @@ colorscheme solarized
 "-------------
 "--monokai--
 "colorscheme monokai
-"--monokai--
+"--end--
 
 "==========Adicional spec=============
 "vim-cpp-enhanced-highlight
@@ -75,8 +74,8 @@ let c_no_curly_error=1
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "desabeling auto comment
-set formatoptions-=cro "desabeling auto comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o 	"desabeling auto comment
+set formatoptions-=cro 															"desabeling auto comment
 
 "NERDTree automatically
 autocmd StdinReadPre * let s:std_in=5
@@ -91,8 +90,8 @@ let g:ycm_confirm_extra_conf = 0
 autocmd filetype crontab setlocal nobackup nowritebackup
 
 "==========My Mapings==============
-map <C-a> :NERDTreeToggle<CR>
-map <leader>rr :source ~/.vimrc<CR> 
+map <C-e> :NERDTreeToggle<CR>
+map <leader>rr :source ~/.vimrc<CR>
 map <leader>n :bnext<CR>
 map <leader>p :set paste<CR>
 nnoremap <leader><space> :nohlsearch<CR> 	" turn off search highlight
