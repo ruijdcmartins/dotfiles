@@ -24,16 +24,21 @@ fi
 #   1. ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
+if [ "$TERM" == "xterm" ]; then
+    # No it isn't, it's gnome-terminal
+    export TERM=xterm-256color
+fi
+
 #   Change Prompt
 #   ------------------------------------------------------------
     export PS1="________________________________________________________________________________\n| \[\033[33m\]\w\[\033[m\] @ \[\033[36m\]\h \[\033[32m\](\u)\[\033[m\] \n| \[\033[33m\]=>\[\033[m\] "
     export PS2="| \[\033[33m\]=>\[\033[m\] "
 #   Set Paths
 #   ------------------------------------------------------------
-	export PATH="$PATH:$HOME/myBashScripts:."
-	# ============ Brew request ===========
-	export PATH="/usr/local/sbin:$PATH"
-    export PATH="/usr/local/bin:/usr/local/:$PATH"
+export PATH="$PATH:$HOME/myBashScripts:."
+# ============ Brew request ===========
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:/usr/local/:$PATH"
 
 #   Set Default Editor
 #   ------------------------------------------------------------
@@ -60,6 +65,7 @@ TTY_temp=$(tty)
 TTY=${TTY_temp#*/*/}
 it2prof() { echo -e "\033]50;SetProfile=$1\a" ;}
 it2prof "$TTY"
+echo "Current login: $(date) on $TTY"
 
 #   -----------------------------
 #   2. MAKE TERMINAL BETTER
@@ -95,6 +101,8 @@ alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file
 alias l1="ls -1"
 alias la="ls -Flah"
 alias ..='cd ..'
+alias du='du -sh'
+alias df='df -h'
 #   lr:  Full Recursive Directory Listing
 #   ------------------------------------------
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
