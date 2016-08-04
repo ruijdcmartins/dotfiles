@@ -10,7 +10,7 @@
 #
 ###############################################################################################
 
-logFolderBrew="$HOME/dotfilesLogs/brewLogs/brew/"
+logFolderBrew="$HOME/logs/dotfilesLogs/brewLogs/brew/"
 
 if [[ ! -d /usr/local ]]; then
 	mkdir -p /usr/local
