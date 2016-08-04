@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DOTFILES=$HOME/.dotfiles
+BASHSCRIPTS=$HOME/.dotfiles/myBashScripts
 
 echo -e "\nCreating symlinks"
 echo "=============================="
@@ -16,20 +17,44 @@ for file in $linkables ; do
 done
 
 # Still tryning neovim
-echo -e "\n\ninstalling to ~/.config"
+echo -e "\n\ninstalling to vimrc and neovim at ~/.config"
 echo "=============================="
-if [ ! -d $HOME/.config ]; then
+if [ ! -d $HOME/.config/nvim ]; then
     echo "Creating ~/.config"
-    mkdir -p $HOME/.config
-    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    mkdir -p $HOME/.config/
+    #curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    if [[ ! -d $HOME/.vim ]]; then
+        mkdir -p $HOME/.vim
+    else
+        ln -s $HOME/.vim $HOME/.config/nvim
+    fi
 fi
 
-if [ -e $HOME/.config/nvim/init.vim ]; then
-        echo "~${target#$HOME} already exists... Skipping."
+if [[ -L ~/.config/nvim/init.vim ]]; then
+        echo "~${HOME}/.config/nvim/init.vim already exists... Skipping."
     else
-        echo "Creating symlink for $config"
+        echo "Creating symlink for $HOME/.config/nvim/init.vim"
         ln -s $DOTFILES/vim/vim.symlink $HOME/.config/nvim/init.vim
 fi
+
+# Linking scripts
+echo -e "\n\ninstalling to ~/myBashScripts"
+echo "=============================="
+if [ ! -d $HOME/myBashScripts ]; then
+    echo "Creating ~/myBashScripts"
+    mkdir -p $HOME/myBashScripts
+fi
+
+linkablesScrips=$( find -H "$BASHSCRIPTS" -maxdepth 3 -name '*.sh' )
+for file in $linkablesScrips ; do
+    target="$HOME/${file##*.dotfiles/}"
+    if [ -e $target ]; then
+        echo "~${target#$HOME} already exists... Skipping."
+    else
+        echo "Creating symlink for $file"
+        ln -s $file $target
+    fi
+done
 
 #echo -e "\n\ninstalling to ~/.config"
 #echo "=============================="

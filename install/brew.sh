@@ -12,6 +12,15 @@
 
 logFolderBrew="$HOME/dotfilesLogs/brewLogs/brew/"
 
+if [[ ! -d /usr/local ]]; then
+	mkdir -p /usr/local
+	sudo chown -R `whoami` /usr/local
+else
+	if [[ $(ls -l /usr/ | grep local | awk '{print $3}') != `whoami` ]]; then
+		sudo chown -R `whoami` /usr/local
+	fi
+fi
+
 brew_list=(	git
 			gcc
 			boost
@@ -41,7 +50,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 	fi
 
 	if ! ( brew -v &> /dev/null ) ; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" ||  { echo -e "<===========> \nErro brew xcode!" ; return 1 ; }
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | | tee ${logFolderBrew}brewInstall.log || { echo -e "<===========> \nErro brew xcode!" ; return 1 ; }
 	brew doctor
 	#return 0
 	fi

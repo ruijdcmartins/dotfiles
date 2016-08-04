@@ -15,8 +15,9 @@ if [ "$(uname)" == "Darwin" ]; then
     source install/brew.sh
     source install/python.sh
     source install/cask.sh
+    source install/latex.sh
     source install/root.sh
-
+    source install/hep.sh
 fi
 
 #echo "creating vim directories"
@@ -33,16 +34,18 @@ echo "Done."
 #										TODO or not TODO
 #
 
-# myBashScripts
+# create a crontab
+
+# 
 
 # exemple: sudo installer -pkg "Command Line Tools.mpkg" -target /.
 # Web links
 # direct download 	https://developer.apple.com/download/more/
 # HEP!! 			https://github.com/veprbl/homebrew-hep
 
-# check ownerchip for brew etc...
-# sudo chown -R `whoami` /usr/local
-# sudo chown -R $(whoami):admin /usr/local
+# done check ownerchip for brew etc...
+# done sudo chown -R `whoami` /usr/local
+# done sudo chown -R $(whoami):admin /usr/local
 
 #gfortran from
 #https://gcc.gnu.org/wiki/GFortranBinaries#MacOS
