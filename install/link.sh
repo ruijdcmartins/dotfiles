@@ -17,7 +17,7 @@ for file in $linkables ; do
 done
 
 # Still tryning neovim
-echo -e "\n\ninstalling to vimrc and neovim at ~/.config"
+echo -e "\n\nInstalling linking vimrc and neovim at ~/.config"
 echo "=============================="
 if [ ! -d $HOME/.config/nvim ]; then
     echo "Creating ~/.config"
@@ -38,7 +38,7 @@ if [[ -L ~/.config/nvim/init.vim ]]; then
 fi
 
 # Linking scripts
-echo -e "\n\ninstalling to ~/myBashScripts"
+echo -e "\n\nInstalling ~/myBashScripts"
 echo "=============================="
 if [ ! -d $HOME/myBashScripts ]; then
     echo "Creating ~/myBashScripts"

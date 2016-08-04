@@ -50,8 +50,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 	fi
 
 	if ! ( brew -v &> /dev/null ) ; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | | tee ${logFolderBrew}brewInstall.log || { echo -e "<===========> \nErro brew xcode!" ; return 1 ; }
-	brew doctor
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee ${logFolderBrew}brewInstall.log || { echo -e "<===========> \nErro brew install!" ; return 1 ; }
+	brew doctor | tee ${logFolderBrew}brewDoctor.log || { echo -e "<===========> \nErro brew doc!" ; }
 	#return 0
 	fi
 	
