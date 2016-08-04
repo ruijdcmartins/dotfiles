@@ -33,28 +33,8 @@ echo "Done."
 #
 #										TODO or not TODO
 #
-
-# create a crontab
-
-# 
-
-# exemple: sudo installer -pkg "Command Line Tools.mpkg" -target /.
-# Web links
-# direct download 	https://developer.apple.com/download/more/
-# HEP!! 			https://github.com/veprbl/homebrew-hep
-
-# done check ownerchip for brew etc...
-# done sudo chown -R `whoami` /usr/local
-# done sudo chown -R $(whoami):admin /usr/local
-
 #gfortran from
 #https://gcc.gnu.org/wiki/GFortranBinaries#MacOS
 #MacOS
 #The gfortran maintainers offer nice Apple-style installers for…….
 #NOT from source 
-
-#ls colors
-# understending usual opitons http://www.marinamele.com/2014/05/customize-colors-of-your-terminal-in-mac-os-x.html
-# generator with usual options http://geoff.greer.fm/lscolors/
-#https://softwaregravy.wordpress.com/2010/10/16/ls-colors-for-mac/
-# change and improve the ls command http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/

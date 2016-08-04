@@ -23,7 +23,7 @@ brew_list=(	git
 			htop
 			lame
 			"macvim --with-cscope --with-lua --with-override-system-vim"
-			neovim/neovim/neovim
+			"neovim"
 			nmap
 			jhead
 			unrar
@@ -48,7 +48,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 		for i in `seq 0 $(( ${#brew_list[@]} -1 ))`
         do
         	if [[ "${brew_list[$i]}" == "" ]]; then continue ; fi
-        	brew list | grep "${brew_list[$i]%% *}" || { { eval brew upgrade "${brew_list[$i]}" | tee ${logFolderBrew}"${brew_list[$i]%% *}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; }
+        	if ( brew list | grep "${brew_list[$i]%% *}" ); then  { { eval brew upgrade "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${brew_list[$i]%% *}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; } ; fi
         done
 	#return 0
 	fi
