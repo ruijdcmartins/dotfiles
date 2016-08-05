@@ -28,7 +28,7 @@ if ( brew -v &> /dev/null ) ; then
 	
 	for i in `seq 0 $(( ${#pip_list[@]} -1 ))`
 	do
-		brew list | grep "${pip_list[$i]%% *}" || { { eval pip install "${pip_list[$i]}" | tee ${logFolderPip}"${pip_list[$i]%% *}".log && echo -e "<===========> \n${pip_list[$i]%% *} done" ; } || echo -e "<===========> \n${pip_list[$i]%% *} erro" ; }
+		if ! ( pip list | grep "${pip_list[$i]}" ); then { { eval pip install "${pip_list[$i]}" 2>&1 | tee ${logFolderPip}"${pip_list[$i]%% *}".log && echo -e "<===========> \n${pip_list[$i]%% *} done" ; } || echo -e "<===========> \n${pip_list[$i]%% *} erro" ; } ; fi
 	done
 #return 0
 fi

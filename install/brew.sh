@@ -63,7 +63,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 		
 		for i in `seq 0 $(( ${#brew_list[@]} -1 ))`
         do
-        	if ! ( brew list | grep "${brew_list[$i]%% *}" ); then { { eval brew install "${brew_list[$i]}" | tee ${logFolderBrew}"${brew_list[$i]%% *}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; }  ; fi
+        	if ! ( brew list | grep "${brew_list[$i]%% *}" ); then { { eval brew install "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${brew_list[$i]%% *}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; }  ; fi
         done
 	#return 0
 	fi

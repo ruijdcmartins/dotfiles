@@ -30,7 +30,7 @@ if ( brew -v &> /dev/null ) ; then
 	
 	for i in `seq 0 $(( ${#list_cask[@]} -1 ))`
 	do
-		brew cask list | grep "${list_cask[$i]%% *}" || { { eval brew cask install "${list_cask[$i]}" | tee ${logFolderCask}/"${list_cask[$i]%% *}".log && echo -e "<===========> \n${list_cask[$i]%% *} done" ; } || echo -e "<===========> \n${list_cask[$i]%% *} erro" ; return 1 ; }
+		if ! ( brew cask list | grep "${list_cask[$i]%% *}" ); then { { eval brew cask install "${list_cask[$i]}" 2>&1 | tee ${logFolderCask}/"${list_cask[$i]%% *}".log && echo -e "<===========> \n${list_cask[$i]%% *} done" ; } || echo -e "<===========> \n${list_cask[$i]%% *} erro" ; return 1 ; } ; fi
 	done
 	#return 0
 fi
