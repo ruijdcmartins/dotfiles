@@ -32,7 +32,7 @@ brew_list=(	git
 			htop
 			lame
 			"macvim --with-cscope --with-lua --with-override-system-vim"
-			neovim/neovim/neovim
+			"neovim/neovim/neovim"
 			nmap
 			jhead
 			unrar
@@ -40,6 +40,7 @@ brew_list=(	git
 			yasm
 			tmux
 			"bash-completion" # $ brew tap homebrew/completions ;; (on .bashrc:) if [ -f $(brew --prefix)/etc/bash_completion ]; then . $(brew --prefix)/etc/bash_completion ; fi
+			"homebrew/games/tty-solitaire"
 			python ) 
 
 
@@ -61,9 +62,13 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 			mkdir -p ${logFolderBrew}
 		fi
 		
+		brew update
+
 		for i in `seq 0 $(( ${#brew_list[@]} -1 ))`
         do
-        	if ! ( brew list | grep "${brew_list[$i]%% *}" ); then { { eval brew install "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${brew_list[$i]%% *}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; }  ; fi
+        	fileName="${brew_list[$i]%% *}"
+        	fileName="${fileName##/*}"
+        	if ! ( brew list | grep "${brew_list[$i]%% *}" ); then { { eval brew install "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${fileName}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; }  ; fi
         done
 	#return 0
 	fi
