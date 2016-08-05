@@ -44,6 +44,7 @@ set scrolloff=5					"when scrolling allways show 5 lines
 "set paste						"eases the paste
 set cursorline					"highlight current line
 noremap / /\v					"Very magic
+cnoremap %s/ %s/\v 				"Very magic
 "============= AirLine =============
 set laststatus=2 "to vim airline apear
 let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
