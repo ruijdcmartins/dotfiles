@@ -31,8 +31,9 @@ fi
 
 #   Change Prompt
 #   ------------------------------------------------------------
-    export PS1="________________________________________________________________________________\n| \[\033[33m\]\w\[\033[m\] @ \[\033[36m\]\h \[\033[32m\](\u)\[\033[m\] \n| \[\033[33m\]=>\[\033[m\] "
-    export PS2="| \[\033[33m\]=>\[\033[m\] "
+export PS1="________________________________________________________________________________\n| \[\033[33m\]\w\[\033[m\] @ \[\033[36m\]\h \[\033[32m\](\u)\[\033[m\] \n| \[\033[33m\]=>\[\033[m\] "
+export PS2="| \[\033[33m\]=>\[\033[m\] "    
+
 #   Set Paths
 #   ------------------------------------------------------------
 export PATH="$PATH:$HOME/myBashScripts:."
@@ -42,18 +43,18 @@ export PATH="/usr/local/bin:/usr/local/:$PATH"
 
 #   Set Default Editor
 #   ------------------------------------------------------------
-    export EDITOR=vim
+export EDITOR=vim
 #   Set default blocksize for ls, df, du
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
 #   ------------------------------------------------------------
-    export BLOCKSIZE=1k
+export BLOCKSIZE=1k
 
 #   Add color to terminal
 #   (this is all commented out as I use Mac Terminal Profiles)
 #   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
 #   ------------------------------------------------------------
-   export CLICOLOR=1
-   export LSCOLORS=ExFxBxDxCxegedabagacad
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # =========== Bash Completion ===========
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -103,6 +104,7 @@ alias la="ls -Flah"
 alias ..='cd ..'
 alias du='du -sh'
 alias df='df -h'
+calculator() { echo $* | awk '{printf "%.17g\n", '"$*"'}' ; } # simple calculator 
 #   lr:  Full Recursive Directory Listing
 #   ------------------------------------------
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
