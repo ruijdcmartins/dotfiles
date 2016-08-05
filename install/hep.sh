@@ -6,8 +6,8 @@
 
 hepLogFolder="$HOME/dotfilesLogs/brewLogs/hep/"
 
-list_hep=(	madgraph5_amcatnlo
-			rivet )
+list_hep=(	"madgraph5_amcatnlo"
+			"rivet" )
 
 if ( brew -v &> /dev/null ) ; then
 		
@@ -19,7 +19,9 @@ if ( brew -v &> /dev/null ) ; then
 	
 	for i in `seq 0 $(( ${#list_hep[@]} -1 ))`
 	do
-		if ! ( brew list | grep "${list_hep[$i]%% *}" ); then { { eval brew install "${list_hep[$i]}" 2>&1 | tee ${hepLogFolder}/"${list_hep[$i]%% *}".log && echo -e "<===========> \n${list_hep[$i]%% *} done" ; } || echo -e "<===========> \n${list_hep[$i]%% *} erro" ; return 1 ; } ; fi
+		fileName="${list_hep[$i]%% *}"
+        fileName="${fileName##*/}"
+		if ! ( brew list | grep "${list_hep[$i]%% *}" ); then { { eval brew install "${list_hep[$i]}" 2>&1 | tee ${hepLogFolder}/"${fileName}".log && echo -e "<===========> \n${list_hep[$i]%% *} done" ; } || echo -e "<===========> \n${list_hep[$i]%% *} erro" ; return 1 ; } ; fi
 	done
 	#return 0
 fi

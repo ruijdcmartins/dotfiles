@@ -21,27 +21,27 @@ else
 	fi
 fi
 
-brew_list=(	git
-			gcc
-			boost
-			cmake
-			cloog
-			cscope
-			gawk
-			flac
-			htop
-			lame
+brew_list=(	"git"
+			"gcc"
+			"boost"
+			"cmake"
+			"cloog"
+			"cscope"
+			"gawk"
+			"flac"
+			"htop"
+			"lame"
 			"macvim --with-cscope --with-lua --with-override-system-vim"
 			"neovim/neovim/neovim"
-			nmap
-			jhead
-			unrar
-			wget
-			yasm
-			tmux
-			"bash-completion" # $ brew tap homebrew/completions ;; (on .bashrc:) if [ -f $(brew --prefix)/etc/bash_completion ]; then . $(brew --prefix)/etc/bash_completion ; fi
+			"nmap"
+			"jhead"
+			"unrar"
+			"wget"
+			"yasm"
+			"tmux"
+			"bash-completion" 
 			"homebrew/games/tty-solitaire"
-			python ) 
+			"python" ) 
 
 
 if [[ $OSTYPE =~ "darwin" ]]; then
@@ -67,7 +67,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 		for i in `seq 0 $(( ${#brew_list[@]} -1 ))`
         do
         	fileName="${brew_list[$i]%% *}"
-        	fileName="${fileName##/*}"
+        	fileName="${fileName##*/}"
         	if ! ( brew list | grep "${brew_list[$i]%% *}" ); then { { eval brew install "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${fileName}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; }  ; fi
         done
 	#return 0

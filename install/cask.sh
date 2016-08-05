@@ -7,20 +7,20 @@
 
 logFolderCask="$HOME/dotfilesLogs/brewLogs/cask/"
 
-list_cask=(	xquartz
-			iterm2
-			sublime-text
-			google-chrome
-			firefox
-			keka
-			flux
-			vlc
-			qbittorrent
-			dropbox
-			skype
-			clipgrab
-			cheatsheet
-			torbrowser )
+list_cask=(	"xquartz"
+			"iterm2"
+			"sublime-text"
+			"google-chrome"
+			"firefox"
+			"keka"
+			"flux"
+			"vlc"
+			"qbittorrent"
+			"dropbox"
+			"skype"
+			"clipgrab"
+			"cheatsheet"
+			"torbrowser" )
 
 if ( brew -v &> /dev/null ) ; then
 		
@@ -30,7 +30,9 @@ if ( brew -v &> /dev/null ) ; then
 	
 	for i in `seq 0 $(( ${#list_cask[@]} -1 ))`
 	do
-		if ! ( brew cask list | grep "${list_cask[$i]%% *}" ); then { { eval brew cask install "${list_cask[$i]}" 2>&1 | tee ${logFolderCask}/"${list_cask[$i]%% *}".log && echo -e "<===========> \n${list_cask[$i]%% *} done" ; } || echo -e "<===========> \n${list_cask[$i]%% *} erro" ; return 1 ; } ; fi
+		fileName="${list_cask[$i]%% *}"
+        fileName="${fileName##*/}"
+		if ! ( brew cask list | grep "${list_cask[$i]%% *}" ); then { { eval brew cask install "${list_cask[$i]}" 2>&1 | tee ${logFolderCask}/"${fileName}".log && echo -e "<===========> \n${list_cask[$i]%% *} done" ; } || echo -e "<===========> \n${list_cask[$i]%% *} erro" ; return 1 ; } ; fi
 	done
 	#return 0
 fi

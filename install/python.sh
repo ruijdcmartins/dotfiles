@@ -3,10 +3,10 @@
 logFolderPip="$HOME/dotfilesLogs/brewLogs/pip/"
 
 pip_list=( "--upgrade pip setuptools"
-			numpy
-			scipy
-			matplotlib
-			neovim )
+			"numpy"
+			"scipy"
+			"matplotlib"
+			"neovim" )
 
 
 if !( brew -v &> /dev/null ) ; then
@@ -28,7 +28,9 @@ if ( brew -v &> /dev/null ) ; then
 	
 	for i in `seq 0 $(( ${#pip_list[@]} -1 ))`
 	do
-		if ! ( pip list | grep "${pip_list[$i]}" ); then { { eval pip install "${pip_list[$i]}" 2>&1 | tee ${logFolderPip}"${pip_list[$i]%% *}".log && echo -e "<===========> \n${pip_list[$i]%% *} done" ; } || echo -e "<===========> \n${pip_list[$i]%% *} erro" ; } ; fi
+		fileName="${pip_list[$i]%% *}"
+        fileName="${fileName##*/}"
+		if ! ( pip list | grep "${pip_list[$i]}" ); then { { eval pip install "${pip_list[$i]}" 2>&1 | tee ${logFolderPip}"${fileName}".log && echo -e "<===========> \n${pip_list[$i]%% *} done" ; } || echo -e "<===========> \n${pip_list[$i]%% *} erro" ; } ; fi
 	done
 #return 0
 fi

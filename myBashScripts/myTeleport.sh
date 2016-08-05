@@ -5,7 +5,7 @@ destinyAlias=(  BASH_runnig
                 my_rivet_git
                 ttH_dilep )
 
-destinyFolder=( "~/myBashScripts"
+destinyFolder=( "~/.dotfiles/myBashScripts"
                 "~/Dropbox/testing"
                 "~/Dropbox/testing/CERN/rivet/My_Scripts"
                 "~/developing/madAnalysis/madanalysis5/bin/ttH_dilep_REC5" )

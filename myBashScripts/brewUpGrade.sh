@@ -47,8 +47,10 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
 		for i in `seq 0 $(( ${#brew_list[@]} -1 ))`
         do
+        	fileName="${brew_list[$i]%% *}"
+        	fileName="${fileName##*/}"
         	if [[ "${brew_list[$i]}" == "" ]]; then continue ; fi
-        	if ( brew list | grep "${brew_list[$i]%% *}" ); then  { { eval brew upgrade "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${brew_list[$i]%% *}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; } ; fi
+        	if ( brew list | grep "${brew_list[$i]%% *}" ); then  { { eval brew upgrade "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${fileName}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; } ; fi
         done
 	#return 0
 	fi
