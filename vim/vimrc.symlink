@@ -1,4 +1,4 @@
-"========================================
+
 "============Plug config=================
 "========================================
 
@@ -18,11 +18,22 @@ Plug 'Valloric/YouCompleteMe'  , { 'do': './install.py --clang-completer' }
 Plug 'kien/ctrlp.vim' 														"fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } 						"file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
+Plug 'godlygeek/tabular'	 												|": Tab /'char to alin' |":'<,'>Tab /:\zs
+Plug 'ervandew/supertab'
 " ======== Color Plugs ===============
 Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
 Plug 'sickill/vim-monokai'
-"======================================
+"======= SnipMate (grabas) ===========
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+" UtilSnips
+Plug 'SirVer/ultisnips'
+" Optional
+Plug 'honza/vim-snippets'
+"========================================
+
 call plug#end()
 
 "========================================
@@ -30,21 +41,22 @@ call plug#end()
 "========================================
 
 "=============My vim options===========
-set nocompatible				"be iMproved, required
+set nocompatible          " be iMproved, required
 filetype indent plugin on
 syntax on
-set ai							"auto indent
-set hlsearch					"higth light search
-set incsearch					"search as characters are entered
-set nu							"number the lines
-set t_Co=256					"set colour to 256
-set wildmenu					"show machin possibilitys in : prompt 
-set ts=4						"tap size
-set scrolloff=5					"when scrolling allways show 5 lines 
-"set paste						"eases the paste
-set cursorline					"highlight current line
-noremap / /\v					"Very magic
-cnoremap %s/ %s/\v 				"Very magic
+set ai                    " auto indent
+set hlsearch              " higth light search
+set incsearch             " search as characters are entered
+set nu                    " number the lines
+set t_Co=256              " set colour to 256
+set wildmenu              " show machin possibilitys in : prompt
+set ts=4                  " tap size
+set scrolloff=5           " when scrolling allways show 5 lines
+set cursorline            " highlight current line
+set hidden                " cahnge buffer without saving
+"Very magic
+"noremap / /\v					
+"cnoremap %s/ %s/\v 				
 "============= AirLine =============
 set laststatus=2 "to vim airline apear
 let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
@@ -59,25 +71,27 @@ let g:airline#extensions#tabline#fnamemod = ':t' "show just the filename
 "--end--
 "-------------
 "--solarized--
-set background=dark
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-let g:solarized_termcolors = 256
-colorscheme solarized
+"set background=dark
+"let g:solarized_visibility = "high"
+"let g:solarized_contrast = "high"
+"let g:solarized_termcolors = 256
+"colorscheme solarized
 "--end--
 "-------------
 "--monokai--
-"colorscheme monokai
+colorscheme monokai
 "--end--
 
-"==========Adicional spec=============
+"==========Additional spec=============
 "vim-cpp-enhanced-highlight
 let c_no_curly_error=1
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o 	"desabeling auto comment
-set formatoptions-=cro 															"desabeling auto comment
+"disable auto comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+set formatoptions-=cro
+"==
 
 "NERDTree automatically
 autocmd StdinReadPre * let s:std_in=5
@@ -86,17 +100,35 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 "YCM
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'                      
-let g:ycm_confirm_extra_conf = 0
+"let g:ycm_confirm_extra_conf = 0
+
+"let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
+"Make YCM corpatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-k>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-j>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-k>'
 
 "Crontab compatibility workaround for using vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
 "==========My Mapings==============
 map <C-e> :NERDTreeToggle<CR>
-map <leader>rr :source ~/.vimrc<CR>
+map <leader>rr :source ~/.vimrc<CR>          " default leader is \
 map <leader>n :bnext<CR>
 map <leader>p :set paste<CR>
-nnoremap <leader><space> :nohlsearch<CR> 	" turn off search highlight
+map <leader>P :set nopaste<CR>
+nnoremap <leader><space> :nohlsearch<CR>     " turn off search highlight
+map <leader>s :set spell spelllang=en_ca<CR> " <C-x><C-k> for options
+map <leader>S :set nospell<CR>
+"======= snipets key bindind ========
+"let g:snips_trigger_key = '<c-j>'
+"let g:snips_trigger_key_backwards = '<c-k>'
+"imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+"smap <C-J> <Plug>snipMateNextOrTrigger
+" Set ultisnips triggers
+let g:UltiSnipsExpandTrigger="<tab>"                                            
+let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"    
 
 "========To be improved============
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
@@ -112,3 +144,57 @@ nnoremap <leader><space> :nohlsearch<CR> 	" turn off search highlight
 "    vmap <D-k> <M-k>
 "endif
 "
+"========== Test Area ==========
+vmap <leader>t :Tab /
+vmap <leader>T :Tab /\zs
+": Tab /'char to alin' 
+":'<,'>Tab /:\zs
+
+function! MyTab(texto)
+		echo a:texto
+endfunction
+"map <leader>T=MyTab()<CR>
+map <leader>Tt:call  MyTab()<CR>
+
+
+"====== Tabular func ===========
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
+"=================================
+
+"======== YCM & UtilSnips ======
+"function! g:UltiSnips_Complete()
+"    call UltiSnips#ExpandSnippet()
+"    if g:ulti_expand_res == 0
+"        if pumvisible()
+"            return "\<C-n>"
+"        else
+"            call UltiSnips#JumpForwards()
+"            if g:ulti_jump_forwards_res == 0
+"               return "\<TAB>"
+"            endif
+"        endif
+"    endif
+"    return ""
+"endfunction
+"
+"au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsListSnippets="<c-e>"
+"" this mapping Enter key to <C-y> to chose the current highlight item 
+"" and close the selection list, same as other IDEs.
+"" CONFLICT with some plugins like tpope/Endwise
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"==============================
+
+ 
