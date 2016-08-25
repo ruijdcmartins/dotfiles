@@ -7,6 +7,8 @@
 #	Install and Use GNU Command Line Tools on Mac OS X
 #	https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
 #	brew install coreutils
+# 	brew tap homebrew/dupes
+# 	brew install make
 #
 ###############################################################################################
 
@@ -30,6 +32,7 @@ brew_list=(	"git"
 			"gawk"
 			"flac"
 			"htop"
+			"rubi"
 			"lame"
 			"macvim --with-cscope --with-lua --with-override-system-vim"
 			"neovim/neovim/neovim"
@@ -39,6 +42,7 @@ brew_list=(	"git"
 			"wget"
 			"yasm"
 			"tmux"
+			"reattach-to-user-namespace"
 			"bash-completion" 
 			"homebrew/games/tty-solitaire"
 			"python" ) 

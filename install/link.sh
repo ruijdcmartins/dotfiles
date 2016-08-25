@@ -25,16 +25,19 @@ if [ ! -d $HOME/.config/nvim ]; then
     #curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     if [[ ! -d $HOME/.vim ]]; then
         mkdir -p $HOME/.vim
+        ln -s $HOME/.vim $HOME/.config/nvim
     else
         ln -s $HOME/.vim $HOME/.config/nvim
     fi
 fi
 
-if [[ -L ~/.config/nvim/init.vim ]]; then
+if [[ -e ~/.config/nvim/init.vim ]]; then
         echo "~${HOME}/.config/nvim/init.vim already exists... Skipping."
     else
-        echo "Creating symlink for $HOME/.config/nvim/init.vim"
-        ln -s $DOTFILES/vim/vim.symlink $HOME/.config/nvim/init.vim
+        echo "Creating symlink for $HOME/.nvimrc to $HOME/.config/nvim/init.vim"
+		echo 'source ~/.nvimrc' > $HOME/.config/nvim/init.vim
+		#ln -s $DOTFILES/vim/vim.symlink $HOME/.config/nvim/init.vim
+		ln -s $HOME/.vimrc $HOME/.nvimrc
 fi
 
 # Linking scripts

@@ -20,6 +20,9 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } 						"file drawer, open 
 Plug 'benmills/vimux'
 Plug 'godlygeek/tabular'	 												|": Tab /'char to alin' |":'<,'>Tab /:\zs
 Plug 'ervandew/supertab'
+Plug 'othree/eregex.vim'
+" Plug 'vim-scripts/LanguageTool'
+Plug 'rhysd/vim-grammarous'
 " ======== Color Plugs ===============
 Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
@@ -45,22 +48,30 @@ set nocompatible          " be iMproved, required
 filetype indent plugin on
 syntax on
 set ai                    " auto indent
-set hlsearch              " higth light search
+set hlsearch              " high light search
 set incsearch             " search as characters are entered
 set nu                    " number the lines
 set t_Co=256              " set colour to 256
-set wildmenu              " show machin possibilitys in : prompt
+set wildmenu              " show matching possibilities in : prompt
 set ts=4                  " tap size
-set scrolloff=5           " when scrolling allways show 5 lines
+set scrolloff=5           " when scrolling all ways show 5 lines
 set cursorline            " highlight current line
-set hidden                " cahnge buffer without saving
+set hidden                " change buffer without saving
 "Very magic
+"nnoremap / /\v
+"vnoremap / /\v
+nnoremap <leader>/ :call eregex#toggle()<CR>
+let g:eregex_forward_delim = '/'
+let g:eregex_backward_delim = '?'
+let g:eregex_force_case = 1
+let g:eregex_default_enable = 0
+
 "noremap / /\v					
 "cnoremap %s/ %s/\v 				
 "============= AirLine =============
 set laststatus=2 "to vim airline apear
 let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' "show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
 "AirlineTheme murmur
 
 "======= Colors and Thems ==========
@@ -103,24 +114,26 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 
 "let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
-"Make YCM corpatible with UltiSnips (using supertab)
+"Make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-k>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-j>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-k>'
 
-"Crontab compatibility workaround for using vim 
+"Crontab compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-"==========My Mapings==============
+"==========My Mappings==============
 map <C-e> :NERDTreeToggle<CR>
+let mapleader = '\'
 map <leader>rr :source ~/.vimrc<CR>          " default leader is \
 map <leader>n :bnext<CR>
 map <leader>p :set paste<CR>
 map <leader>P :set nopaste<CR>
-nnoremap <leader><space> :nohlsearch<CR>     " turn off search highlight
-map <leader>s :set spell spelllang=en_ca<CR> " <C-x><C-k> for options
+nnoremap <leader><space> :nohlsearch<CR>     " turn off search highligh
+map <leader>se :set spell spelllang=en_ca<CR> " <C-x><C-k> for options ; in v mode z= for sugestions
+map <leader>sp :set spell spelllang=pt<CR> " <C-x><C-k> for options ; in v mode z= for sugestions
 map <leader>S :set nospell<CR>
-"======= snipets key bindind ========
+"======= snipets key binding ========
 "let g:snips_trigger_key = '<c-j>'
 "let g:snips_trigger_key_backwards = '<c-k>'
 "imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
@@ -134,7 +147,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 "nmap <M-j> mz:m+<cr>`z
 "nmap <M-k> mz:m-2<cr>`z
-"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 "vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 "
 "if has("mac") || has("macunix")
