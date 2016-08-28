@@ -30,7 +30,6 @@ Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
 Plug 'sickill/vim-monokai'
 Plug 'flazz/vim-colorschemes'
-" Plug 'xolox/vim-colorscheme-switcher'
 Plug 'qualiabyte/vim-colorstepper'
 " ============= Auto compleat ===========
 " Plug 'ervandew/supertab'
