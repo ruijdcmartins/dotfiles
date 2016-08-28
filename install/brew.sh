@@ -45,7 +45,8 @@ brew_list=(	"git"
 			"reattach-to-user-namespace"
 			"bash-completion" 
 			"homebrew/games/tty-solitaire"
-			"python" ) 
+			"python"
+			"python3" ) 
 
 
 if [[ $OSTYPE =~ "darwin" ]]; then

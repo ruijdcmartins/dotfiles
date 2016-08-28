@@ -34,5 +34,5 @@ if ( brew -v &> /dev/null ) ; then
 	done
 #return 0
 fi
-
+pip3 install neovim
 return 0
