@@ -1,6 +1,6 @@
 
-"============Plug config=================
-"========================================
+" ============Plug config=================
+" ========================================
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -11,39 +11,48 @@ endif
 "call plug#begin('~/.vim/plugged')
 call plug#begin('~/.vim/bundle')
 Plug 'terryma/vim-multiple-cursors' 										"Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'Valloric/YouCompleteMe'  , { 'do': './install.py --clang-completer' }
 Plug 'kien/ctrlp.vim' 														"fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } 						"file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
 Plug 'godlygeek/tabular'	 												|": Tab /'char to alin' |":'<,'>Tab /:\zs
-Plug 'ervandew/supertab'
 Plug 'othree/eregex.vim'
 " Plug 'vim-scripts/LanguageTool'
-Plug 'rhysd/vim-grammarous'
-" ======== Color Plugs ===============
+Plug 'rhysd/vim-grammarous'													" not working 
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+"in vm S' ; in nm ysiw' or cs"=
+Plug 'scrooloose/syntastic'
+" =========== Color Plugs ===============
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
 Plug 'sickill/vim-monokai'
-"======= SnipMate (grabas) ===========
+Plug 'flazz/vim-colorschemes'
+" Plug 'xolox/vim-colorscheme-switcher'
+Plug 'qualiabyte/vim-colorstepper'
+" ============= Auto compleat ===========
+" Plug 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'  , { 'do': './install.py --clang-completer' }
+"Plug 'Shougo/neocomplete'
+" ========= SnipMate (grabas) ===========
 "Plug 'MarcWeber/vim-addon-mw-utils'
 "Plug 'tomtom/tlib_vim'
 "Plug 'garbas/vim-snipmate'
-" UtilSnips
+" == UtilSnips ==
 Plug 'SirVer/ultisnips'
 " Optional
 Plug 'honza/vim-snippets'
-"========================================
+" ========================================
 
 call plug#end()
 
-"========================================
-"============ Plug END ==================
-"========================================
+" ========================================
+" ============ Plug END ==================
+" ========================================
 
-"=============My vim options===========
+" =============My vim options===========
 set nocompatible          " be iMproved, required
 filetype indent plugin on
 syntax on
@@ -60,90 +69,194 @@ set hidden                " change buffer without saving
 "Very magic
 "nnoremap / /\v
 "vnoremap / /\v
+"noremap / /\v					
+"cnoremap %s/ %s/\v 				
+
+" ==========My Mappings==============
+map <C-e> :NERDTreeToggle<CR>
+let mapleader = '\'
+map <leader>r :source ~/.vimrc<CR>          " default leader is \
+map <leader>n :bnext<CR>
+map <leader>p :set paste<CR>
+map <leader>P :set nopaste<CR>
+nnoremap <leader><space> :nohlsearch<CR>     " turn off search highligh
+map <leader>s :echo 'Please use <leader>se for English our <leader>sp for Portuguese'<CR>
+map <leader>se :set spell spelllang=en_ca<CR> " <C-x><C-k> for options ; in v mode z= for sugestions
+map <leader>sp :set spell spelllang=pt<CR> " <C-x><C-k> for options ; in v mode z= for sugestions
+map <leader>S :set nospell<CR>
+
+" ========== disable auto comment ==========
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+set formatoptions-=cro
+
+" ========== Crontab ==========
+"	compatibility workaround for using Vim 
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+"vim-cpp-enhanced-highlight
+let c_no_curly_error=1
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
+" ======= Plugs Settings  =========
+" ========== eregex ==========
 nnoremap <leader>/ :call eregex#toggle()<CR>
 let g:eregex_forward_delim = '/'
 let g:eregex_backward_delim = '?'
 let g:eregex_force_case = 1
 let g:eregex_default_enable = 0
 
-"noremap / /\v					
-"cnoremap %s/ %s/\v 				
-"============= AirLine =============
+" ============= AirLine =============
 set laststatus=2 "to vim airline apear
 let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
 "AirlineTheme murmur
 
-"======= Colors and Thems ==========
-"--hybrid--
+" ======= Colors and Thems ==========
+" --hybrid--
 "let g:hybrid_custom_term_colors = 1
 "let g:hybrid_reduced_contrast = 1
 "colorscheme hybrid 
-"--end--
-"-------------
-"--solarized--
+" --solarized--
 "set background=dark
 "let g:solarized_visibility = "high"
 "let g:solarized_contrast = "high"
 "let g:solarized_termcolors = 256
 "colorscheme solarized
-"--end--
-"-------------
-"--monokai--
+" --monokai--
 colorscheme monokai
-"--end--
 
-"==========Additional spec=============
-"vim-cpp-enhanced-highlight
-let c_no_curly_error=1
-let g:cpp_class_scope_highlight = 1
-let g:cpp_experimental_template_highlight = 1
+" ========== colorstepper ==========
+" ColorStepper Keys
+nmap <F6> <Plug>ColorstepPrev
+nmap <F7> <Plug>ColorstepNext
+nmap <S-F7> <Plug>ColorstepReload
 
-"disable auto comment
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-set formatoptions-=cro
-"==
+" ========== syntastic ==========
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
-"NERDTree automatically
+" ========== NERDTree automatically ==========
 autocmd StdinReadPre * let s:std_in=5
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " incompatible YCM
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"YCM
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'                      
+" ========== YCM ==========
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
-
 "let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
 "Make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-k>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-j>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-k>'
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 
-"Crontab compatibility workaround for using Vim 
-autocmd filetype crontab setlocal nobackup nowritebackup
+ " =========== SuperTab ========== 
+" let g:SuperTabDefaultCompletionType = '<C-k>'
 
-"==========My Mappings==============
-map <C-e> :NERDTreeToggle<CR>
-let mapleader = '\'
-map <leader>rr :source ~/.vimrc<CR>          " default leader is \
-map <leader>n :bnext<CR>
-map <leader>p :set paste<CR>
-map <leader>P :set nopaste<CR>
-nnoremap <leader><space> :nohlsearch<CR>     " turn off search highligh
-map <leader>se :set spell spelllang=en_ca<CR> " <C-x><C-k> for options ; in v mode z= for sugestions
-map <leader>sp :set spell spelllang=pt<CR> " <C-x><C-k> for options ; in v mode z= for sugestions
-map <leader>S :set nospell<CR>
-"======= snipets key binding ========
-"let g:snips_trigger_key = '<c-j>'
-"let g:snips_trigger_key_backwards = '<c-k>'
-"imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
-"smap <C-J> <Plug>snipMateNextOrTrigger
-" Set ultisnips triggers
-let g:UltiSnipsExpandTrigger="<tab>"                                            
-let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"    
+" " ======= snipets key binding ========
+" "let g:snips_trigger_key = '<c-j>'
+" "let g:snips_trigger_key_backwards = '<c-k>'
+" "imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+" "smap <C-J> <Plug>snipMateNextOrTrigger
+" " Set ultisnips triggers
+" let g:UltiSnipsExpandTrigger="<tab>"                                            
+" let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"    
 
-"========To be improved============
+" " ========== NeoComplete ========== 
+" "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" " Disable AutoComplPop.
+" let g:acp_enableAtStartup = 0
+" " Use neocomplete.
+" let g:neocomplete#enable_at_startup = 1
+" " Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
+" " Set minimum syntax keyword length.
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" 
+" " Define dictionary.
+" let g:neocomplete#sources#dictionary#dictionaries = {
+"     \ 'default' : '',
+"     \ 'vimshell' : $HOME.'/.vimshell_hist',
+"     \ 'scheme' : $HOME.'/.gosh_completions'
+"         \ }
+" 
+" " Define keyword.
+" if !exists('g:neocomplete#keyword_patterns')
+"     let g:neocomplete#keyword_patterns = {}
+" endif
+" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" 
+" " Plugin key-mappings.
+" inoremap <expr><C-g>     neocomplete#undo_completion()
+" inoremap <expr><C-l>     neocomplete#complete_common_string()
+" 
+" " Recommended key-mappings.
+" " <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+"   " For no inserting <CR> key.
+"   "return pumvisible() ? "\<C-y>" : "\<CR>"
+" endfunction
+" " <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" " <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" " Close popup by <Space>.
+" "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+" 
+" " AutoComplPop like behavior.
+" "let g:neocomplete#enable_auto_select = 1
+" 
+" " Shell like behavior(not recommended).
+" "set completeopt+=longest
+" "let g:neocomplete#enable_auto_select = 1
+" "let g:neocomplete#disable_auto_complete = 1
+" "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+" 
+" " Enable omni completion.
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" 
+" " Enable heavy omni completion.
+" if !exists('g:neocomplete#sources#omni#input_patterns')
+"   let g:neocomplete#sources#omni#input_patterns = {}
+" endif
+" "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+" "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+" "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" 
+" " For perlomni.vim setting.
+" " https://github.com/c9s/perlomni.vim
+" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+" ========== Nerd Commenter ==========
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" ========To be improved============
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 "nmap <M-j> mz:m+<cr>`z
 "nmap <M-k> mz:m-2<cr>`z
@@ -157,7 +270,7 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 "    vmap <D-k> <M-k>
 "endif
 "
-"========== Test Area ==========
+" ========== Test Area ==========
 vmap <leader>t :Tab /
 vmap <leader>T :Tab /\zs
 ": Tab /'char to alin' 
@@ -167,21 +280,19 @@ function! MyTab(texto)
 		echo a:texto
 endfunction
 "map <leader>T=MyTab()<CR>
-map <leader>+:call  MyTab()<CR>
+map <leader><leader>:call  MyTab()
 
-
-"====== Tabular func ===========
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
-"=================================
-
+" " ====== Tabular func ===========
+" inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+" 
+" function! s:align()
+"   let p = '^\s*|\s.*\s|\s*$'
+"   if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+"     let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+"     let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+"     Tabularize/|/l1
+"     normal! 0
+"     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+"   endif
+" endfunction
+" 

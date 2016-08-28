@@ -7,6 +7,10 @@ if [ -f /etc/bashrc ]; then
      . /etc/bashrc
 fi
 
+if [[ -f ~/.bashrc_local ]]; then
+		. ~/.bashrc_local
+fi
+
 #  Sections:
 #  1.  Environment Configuration
 #  2.  Make Terminal Better (remapping defaults and adding functionality)
