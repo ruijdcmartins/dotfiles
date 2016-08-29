@@ -19,7 +19,7 @@ bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
 
 # Use vim keybindings in copy mode 
 setw -g mode-keys vi
-tmux list-keys -t vi-copy
+# tmux list-keys -t vi-copy # Type for help
 
 # Setup 'v' to begin selection as in Vim
 bind-key -t vi-copy v begin-selection

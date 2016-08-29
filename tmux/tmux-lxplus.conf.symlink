@@ -2,9 +2,9 @@
 set -g mouse on
 
 # split panes using | and -
-bind - split-window -v -c 
-bind | split-window -h -c  
-bind c new-window -c       
+bind - split-window -v 
+bind | split-window -h  
+bind c new-window       
 unbind '"'
 unbind %
 
@@ -13,7 +13,7 @@ setw -g mode-keys vi
 
 # Use vim keybindings in copy mode 
 setw -g mode-keys vi
-tmux list-keys -t vi-copy
+# tmux list-keys -t vi-copy # Type for help
 
 # Setup 'v' to begin selection as in Vim
 bind-key -t vi-copy v begin-selection

@@ -28,7 +28,6 @@ bind-key s command-prompt -p "send pane to:"  "join-pane -t ':%%'"
 # Create new window from current pain
 bind-key C "break-pane"
 
-
 ######################
 ### DESIGN CHANGES ###
 ######################
