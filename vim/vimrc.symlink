@@ -22,13 +22,13 @@ Plug 'othree/eregex.vim' 								" :%S// for substitute with perl regex
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround' 								" in vm S' ; in nm ysiw' or cs"=
 Plug 'scrooloose/syntastic'
-" Plug 'nathanaelkane/vim-indent-guides'				" not working
+Plug 'nathanaelkane/vim-indent-guides'					" <Leader>ig
 " =========== Color Plugs ===============
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0ng/vim-hybrid'
-Plug 'altercation/vim-colors-solarized'
-Plug 'sickill/vim-monokai'
+" Plug 'w0ng/vim-hybrid'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'sickill/vim-monokai'
 Plug 'flazz/vim-colorschemes'
 " ============= Auto compleat ===========
 " Plug 'ervandew/supertab'
@@ -132,11 +132,12 @@ let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
 colorscheme monokai
 
 " ========== indent-guides ==========
+let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=239
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=237
+" hi IndentGuidesOdd  ctermbg=lightgrey
+" hi IndentGuidesEven ctermbg=darkgrey
 
 " ========== syntastic ==========
 " set statusline+=%#warningmsg#
@@ -296,7 +297,7 @@ vmap <leader>T :Tab /\zs
 ":'<,'>Tab /:\zs
 
 function! MyTab(texto)
-		echo a:texto
+	echo a:texto
 endfunction
 "map <leader>T=MyTab()<CR>
 map <leader><leader>:call  MyTab()
