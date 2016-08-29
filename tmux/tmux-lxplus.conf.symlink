@@ -1,0 +1,19 @@
+# Enable mouse mode (tmux 2.1 and above)
+set -g mouse on
+
+# split panes using | and -
+bind - split-window -v -c 
+bind | split-window -h -c  
+bind c new-window -c       
+unbind '"'
+unbind %
+
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+
+# Use vim keybindings in copy mode 
+setw -g mode-keys vi
+tmux list-keys -t vi-copy
+
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
