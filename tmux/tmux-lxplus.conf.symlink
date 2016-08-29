@@ -11,8 +11,7 @@ bind c new-window
 unbind '"'
 unbind %
 
-# Use vim keybindings in copy mode
-setw -g mode-keys vi
+# https://leanside.com/2014/01/copy-paste-in-tmux/
 
 # Use vim keybindings in copy mode 
 setw -g mode-keys vi
