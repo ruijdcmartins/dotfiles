@@ -11,7 +11,7 @@ endif
 call plug#begin('~/.vim/plugged')
 " call plug#begin('~/.vim/bundle')
 Plug 'terryma/vim-multiple-cursors' 					"Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'kien/ctrlp.vim' 									"fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }	"file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
@@ -21,7 +21,7 @@ Plug 'othree/eregex.vim' 								" :%S// for substitute with perl regex
 " Plug 'rhysd/vim-grammarous'							" not working 
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround' 								" in vm S' ; in nm ysiw' or cs"=
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic' 							" semantic analyzer 
 Plug 'nathanaelkane/vim-indent-guides'					" <Leader>ig
 " =========== Color Plugs ===============
 Plug 'vim-airline/vim-airline'
@@ -55,22 +55,24 @@ call plug#end()
 " ========================================
 
 " =============My vim options===========
-set nocompatible          " be iMproved, required
+set nocompatible          		" be iMproved, required
 filetype indent plugin on
 syntax on
-set ai                    " auto indent
-set hlsearch              " high light search
-set incsearch             " search as characters are entered
-set nu                    " number the lines
-set t_Co=256              " set colour to 256
-set wildmenu              " show matching possibilities in : prompt
-set ts=4                  " tap size
-set shiftwidth=4		  " 1 tab == 4 spaces
-set tabstop=4			  " 1 tab == 4 spaces
-set smarttab 			  " Be smart when using tabs
-set scrolloff=5           " when scrolling all ways show 5 lines
-set cursorline            " highlight current line
-set hidden                " change buffer without saving
+set ai                    		" auto indent
+set hlsearch              		" high light search
+set incsearch             		" search as characters are entered
+set nu                    		" number the lines
+set t_Co=256              		" set colour to 256
+set wildmenu              		" show matching possibilities in : prompt
+set ts=4                  		" tap size
+set shiftwidth=4		  		" 1 tab == 4 spaces
+set tabstop=4			  		" 1 tab == 4 spaces
+set smarttab 			  		" Be smart when using tabs
+set scrolloff=5           		" when scrolling all ways show 5 lines
+set cursorline            		" highlight current line
+set hidden                		" change buffer without saving
+set wrap 						" this enables "visual" wrapping
+set textwidth=0 wrapmargin=0 	" this turns off physical line wrapping
 "Very magic
 "nnoremap / /\v
 "vnoremap / /\v
@@ -106,10 +108,10 @@ let g:cpp_experimental_template_highlight = 1
 " ======= Plugs Settings  =========
 " ========== eregex ==========
 nnoremap <leader>/ :call eregex#toggle()<CR>
-" let g:eregex_forward_delim = '/'
-" let g:eregex_backward_delim = '?'
+let g:eregex_default_enable = 0
+let g:eregex_forward_delim = '/'
+let g:eregex_backward_delim = '?'
 " let g:eregex_force_case = 1
-" let g:eregex_default_enable = 0
 
 " ============= AirLine =============
 set laststatus=2 "to vim airline apear
@@ -132,7 +134,7 @@ let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
 colorscheme monokai
 
 " ========== indent-guides ==========
-let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=239
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=237
