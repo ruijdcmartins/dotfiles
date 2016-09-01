@@ -82,9 +82,9 @@ set autoread                	" detect when a file is changed
 "cnoremap %s/ %s/\v 				
 
 " toggle invisible characters
-set list
-set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-set showbreak=↪
+" set list
+" set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+" set showbreak=↪
 " ==========My Mappings==============
 map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
