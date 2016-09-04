@@ -58,6 +58,9 @@ defaults write com.apple.dock autohide-time-modifier -int 0
 defaults write com.apple.screencapture type jpg
 
 #Change Where Screen Shots Are Saved To
-#defaults write com.apple.screencapture location ~/Pictures/Screenshots
+defaults write com.apple.screencapture location ~/Pictures/Screenshots
+
+#ScheduleFrequency set to one day
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 for myApp in Dock Finder SystemUIServer ; do killall "$myApp" >/dev/null 2>&1; done

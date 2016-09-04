@@ -115,6 +115,19 @@ set formatoptions-=cro
 "	compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
+" ======= Colors and Thems ==========
+" --hybrid--
+"let g:hybrid_custom_term_colors = 1
+"let g:hybrid_reduced_contrast = 1
+"colorscheme hybrid 
+" --solarized--
+"set background=dark
+"let g:solarized_visibility = "high"
+"let g:solarized_contrast = "high"
+"let g:solarized_termcolors = 256
+"colorscheme solarized
+" --monokai--
+colorscheme monokai
 
 " =================================
 " =================================
@@ -139,20 +152,6 @@ set laststatus=2 "to vim airline apear
 let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
 "AirlineTheme murmur
-
-" ======= Colors and Thems ==========
-" --hybrid--
-"let g:hybrid_custom_term_colors = 1
-"let g:hybrid_reduced_contrast = 1
-"colorscheme hybrid 
-" --solarized--
-"set background=dark
-"let g:solarized_visibility = "high"
-"let g:solarized_contrast = "high"
-"let g:solarized_termcolors = 256
-"colorscheme solarized
-" --monokai--
-colorscheme monokai
 
 " ========== indent-guides ==========
 let g:indent_guides_enable_on_vim_startup = 0
@@ -189,8 +188,8 @@ if !has('nvim')
     let g:ycm_confirm_extra_conf = 0
     "let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
     "Make YCM compatible with UltiSnips (using supertab)
-    let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-    let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+    " let g:ycm_key_list_previous_completion = [ '<C-k>', '<Up>']
+    " let g:ycm_key_list_select_completion = [ '<C-j>', '<Down>']
 else
     " ========== deoplete ==========
     let g:deoplete#enable_at_startup = 1
@@ -204,18 +203,19 @@ else
 endif
 
 " ======= snipets key binding ========
-"let g:snips_trigger_key = '<c-j>'
-"let g:snips_trigger_key_backwards = '<c-k>'
-"imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
-"smap <C-J> <Plug>snipMateNextOrTrigger
-" Set ultisnips triggers
-"inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-" =========== SuperTab ========== 
-" let g:SuperTabDefaultCompletionType = '<C-k>'
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsExpandTrigger="<nop>"
+let g:ulti_expand_or_jump_res = 0
+function! <SID>ExpandSnippetOrReturn()
+  let snippet = UltiSnips#ExpandSnippetOrJump()
+  if g:ulti_expand_or_jump_res > 0
+	return snippet
+  else
+	return "\<C-Y>"
+  endif
+endfunction
+imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "<Plug>delimitMateCR"
 
 " ========== Nerd Commenter ==========
 " Add spaces after comment delimiters by default
