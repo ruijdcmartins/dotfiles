@@ -108,12 +108,13 @@ rsync  --acls \
        "$SOURCE"/ "$DESTINATION"/
 
 echo -e "\nblessing\n"
-bless --folder --verbose "$DESTINATION"/System/Library/CoreServices
+bless --folder "$DESTINATION"/System/Library/CoreServices --verbose
 
 end=`date +%s`
 
 runtime=$((end-start))
 
+echo
 echo "Runtime: $runtime s"
 echo "Runtime:"
 echo "$(( $runtime / (60*60) ))h:$(( ($runtime % (60*60)) / 60 ))m:$(( ($runtime % (60*60)) % 60 ))s"
