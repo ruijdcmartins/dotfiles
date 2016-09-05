@@ -106,7 +106,7 @@ rsync  --acls \
        --exclude '/Volumes/*' \
        --exclude '*/.Trash' \
        "$SOURCE"/ "$DESTINATION"/ \
-	   2> $HOME/rsynkERRO.log
+	   2> "$DESTINATION"/rsynkERRO.log
 
 echo -e "\nblessing\n"
 bless --folder "$DESTINATION"/System/Library/CoreServices --verbose
@@ -119,5 +119,9 @@ echo
 echo "Runtime: $runtime s"
 echo "Runtime:"
 echo "$(( $runtime / (60*60) ))h:$(( ($runtime % (60*60)) / 60 ))m:$(( ($runtime % (60*60)) % 60 ))s"
+
+if [[ -f "$DESTINATION"/rsynkERRO.log ]]; then
+	echo "Errors log is in  $DESTINATION/rsynkERRO.log"
+fi
 
 exit 0
