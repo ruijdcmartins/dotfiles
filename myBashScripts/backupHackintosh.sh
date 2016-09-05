@@ -105,7 +105,8 @@ rsync  --acls \
        --exclude '/tmp/*' \
        --exclude '/Volumes/*' \
        --exclude '*/.Trash' \
-       "$SOURCE"/ "$DESTINATION"/
+       "$SOURCE"/ "$DESTINATION"/ \
+	   2> $HOME/rsynkERRO.log
 
 echo -e "\nblessing\n"
 bless --folder "$DESTINATION"/System/Library/CoreServices --verbose
