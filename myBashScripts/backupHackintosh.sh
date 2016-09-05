@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Formated has OSX Extended Journale & GUID Partition Map
 # OSX Rsync Backup (ORB)
 #
 # ORB is a RSync script to backup your entire osx disk/partition.
