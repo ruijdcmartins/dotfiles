@@ -9,46 +9,44 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" call plug#begin('~/.vim/bundle')
 Plug 'terryma/vim-multiple-cursors' 					"Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
-" Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'kien/ctrlp.vim' 									"fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }	"file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
 Plug 'godlygeek/tabular'	 							|": Tab /'char to alin' |":'<,'>Tab /:\zs
 Plug 'othree/eregex.vim' 								" :%S/ for substitute with perl regex
-" Plug 'vim-scripts/LanguageTool' 						" not working
-" Plug 'rhysd/vim-grammarous'							" not working 
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround' 								" in vm S' ; in nm ysiw' or cs"=
+" Plug 'vim-scripts/LanguageTool' 						" not working
+" Plug 'rhysd/vim-grammarous'							" not working 
+" Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'scrooloose/syntastic' 							" semantic analyzer 
-" Plug 'nathanaelkane/vim-indent-guides'					" <Leader>ig
-" Plug 'Yggdroot/indentLine'								" fancy indent guides
+" Plug 'nathanaelkane/vim-indent-guides'				" <Leader>ig
+" Plug 'Yggdroot/indentLine'							" fancy indent guides
 " =========== Color Plugs ===============
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'flazz/vim-colorschemes'
 " Plug 'w0ng/vim-hybrid'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'sickill/vim-monokai'
-Plug 'flazz/vim-colorschemes'
 " ============= Auto compleat ===========
-" Plug 'ervandew/supertab'
 if !has('nvim')
 	Plug 'Valloric/YouCompleteMe'  	, { 'do': './install.py --clang-completer' }
 else
 	Plug 'Shougo/deoplete.nvim' 	, { 'do': ':UpdateRemotePlugins' }
 endif
-"Plug 'Shougo/neocomplete'
+" Plug 'Shougo/neocomplete'
+" Plug 'ervandew/supertab'
 " ========= SnipMate (grabas) ===========
-"Plug 'MarcWeber/vim-addon-mw-utils'
-"Plug 'tomtom/tlib_vim'
-"Plug 'garbas/vim-snipmate'
+" Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'tomtom/tlib_vim'
+" Plug 'garbas/vim-snipmate'
 " == UtilSnips ==
 Plug 'SirVer/ultisnips'
 " Optional
 Plug 'honza/vim-snippets'
 " ========================================
-
 call plug#end()
 " let g:plug_timeout 300
 " ========================================
@@ -100,13 +98,17 @@ map <leader>S :set nospell<CR>
 map <S-k> <Nop>                                                                           " desable shift k
 map <S-j> <Nop>                                                                           " desable shift j
 
+noremap <leader>pp "+p
+noremap <leader>y "+y
 " scroll the viewport faster
 nnoremap <C-k> 3k
 nnoremap <C-j> 3j
 nmap <leader><leader> :w<cr> " shortcut to save
 
-" imap <C-k> k
-" imap <C-j> j
+"============ Backspace ============
+set backspace=2 " make backspace work like most other apps
+set backspace=indent,eol,start
+
 " ========== disable auto comment ==========
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set formatoptions-=cro
@@ -182,47 +184,29 @@ autocmd StdinReadPre * let s:std_in=5
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " incompatible YCM
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-if !has('nvim')
 " ========== YCM ==========
-    let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-    let g:ycm_confirm_extra_conf = 0
-    "let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
-    "Make YCM compatible with UltiSnips (using supertab)
-    " let g:ycm_key_list_previous_completion = [ '<C-k>', '<Up>']
-    " let g:ycm_key_list_select_completion = [ '<C-j>', '<Down>']
+if !has('nvim')
+	let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+	let g:ycm_confirm_extra_conf = 0
+"let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
+"Make YCM compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_previous_completion = [ '<C-k>', '<Up>']
+" let g:ycm_key_list_select_completion = [ '<C-j>', '<Down>']
 else
-    " ========== deoplete ==========
-    let g:deoplete#enable_at_startup = 1
-    " disable autocomplete
-    " let g:deoplete#disable_auto_complete = 1
-    if has("gui_running")
+" ========== deoplete ==========
+	let g:deoplete#enable_at_startup = 1
+" disable autocomplete
+" let g:deoplete#disable_auto_complete = 1
+	if has("gui_running")
         inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
     else
         inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
     endif
 endif
 
-" ======= snipets key binding ========
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-" let g:UltiSnipsExpandTrigger="<nop>"
-" let g:ulti_expand_or_jump_res = 0
-
-" setup 1
-" function! <SID>ExpandSnippetOrReturn()
-"   let snippet = UltiSnips#ExpandSnippetOrJump()
-"   if g:ulti_expand_or_jump_res > 0
-"     return snippet
-"   else
-"     return "\<C-Y>"
-"   endif
-" endfunction
-" imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-
-" setup 2
+" ======= UltilSnips/YCM key binding ========
 let g:ycm_key_list_select_completion=["<tab>"]
 let g:ycm_key_list_previous_completion=["<S-tab>"]
-
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsExpandTrigger="<nop>"
@@ -277,7 +261,7 @@ function! MyTab(texto)
 	echo a:texto
 endfunction
 "map <leader>T=MyTab()<CR>
-map <leader><leader>:call  MyTab()
+map <leader>-:call  MyTab()
 
 " " ====== Tabular func ===========
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
