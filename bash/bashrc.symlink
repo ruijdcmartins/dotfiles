@@ -31,32 +31,14 @@ fi
 
 #   Change Prompt
 #   ------------------------------------------------------------
-#git_green() { echo -e "\[\033[32m\]${git_check_branch}\[\033[m\]" ; }
-#git_red() { echo -e "\[\033[31m\]${git_check_branch}\[\033[m\]" ; }
-#set_bash_prompt() {
-#if [[ $(git branch 2>/dev/null | grep '^*' | colrm 1 2)  ]]; then
-#    unset git_PRONPT
-#    git_check_branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2) 
-#    if [[ "$(git status)" =~ nothing\ to\ commit ]]; then 
-#        git_PRONPT="\[\033[32m\]${git_check_branch}\[\033[m\]"
-#    else 
-#        git_PRONPT="\[\033[31m\]${git_check_branch}\[\033[m\]"
-#    fi
-#    PS1="________________________________________________________________________________\n| \[\033[33m\]\w\[\033[m\] @ \[\033[36m\]\h \[\033[32m\](\u)\[\033[m\] ${git_PRONPT} \n| \[\033[33m\]=>\[\033[m\] "
-#fi
-#}
-
-#git_check() { git branch 2>/dev/null | grep '^*' | colrm 1 2 ; }
-#PROMPT_COMMAND=set_bash_prompt
-
-
 COLOR_RED="\033[0;31m"
 COLOR_YELLOW="\033[0;33m"
 COLOR_GREEN="\033[0;32m"
 COLOR_OCHRE="\033[38;5;95m"
 COLOR_BLUE="\033[0;34m"
+COLOR_SOFT_BLUE="\033[0;36m"
 COLOR_WHITE="\033[0;37m"
-COLOR_RESET="\033[0m"
+COLOR_RESET="\[\033[0m"
 
 function git_color {
   local git_status="$(git status 2> /dev/null)"
@@ -88,14 +70,14 @@ function git_branch {
 }
 
 PS1="________________________________________________________________________________\n| "
-PS1+="\[\033[33m\]\w\[\033[m\] @ \[\033[36m\]\h \[\033[32m\](\u)\[\033[m\] "
-PS1+="\[\$(git_color)\]"                # colors git status
-#PS1+="\$(git_branch)\[\033[m\]"        # prints current branch
-PS1+="\$(git_branch)\[$COLOR_RESET\]"   # prints current branch
-#PS1+="\[$BLUE\]\$\[$COLOR_RESET\] "    # '#' for root, else '$'
-PS1+="\n| \[\033[33m\]=>\[\033[m\] "
+PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
+PS1+="@ \[$COLOR_SOFT_BLUE\]\h$COLOR_RESET\] "  # pc local name
+PS1+="\[$COLOR_GREEN\](\u)$COLOR_RESET\] "      # user name
+PS1+="\[\$(git_color)\]"                        # colors git status
+PS1+="\$(git_branch)$COLOR_RESET\]"             # prints current branch
+PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt 
 export PS1
-export PS2="| \[\033[33m\]=>\[\033[m\] "    
+export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "    
 
 #   Set Paths
 #   ------------------------------------------------------------
