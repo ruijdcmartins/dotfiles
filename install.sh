@@ -13,6 +13,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
     source install/osxbasics.sh
     source install/brew.sh
+	source install/git.sh
     source install/python.sh
     source install/cask.sh
     source install/latex.sh
