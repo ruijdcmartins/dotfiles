@@ -149,7 +149,8 @@ alias la="ls -Flah"
 alias ..='cd ..'
 alias du='du -sh'
 alias df='df -h'
-calculator() { echo $* | awk '{printf "%.17g\n", '"$*"'}' ; } # simple calculator 
+alias gits='git status'
+calculator() { echo $* | awk '{printf "%.17g\n", '"$*"'}' ; } # simple calculator
 encrypt() { openssl enc -aes-256-cbc -e -in $1 -out $2 ; }
 decrypt() { openssl enc -aes-256-cbc -d -in $1 -out $2 ; }
 #   lr:  Full Recursive Directory Listing
