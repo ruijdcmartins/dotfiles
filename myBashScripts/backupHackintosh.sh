@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Formated has OSX Extended Journale & GUID Partition Map
 # OSX Rsync Backup (ORB)
 #
