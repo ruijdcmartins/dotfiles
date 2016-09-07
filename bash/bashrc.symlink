@@ -79,6 +79,10 @@ PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
 export PS1
 export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "    
 
+source ~/.git-prompt.sh
+
+PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
+
 #   Set Paths
 #   ------------------------------------------------------------
 export PATH="$PATH:$HOME/myBashScripts:."
