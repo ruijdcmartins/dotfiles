@@ -79,12 +79,13 @@ PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
 export PS1
 export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "    
 
-if [[ -e ~/.git-promt.sh ]]; then
+if [[ -e ~/.git-prompt.sh ]]; then
 	source ~/.git-prompt.sh
 	GIT_PS1_SHOWSTASHSTATE="+"
 	GIT_PS1_SHOWDIRTYSTATE="+"
 	GIT_PS1_SHOWUNTRACKEDFILES="+"
 	GIT_PS1_SHOWCOLORHINTS=true
+	GIT_PS1_SHOWUPSTREAM="auto"
 	PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 fi
 
