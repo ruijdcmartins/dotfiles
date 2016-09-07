@@ -68,13 +68,18 @@ function git_branch {
     echo "$commit"
   fi
 }
-# git fetch --dry-run
+
+function git_pull_check {
+# if [[ $(git fetch --dry-run) =~ "" ]]; then echo " pull" ; fi
+	echo ""
+}
+# 
 PS1="________________________________________________________________________________\n"
 PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
 PS1+="@ \[$COLOR_SOFT_BLUE\]\h$COLOR_RESET\] "  # pc local name
 PS1+="\[$COLOR_GREEN\](\u)$COLOR_RESET\] "      # user name
 PS1+="\[\$(git_color)\]"                        # colors git status
-PS1+="\$(git_branch)$COLOR_RESET\]"             # prints current branch
+PS1+="\$(git_branch) \$(git_pull_check)$COLOR_RESET\]"             # prints current branch
 PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
 export PS1
 export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "
