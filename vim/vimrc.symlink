@@ -18,8 +18,8 @@ Plug 'othree/eregex.vim' 								" :%S/ for substitute with perl regex
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround' 								" in vm S' ; in nm ysiw' or cs"=
 Plug 'bronson/vim-crosshairs'							" coursorline upgrade
-" Plug 'nathanaelkane/vim-indent-guides'					" <Leader>ig
-" Plug 'Yggdroot/indentLine'							" <Leader>il fancy indent guides with spaces only
+Plug 'Yggdroot/indentLine'								" <Leader>il fancy indent guides with spaces only
+" Plug 'nathanaelkane/vim-indent-guides'				" <Leader>ig
 " Plug 'vim-scripts/LanguageTool' 						" not working
 " Plug 'rhysd/vim-grammarous'							" not working 
 " Plug 'scrooloose/syntastic' 							" semantic analyzer 
