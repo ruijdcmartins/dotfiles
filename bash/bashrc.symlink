@@ -70,14 +70,14 @@ function git_branch {
 }
 # git fetch --dry-run
 #
-# PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
-# PS1+="@ \[$COLOR_SOFT_BLUE\]\h$COLOR_RESET\] "  # pc local name
-# PS1+="\[$COLOR_GREEN\](\u)$COLOR_RESET\] "      # user name
-# PS1+="\[\$(git_color)\]"                        # colors git status
-# PS1+="\$(git_branch)$COLOR_RESET\]"             # prints current branch
-# PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
-# export PS1
-# export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "
+PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
+PS1+="@ \[$COLOR_SOFT_BLUE\]\h$COLOR_RESET\] "  # pc local name
+PS1+="\[$COLOR_GREEN\](\u)$COLOR_RESET\] "      # user name
+PS1+="\[\$(git_color)\]"                        # colors git status
+PS1+="\$(git_branch)$COLOR_RESET\]"             # prints current branch
+PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
+export PS1
+export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "
 
 # if [[ -e ~/.git-prompt.sh ]]; then
 #     source ~/.git-prompt.sh
@@ -88,9 +88,10 @@ function git_branch {
 #     GIT_PS1_SHOWUPSTREAM="auto"
 #     PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 # fi
-
-source ~/.bash-git-prompt/gitprompt.sh
-GIT_PROMPT_ONLY_IN_REPO=1
+if [[ -e ~/.bash-git-prompt/gitprompt.sh ]]; then
+	source ~/.bash-git-prompt/gitprompt.sh
+	GIT_PROMPT_ONLY_IN_REPO=1
+fi
 
 #   Set Paths
 #   ------------------------------------------------------------
