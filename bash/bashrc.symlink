@@ -69,7 +69,7 @@ function git_branch {
   fi
 }
 # git fetch --dry-run
-#
+PS1="________________________________________________________________________________\n"
 PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
 PS1+="@ \[$COLOR_SOFT_BLUE\]\h$COLOR_RESET\] "  # pc local name
 PS1+="\[$COLOR_GREEN\](\u)$COLOR_RESET\] "      # user name
