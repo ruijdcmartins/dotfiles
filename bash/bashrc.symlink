@@ -70,7 +70,7 @@ function git_branch {
 }
 
 function git_pull_check {
-# if [[ $(git fetch --dry-run) =~ "" ]]; then echo " pull" ; fi
+# if [[ $(git fetch --dry-run) =~ "remote" ]]; then echo " pull" ; fi
 	echo ""
 }
 # 
