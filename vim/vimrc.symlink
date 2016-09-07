@@ -17,6 +17,7 @@ Plug 'godlygeek/tabular'								|": Tab /'char to alin' |":'<,'>Tab /:\zs
 Plug 'othree/eregex.vim' 								" :%S/ for substitute with perl regex
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround' 								" in vm S' ; in nm ysiw' or cs"=
+Plug 'bronson/vim-crosshairs'							" coursorline upgrade
 " Plug 'nathanaelkane/vim-indent-guides'					" <Leader>ig
 " Plug 'Yggdroot/indentLine'							" <Leader>il fancy indent guides with spaces only
 " Plug 'vim-scripts/LanguageTool' 						" not working
@@ -32,9 +33,9 @@ Plug 'flazz/vim-colorschemes'
 " Plug 'sickill/vim-monokai'
 " ============= Auto compleat ===========
 if !has('nvim')
-	Plug 'Valloric/YouCompleteMe'  	, { 'do': './install.py --clang-completer' }
+	Plug 'Valloric/YouCompleteMe'	, { 'do': './install.py --clang-completer' }
 else
-	Plug 'Shougo/deoplete.nvim' 	, { 'do': ':UpdateRemotePlugins' }
+	Plug 'Shougo/deoplete.nvim'		, { 'do': ':UpdateRemotePlugins' }
 endif
 " Plug 'Shougo/neocomplete'
 " Plug 'ervandew/supertab'
@@ -60,7 +61,7 @@ syntax on
 set ai                       " auto indent
 set hlsearch                 " high light search
 set incsearch                " search as characters are entered
-set nu                       " number the lines
+set number                   " number the lines
 set t_Co=256                 " set colour to 256
 set wildmenu                 " show matching possibilities in : prompt
 set tabstop=4                " tap size
@@ -68,9 +69,10 @@ set shiftwidth=4             " 1 tab == 4 spaces
 set tabstop=4                " 1 tab == 4 spaces
 set smarttab                 " Be smart when using tabs
 set scrolloff=5              " when scrolling all ways show 5 lines
-set cursorline               " highlight current line
+set cursorline               " enable the horizontal line
+set cursorcolumn             " enable the vertical line
 set hidden                   " change buffer without saving
-set wrap                     " this enables                            " visual " wrapping
+set wrap                     " this enables visual  wrapping
 set textwidth=0 wrapmargin=0 " this turns off physical line wrapping
 set autoread                 " detect when a file is changed
 "Very magic
@@ -80,11 +82,20 @@ set autoread                 " detect when a file is changed
 "cnoremap %s/ %s/\v
 
 " toggle invisible characters
-" ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
+" § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
 " tab:▸\
 " tab:»·
-set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
+
+"The NonText highlighting will be used for eol, extends and precedes.
+"SpecialKey for nbsp, space, tab and trail. hl-NonText hl-SpecialKey
+":highlight SpecialKey ctermfg=grey guifg=grey70
+function! MyIndetation()
+	set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
+endfunction
+call MyIndetation()
 set showbreak=↪\ 
+map <leader>i :call  MyIndetation()<CR>
+map <leader>I :set nolist<CR>
 " ==========My Mappings==============
 " To check if a maping exist try e.g. :verbose map \r
 map <C-e> :NERDTreeToggle<CR>
@@ -111,8 +122,7 @@ noremap <leader>y "+y
 nnoremap <C-k> 3k
 nnoremap <C-j> 3j
 nmap <leader><leader> :w<cr> " shortcut to save
-map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
-map <leader>iG :set nolist<CR>
+" map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
 set backspace=indent,eol,start
@@ -138,17 +148,16 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 "colorscheme solarized
 " --monokai--
 colorscheme monokai
-
+	
 " =================================
 " =================================
 " ======= Plugs Settings  =========
 " =================================
 " =================================
-
 " ==========vim-cpp-enhanced-highlight==========
-let c_no_curly_error=1
-let g:cpp_class_scope_highlight = 1
-let g:cpp_experimental_template_highlight = 1
+" let c_no_curly_error=1
+" let g:cpp_class_scope_highlight = 1
+" let g:cpp_experimental_template_highlight = 1
 
 " ========== eregex ==========
 nnoremap <leader>/ :call eregex#toggle()<CR>
@@ -159,8 +168,8 @@ let g:eregex_backward_delim = '?'
 
 " ============= AirLine =============
 set laststatus=2 "to vim airline apear
-let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
+let g:airline#extensions#tabline#enabled = 1		"enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t'	"show just the file name
 "AirlineTheme murmur
 
 " ========== syntastic ==========
@@ -191,10 +200,10 @@ else
 " disable autocomplete
 " let g:deoplete#disable_auto_complete = 1
 	if has("gui_running")
-        inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
-    else
-        inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
-    endif
+		inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
+	else
+		inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
+	endif
 endif
 
 " ======= UltilSnips/YCM key binding ========
@@ -254,8 +263,11 @@ function! MyTab(texto)
 	echo a:texto
 endfunction
 "map <leader>T=MyTab()<CR>
-map <leader>-:call  MyTab()
 
+function! MyTab1()
+	echo "texto"
+endfunction
+map <leader>-:call  MyTab1()
 " " ====== Tabular func ===========
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 " 
