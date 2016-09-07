@@ -1,0 +1,25 @@
+// To not upgrade when running brewUpgrade.sh please insert # next to the brew formula
+git
+gcc#
+boost#
+cmake
+cloog
+cscope
+gawk
+flac
+htop
+ruby
+lame
+macvim --with-cscope --with-lua --with-override-system-vim
+neovim/neovim/neovim
+nmap
+jhead
+unrar
+wget
+yasm
+tmux
+reattach-to-user-namespace
+bash-completion
+homebrew/games/tty-solitaire
+python#
+python3

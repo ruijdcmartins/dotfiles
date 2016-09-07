@@ -7,7 +7,18 @@
 #   test use of that color on all nine background 
 #   colors (default + 8 escapes).
 #
+# SCRIPT_DIR=$(readlink $0)
+SCRIPT_PATH="${BASH_SOURCE[0]}";
+if ([ -h "${SCRIPT_PATH}" ]) then
+  while([ -h "${SCRIPT_PATH}" ]) do SCRIPT_PATH=`readlink "${SCRIPT_PATH}"`; done
+fi
+pushd . > /dev/null
+cd `dirname ${SCRIPT_PATH}` > /dev/null
+SCRIPT_PATH=`pwd`;
+popd  > /dev/null
 
+echo $SCRIPT_PATH
+echo $PWD
 T='gYw'   # The test text
 
 echo -e "\n                 40m     41m     42m     43m\
@@ -25,3 +36,9 @@ echo -en " $FGs \033[$FG  $T  "
 	done
 echo
 
+
+echo $SCRIPT_DIR
+
+if [[ -L $0 ]]; then
+	echo "is a link"
+fi

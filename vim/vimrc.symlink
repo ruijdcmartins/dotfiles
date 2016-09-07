@@ -70,7 +70,7 @@ set tabstop=4                " 1 tab == 4 spaces
 set smarttab                 " Be smart when using tabs
 set scrolloff=5              " when scrolling all ways show 5 lines
 set cursorline               " enable the horizontal line
-set cursorcolumn             " enable the vertical line
+" set cursorcolumn             " enable the vertical line
 set hidden                   " change buffer without saving
 set wrap                     " this enables visual  wrapping
 set textwidth=0 wrapmargin=0 " this turns off physical line wrapping

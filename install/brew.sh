@@ -23,31 +23,23 @@ else
 	fi
 fi
 
-brew_list=(	"git"
-			"gcc"
-			"boost"
-			"cmake"
-			"cloog"
-			"cscope"
-			"gawk"
-			"flac"
-			"htop"
-			"ruby"
-			"lame"
-			"macvim --with-cscope --with-lua --with-override-system-vim"
-			"neovim/neovim/neovim"
-			"nmap"
-			"jhead"
-			"unrar"
-			"wget"
-			"yasm"
-			"tmux"
-			"reattach-to-user-namespace"
-			"bash-completion" 
-			"homebrew/games/tty-solitaire"
-			"python"
-			"python3" ) 
+SCRIPT_DIR="${BASH_SOURCE[0]}";
+if ([ -h "${SCRIPT_DIR}" ]) then
+	while([ -h "${SCRIPT_DIR}" ]) do SCRIPT_DIR=`readlink "${SCRIPT_DIR}"`; done
+fi
+pushd . > /dev/null
+cd `dirname ${SCRIPT_DIR}` > /dev/null
+SCRIPT_DIR=`pwd`;
+popd  > /dev/null
 
+DOTFILES=${SCRIPT_DIR%/install}
+
+IFS=$'\n'
+brew_list=()
+for A in $(brew list)
+do
+	brew_list+=($A)
+done
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 	if ! ( xcode-select -v ) ; then
@@ -56,8 +48,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 	fi
 
 	if ! ( brew -v &> /dev/null ) ; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee ${logFolderBrew}brewInstall.log || { echo -e "<===========> \nErro brew install!" ; return 1 ; }
-	brew doctor | tee ${logFolderBrew}brewDoctor.log || { echo -e "<===========> \nErro brew doc!" ; }
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | \
+		tee ${logFolderBrew}brewInstall.log || { echo -e "<===========> \nErro brew install!" ; return 1 ; }
+		brew doctor | tee ${logFolderBrew}brewDoctor.log || { echo -e "<===========> \nErro brew doc!" ; return 1  ; }
 	#return 0
 	fi
 	
@@ -68,15 +61,22 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 		fi
 		
 		brew update
-
-		for i in `seq 0 $(( ${#brew_list[@]} -1 ))`
-        do
-        	fileName="${brew_list[$i]%% *}"
-        	fileName="${fileName##*/}"
-        	if ! ( brew list | grep "${brew_list[$i]%% *}" ); then { { eval brew install "${brew_list[$i]}" 2>&1 | tee ${logFolderBrew}"${fileName}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; }  ; fi
-        done
+		echo "${DOTFILES}/install/brew_install_list.txt"
+		for brew_install_list in $( cat "${DOTFILES}/install/brew_install_list.txt" | \
+			awk '$0 !~ /\/\// { gsub("#","") ; print $0 }' | \
+			sed 's/"\(.*\)"/\1/')
+		do
+			fileName="${brew_install_list%% *}"
+			fileName="${fileName##*/}"
+			if ! ( echo  ${brew_list[@]} | grep "${brew_install_list%% *}" &> /dev/null ); then
+				{ \
+					{ eval 'brew install ${brew_install_list}' 2>&1 | \
+					tee ${logFolderBrew}"${fileName}".log && \
+					echo -e "<===========> \n${brew_install_list%% *} done" ; } || \
+				echo -e "<===========> \n${brew_install_list%% *} erro" ; }
+			fi
+		done
 	#return 0
 	fi
 fi
-
 return 0

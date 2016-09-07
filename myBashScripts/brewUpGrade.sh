@@ -12,48 +12,47 @@
 
 logFolderBrew="$HOME/logs/dotfilesLogs/brewLogs/brewUpgra/"
 
-brew_list=(	git
-			#gcc
-			#boost
-			cmake
-			cloog
-			cscope
-			gawk
-			flac
-			htop
-			lame
-			"macvim --with-cscope --with-lua --with-override-system-vim"
-			"neovim"
-			nmap
-			jhead
-			unrar
-			wget
-			yasm
-			tmux
-			"bash-completion" 
-			#python 
-			) 
+SCRIPT_DIR="${BASH_SOURCE[0]}";
+if ([ -h "${SCRIPT_DIR}" ]) then
+  while([ -h "${SCRIPT_DIR}" ]) do SCRIPT_DIR=`readlink "${SCRIPT_DIR}"`; done
+fi
+pushd . > /dev/null
+cd `dirname ${SCRIPT_DIR}` > /dev/null
+SCRIPT_DIR=`pwd`;
+popd  > /dev/null
 
+DOTFILES=${SCRIPT_DIR%/myBashScripts}
+
+IFS=$'\n'
+brew_list=()
+for A in $(brew list)
+do
+	brew_list+=($A)
+done
 
 if [[ $OSTYPE =~ "darwin" ]]; then
-	
+
 	if ( brew -v &> /dev/null ) ; then
-		
+
 		if [[ ! -d ${logFolderBrew} ]]; then
 			mkdir -p ${logFolderBrew}
 		fi
-		
+		echo "brew update"
 		brew update
 
-		for i in `seq 0 $(( ${#brew_list[@]} -1 ))`
-        do
-        	fileName="${brew_list[$i]%% *}"
-        	fileName="${fileName##*/}"
-        	if [[ "${brew_list[$i]}" == "" ]]; then continue ; fi
-        	if ( brew list | grep "${brew_list[$i]%% *}" ); then  { { eval brew upgrade "${brew_list[$i]}" 2>&1 | tee -a ${logFolderBrew}"${fileName}".log && echo -e "<===========> \n${brew_list[$i]%% *} done" ; } || echo -e "<===========> \n${brew_list[$i]%% *} erro" ; return 1 ; } ; fi
-        done
+		for brew_upgrade_list in $( cat ${DOTFILES}/install/brew_install_list.txt | \
+			awk '$0 !~ /(#|\/\/)/ { ; print $0 }' | \
+			sed 's/"\(.*\)"/\1/')
+		do
+			fileName="${brew_upgrade_list%% *}"
+			fileName="${fileName##*/}"
+			if [[ "${brew_upgrade_list}" == "" ]]; then continue ; fi
+			if ( echo ${brew_list[@]} | grep "${brew_upgrade_list%% *}" > /dev/null ); then  
+				{ { eval 'brew upgrade ${brew_upgrade_list%% *}' 2>&1 | \
+					tee -a ${logFolderBrew}"${fileName}".log && echo -e "<===========> \n${brew_upgrade_list%% *} done" ; } || \
+				echo -e "<===========> \n${brew_upgrade_list%% *} erro" ; } ; fi
+		done
 	#return 0
 	fi
 fi
 
-return 0
