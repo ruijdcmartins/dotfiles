@@ -80,7 +80,10 @@ export PS1
 export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "    
 
 source ~/.git-prompt.sh
-
+GIT_PS1_SHOWSTASHSTATE="+"
+GIT_PS1_SHOWDIRTYSTATE="+"
+GIT_PS1_SHOWUNTRACKEDFILES="+"
+GIT_PS1_SHOWCOLORHINTS=true
 PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 
 #   Set Paths
