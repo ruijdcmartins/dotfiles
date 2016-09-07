@@ -68,7 +68,7 @@ function git_branch {
     echo "$commit"
   fi
 }
-
+# git fetch --dry-run
 PS1="________________________________________________________________________________\n| "
 PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
 PS1+="@ \[$COLOR_SOFT_BLUE\]\h$COLOR_RESET\] "  # pc local name
@@ -79,15 +79,15 @@ PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
 export PS1
 export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "    
 
-if [[ -e ~/.git-prompt.sh ]]; then
-	source ~/.git-prompt.sh
-	GIT_PS1_SHOWSTASHSTATE="+"
-	GIT_PS1_SHOWDIRTYSTATE="+"
-	GIT_PS1_SHOWUNTRACKEDFILES="+"
-	GIT_PS1_SHOWCOLORHINTS=true
-	GIT_PS1_SHOWUPSTREAM="auto"
-	PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
-fi
+# if [[ -e ~/.git-prompt.sh ]]; then
+#     source ~/.git-prompt.sh
+#     GIT_PS1_SHOWSTASHSTATE="+"
+#     GIT_PS1_SHOWDIRTYSTATE="+"
+#     GIT_PS1_SHOWUNTRACKEDFILES="+"
+#     GIT_PS1_SHOWCOLORHINTS=true
+#     GIT_PS1_SHOWUPSTREAM="auto"
+#     PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
+# fi
 
 #   Set Paths
 #   ------------------------------------------------------------
