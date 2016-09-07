@@ -1,7 +1,7 @@
 // To not upgrade when running brewUpgrade.sh please insert # next to the brew formula
 git
-gcc			#
-boost		#
+gcc		#
+boost	#
 cmake
 cloog
 cscope
