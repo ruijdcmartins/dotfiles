@@ -11,14 +11,14 @@ source install/link.sh
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
-    source install/osxbasics.sh
-    source install/brew.sh
+	source install/osxbasics.sh
+	source install/brew.sh
 	source install/git.sh
-    source install/python.sh
-    source install/cask.sh
-    source install/latex.sh
-    source install/root.sh
-    source install/hep.sh
+	source install/python.sh
+	source install/cask.sh
+	source install/latex.sh
+	source install/root.sh
+	source install/hep.sh
 fi
 
 #echo "creating vim directories"

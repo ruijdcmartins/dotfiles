@@ -13,16 +13,16 @@ Plug 'terryma/vim-multiple-cursors' 					"Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursor
 Plug 'kien/ctrlp.vim' 									"fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }	"file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
-Plug 'godlygeek/tabular'	 							|": Tab /'char to alin' |":'<,'>Tab /:\zs
+Plug 'godlygeek/tabular'								|": Tab /'char to alin' |":'<,'>Tab /:\zs
 Plug 'othree/eregex.vim' 								" :%S/ for substitute with perl regex
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround' 								" in vm S' ; in nm ysiw' or cs"=
+" Plug 'nathanaelkane/vim-indent-guides'					" <Leader>ig
+" Plug 'Yggdroot/indentLine'							" <Leader>il fancy indent guides with spaces only
 " Plug 'vim-scripts/LanguageTool' 						" not working
 " Plug 'rhysd/vim-grammarous'							" not working 
-" Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'scrooloose/syntastic' 							" semantic analyzer 
-" Plug 'nathanaelkane/vim-indent-guides'				" <Leader>ig
-" Plug 'Yggdroot/indentLine'							" fancy indent guides
+" Plug 'octol/vim-cpp-enhanced-highlight'
 " =========== Color Plugs ===============
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -54,49 +54,56 @@ call plug#end()
 " ========================================
 
 " =============My vim options===========
-set nocompatible          		" be iMproved, required
+set nocompatible             " be iMproved, required
 filetype indent plugin on
 syntax on
-set ai                    		" auto indent
-set hlsearch              		" high light search
-set incsearch             		" search as characters are entered
-set nu                    		" number the lines
-set t_Co=256              		" set colour to 256
-set wildmenu              		" show matching possibilities in : prompt
-set ts=4                  		" tap size
-set shiftwidth=4		  		" 1 tab == 4 spaces
-set tabstop=4			  		" 1 tab == 4 spaces
-set smarttab 			  		" Be smart when using tabs
-set scrolloff=5           		" when scrolling all ways show 5 lines
-set cursorline            		" highlight current line
-set hidden                		" change buffer without saving
-set wrap 						" this enables "visual" wrapping
-set textwidth=0 wrapmargin=0 	" this turns off physical line wrapping
-set autoread                	" detect when a file is changed
+set ai                       " auto indent
+set hlsearch                 " high light search
+set incsearch                " search as characters are entered
+set nu                       " number the lines
+set t_Co=256                 " set colour to 256
+set wildmenu                 " show matching possibilities in : prompt
+set tabstop=4                " tap size
+set shiftwidth=4             " 1 tab == 4 spaces
+set tabstop=4                " 1 tab == 4 spaces
+set smarttab                 " Be smart when using tabs
+set scrolloff=5              " when scrolling all ways show 5 lines
+set cursorline               " highlight current line
+set hidden                   " change buffer without saving
+set wrap                     " this enables                            " visual " wrapping
+set textwidth=0 wrapmargin=0 " this turns off physical line wrapping
+set autoread                 " detect when a file is changed
 "Very magic
 "nnoremap / /\v
 "vnoremap / /\v
-"noremap / /\v					
-"cnoremap %s/ %s/\v 				
+"noremap / /\v
+"cnoremap %s/ %s/\v
 
 " toggle invisible characters
-" set list
-" set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-" set showbreak=↪
+" ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
+" tab:▸\
+" tab:»·
+set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
+set showbreak=↪\ 
 " ==========My Mappings==============
+" To check if a maping exist try e.g. :verbose map \r
 map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
-map <leader>r :source ~/.vimrc<CR>                                                        " default leader is \
+map <leader>r :source ~/.vimrc<CR>
 map <leader>n :bnext<CR>
 map <leader>p :set paste<CR>
 map <leader>P :set nopaste<CR>
-nnoremap <leader><space> :nohlsearch<CR>                                                  " turn off search highligh
+" turn off search highligh
+nnoremap <leader><space> :nohlsearch<CR>
 map <leader>s :echo 'Please use <leader>se for English our <leader>sp for Portuguese'<CR>
-map <leader>se :set spell spelllang=en_ca<CR>                                             " <C-x><C-k> for options ; in v mode z= for sugestions
-map <leader>sp :set spell spelllang=pt<CR>                                                " <C-x><C-k> for options ; in v mode z= for sugestions
+" <C-x><C-k> for options ; in v mode z= for sugestions
+map <leader>se :set spell spelllang=en_ca<CR>
+map <leader>sp :set spell spelllang=pt<CR>
 map <leader>S :set nospell<CR>
-map <S-k> <Nop>                                                                           " desable shift k
-map <S-j> <Nop>                                                                           " desable shift j
+" desable shift k
+map <S-k> <Nop>
+" desable shift j
+map <S-j> <Nop>
 
 noremap <leader>pp "+p
 noremap <leader>y "+y
@@ -104,7 +111,8 @@ noremap <leader>y "+y
 nnoremap <C-k> 3k
 nnoremap <C-j> 3j
 nmap <leader><leader> :w<cr> " shortcut to save
-
+map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
+map <leader>iG :set nolist<CR>
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
 set backspace=indent,eol,start
@@ -155,21 +163,6 @@ let g:airline#extensions#tabline#enabled = 1 	 "enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
 "AirlineTheme murmur
 
-" ========== indent-guides ==========
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size = 1
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=239
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=237
-" hi IndentGuidesOdd  ctermbg=lightgrey
-" hi IndentGuidesEven ctermbg=darkgrey
-
-" ========== indentLine ==========
-let g:indentLine_enabled = 1
-let g:indentLine_char = '¦'		" ┆ ¦
-" map <leader>SOMETHING :IndentLinesEnable <CR>
-
 " ========== syntastic ==========
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
@@ -212,12 +205,12 @@ let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsExpandTrigger="<nop>"
 let g:ulti_expand_or_jump_res = 0
 function! <SID>ExpandSnippetOrReturn()
-  let snippet = UltiSnips#ExpandSnippetOrJump()
-  if g:ulti_expand_or_jump_res > 0
-    return snippet
-  else
-    return "\<CR>"
-  endif
+	let snippet = UltiSnips#ExpandSnippetOrJump()
+	if g:ulti_expand_or_jump_res > 0
+		return snippet
+	else
+		return "\<CR>"
+	endif
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
