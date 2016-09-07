@@ -55,26 +55,28 @@ call plug#end()
 " ========================================
 
 " =============My vim options===========
-set nocompatible             " be iMproved, required
+set nocompatible                   " be iMproved, required
 filetype indent plugin on
 syntax on
-set ai                       " auto indent
-set hlsearch                 " high light search
-set incsearch                " search as characters are entered
-set number                   " number the lines
-set t_Co=256                 " set colour to 256
-set wildmenu                 " show matching possibilities in : prompt
-set tabstop=4                " tap size
-set shiftwidth=4             " 1 tab == 4 spaces
-set tabstop=4                " 1 tab == 4 spaces
-set smarttab                 " Be smart when using tabs
-set scrolloff=5              " when scrolling all ways show 5 lines
-set cursorline               " enable the horizontal line
-" set cursorcolumn             " enable the vertical line
-set hidden                   " change buffer without saving
-set wrap                     " this enables visual  wrapping
-set textwidth=0 wrapmargin=0 " this turns off physical line wrapping
-set autoread                 " detect when a file is changed
+set ai                             " auto indent
+set hlsearch                       " high light search
+set incsearch                      " search as characters are entered
+set number                         " number the lines
+set t_Co=256                       " set colour to 256
+set wildmenu                       " show matching possibilities in : prompt
+set tabstop=4                      " tap size
+set shiftwidth=4                   " 1 tab == 4 spaces
+set tabstop=4                      " 1 tab == 4 spaces
+set smarttab                       " Be smart when using tabs
+set scrolloff=5                    " when scrolling all ways show 5 lines
+set cursorline                     " enable the horizontal line
+" set cursorcolumn                 " enable the vertical line
+set hidden                         " change buffer without saving
+set wrap                           " this enables visual  wrapping
+set textwidth=0 wrapmargin=0       " this turns off physical line wrapping
+set autoread                       " detect when a file is changed
+set timeoutlen=1000 ttimeoutlen=10 " time delay for key combinations and changing modes
+set esckeys                        " deables all <esc> conbinations
 "Very magic
 "nnoremap / /\v
 "vnoremap / /\v
@@ -115,7 +117,6 @@ map <leader>S :set nospell<CR>
 map <S-k> <Nop>
 " desable shift j
 map <S-j> <Nop>
-
 noremap <leader>pp "+p
 noremap <leader>y "+y
 " scroll the viewport faster
