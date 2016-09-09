@@ -5,7 +5,7 @@ if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
     echo "=============================="
     if [[ ! -e $HOME/.bash_profile ]] || ( ! cat ~/.bash_profile | grep ".bashrc" ); then
-        echo -e "\nLoding bashrc thrue bash_profile"
+        echo -e "\nLoading bashrc true bash_profile"
         echo "#!/bin/bash" >> $HOME/.bash_profile
         echo "# To Load the .bashrc automatically" >> $HOME/.bash_profile
         echo "if [ -f ~/.bashrc ];" >> $HOME/.bash_profile

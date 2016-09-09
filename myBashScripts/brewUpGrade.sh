@@ -23,7 +23,9 @@ popd  > /dev/null
 
 DOTFILES=${SCRIPT_DIR%/myBashScripts}
 
+IFS_ORIGINAL=$IFS
 IFS=$'\n'
+
 brew_list=()
 for A in $(brew list)
 do
@@ -41,18 +43,24 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 		brew update
 
 		for brew_upgrade_list in $( cat ${DOTFILES}/install/brew_install_list.txt | \
-			awk '$0 !~ /(#|\/\/)/ { ; print $0 }' | \
-			sed 's/"\(.*\)"/\1/')
+			sed -n 's/.*#.*// ; /\/\//!p' )
 		do
+			IFS=$IFS_ORIGINAL
 			fileName="${brew_upgrade_list%% *}"
 			fileName="${fileName##*/}"
 			if [[ "${brew_upgrade_list}" == "" ]]; then continue ; fi
 			if ( echo ${brew_list[@]} | grep "${brew_upgrade_list%% *}" > /dev/null ); then  
-				{ { eval 'brew upgrade ${brew_upgrade_list%% *}' 2>&1 | \
-					tee -a ${logFolderBrew}"${fileName}".log && echo -e "<===========> \n${brew_upgrade_list%% *} done" ; } || \
-				echo -e "<===========> \n${brew_upgrade_list%% *} erro" ; } ; fi
+				{ 
+					echo -e "<===========> start ${brew_upgrade_list%% *} start <===========> "
+					echo "brew upgrade ${brew_upgrade_list%% *}"
+					{ 
+						eval 'brew upgrade ${brew_upgrade_list%% *}' 2>&1 | \
+						tee -a ${logFolderBrew}"${fileName}".log && \
+						echo -e "<===========> ${brew_upgrade_list%% *} done <===========>\n" ;
+					} || \
+				echo -e "<===========> ${brew_upgrade_list%% *} erro <===========>\n\n\n" ; }
+			fi
 		done
-	#return 0
 	fi
 fi
 

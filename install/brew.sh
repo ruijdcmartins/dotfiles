@@ -33,7 +33,7 @@ SCRIPT_DIR=`pwd`;
 popd  > /dev/null
 
 DOTFILES=${SCRIPT_DIR%/install}
-
+IFS_ORIGINAL=$IFS
 IFS=$'\n'
 brew_list=()
 for A in $(brew list)
@@ -63,18 +63,25 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 		brew update
 		echo "${DOTFILES}/install/brew_install_list.txt"
 		for brew_install_list in $( cat "${DOTFILES}/install/brew_install_list.txt" | \
-			awk '$0 !~ /\/\// { gsub("#","") ; print $0 }' | \
-			sed 's/"\(.*\)"/\1/')
+			sed -n 's/ *#.*$// ; /\/\//!p' )
 		do
+			IFS=$IFS_ORIGINAL
 			fileName="${brew_install_list%% *}"
 			fileName="${fileName##*/}"
 			if ! ( echo  ${brew_list[@]} | grep "${brew_install_list%% *}" &> /dev/null ); then
 				{ \
-					{ eval 'brew install ${brew_install_list}' 2>&1 | \
-					tee ${logFolderBrew}"${fileName}".log && \
-					echo -e "<===========> \n${brew_install_list%% *} done" ; } || \
-				echo -e "<===========> \n${brew_install_list%% *} erro" ; }
+					echo -e "<===========> start ${brew_install_list%% *} start <===========> "
+					echo -e "brew install $brew_install_list"
+					{ 
+						eval 'brew install ${brew_install_list}' 2>&1 | \
+						tee ${logFolderBrew}"${fileName}".log && \
+						# echo ${brew_install_list} ;
+						echo -e "<===========> done ${brew_install_list%% *} done <===========> \n" ;
+					} || \
+					echo -e "<===========> !!!ERRO!!! ${brew_install_list%% *} !!!ERRO!!! <===========> \n\n\n" ; 
+				}
 			fi
+			# IFS=$'\n'
 		done
 	#return 0
 	fi

@@ -83,16 +83,39 @@ set esckeys                        " deables all <esc> conbinations
 "noremap / /\v
 "cnoremap %s/ %s/\v
 
+" ======= Colors and Thems ==========
+" --hybrid--
+"let g:hybrid_custom_term_colors = 1
+"let g:hybrid_reduced_contrast = 1
+"colorscheme hybrid 
+" --solarized--
+"set background=dark
+"let g:solarized_visibility = "high"
+"let g:solarized_contrast = "high"
+"let g:solarized_termcolors = 256
+"colorscheme solarized
+" --monokai--
+colorscheme Monokai
 " toggle invisible characters
 " § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
 " tab:▸\
 " tab:»·
 
-"The NonText highlighting will be used for eol, extends and precedes.
-"SpecialKey for nbsp, space, tab and trail. hl-NonText hl-SpecialKey
-":highlight SpecialKey ctermfg=grey guifg=grey70
+if g:colors_name == 'Monokai'
+	highlight SpecialKey ctermfg=59 ctermbg=235 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
+	"The NonText highlighting will be used for eol, extends and precedes.
+	"SpecialKey for nbsp, space, tab and trail. hl-NonText hl-SpecialKey
+	":highlight SpecialKey ctermfg=59 ctermbg=237 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
+	":highlight NonText ctermfg=59 ctermbg=236 cterm=NONE guifg=#49483e guibg=#31322c gui=NONE
+	":highlight Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
+	":highlight Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
+	":highlight CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+	":highlight CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+endif
+
 function! MyIndetation()
 	set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
+      echo 
 endfunction
 call MyIndetation()
 set showbreak=↪\ 
@@ -104,7 +127,7 @@ map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
 map <leader>r :source ~/.vimrc<CR>
 map <leader>n :bnext<CR>
-map <leader>p :set paste<CR>
+map <leader>pm :set paste<CR>
 map <leader>P :set nopaste<CR>
 " turn off search highligh
 nnoremap <leader><space> :nohlsearch<CR>
@@ -136,19 +159,6 @@ set formatoptions-=cro
 "	compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-" ======= Colors and Thems ==========
-" --hybrid--
-"let g:hybrid_custom_term_colors = 1
-"let g:hybrid_reduced_contrast = 1
-"colorscheme hybrid 
-" --solarized--
-"set background=dark
-"let g:solarized_visibility = "high"
-"let g:solarized_contrast = "high"
-"let g:solarized_termcolors = 256
-"colorscheme solarized
-" --monokai--
-colorscheme monokai
 	
 " =================================
 " =================================
@@ -242,18 +252,21 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " ========To be improved============
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-"nmap <M-j> mz:m+<cr>`z
-"nmap <M-k> mz:m-2<cr>`z
-" vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-"
-"if has("mac") || has("macunix")
-"    nmap <D-j> <M-j>
-"    nmap <D-k> <M-k>
-"    vmap <D-j> <M-j>
-"    vmap <D-k> <M-k>
-"endif
-"
+nmap <S-j> :m+<CR>
+nmap <S-k> :m-2<CR>
+vmap <S-j> :m'>+<CR>`<my`>mzgv`yo`z
+vmap <S-k> :m'<-2<CR>`>my`<mzgv`yo`z
+
+" ==========Mac test==========
+function! Mac_teste()
+	if has("mac") || has("macunix")
+	echo "mac"
+   " nmap <D-j> <M-j>
+   " nmap <D-k> <M-k>
+   " vmap <D-j> <M-j>
+   " vmap <D-k> <M-k>
+	endif
+endfunction
 " ========== Test Area ==========
 vmap <leader>t :Tab /
 vmap <leader>T :Tab /\zs

@@ -7,7 +7,7 @@
 
 logFolderCask="$HOME/dotfilesLogs/brewLogs/cask/"
 
-list_cask=(	"xquartz"
+list_install_cask=(	"xquartz"
 			"iterm2"
 			"sublime-text"
 			"google-chrome"
@@ -20,7 +20,20 @@ list_cask=(	"xquartz"
 			"skype"
 			"clipgrab"
 			"cheatsheet"
-			"torbrowser" )
+			"torbrowser"
+			"subtitle-master"
+			"soundflower"
+			"soulseek"
+			"mactex")
+
+
+IFS_ORIGINAL=$IFS
+IFS=$'\n'
+brew_list=()
+for A in $(brew cask list)
+do
+	brew_list+=($A)
+done
 
 if ( brew -v &> /dev/null ) ; then
 		
@@ -28,11 +41,21 @@ if ( brew -v &> /dev/null ) ; then
 		mkdir -p ${logFolderCask}
 	fi
 	
-	for i in `seq 0 $(( ${#list_cask[@]} -1 ))`
+	for list in ${list_install_cask[@]}
 	do
-		fileName="${list_cask[$i]%% *}"
-        fileName="${fileName##*/}"
-		if ! ( brew cask list | grep "${list_cask[$i]%% *}" ); then { { eval brew cask install "${list_cask[$i]}" 2>&1 | tee ${logFolderCask}/"${fileName}".log && echo -e "<===========> \n${list_cask[$i]%% *} done" ; } || echo -e "<===========> \n${list_cask[$i]%% *} erro" ; return 1 ; } ; fi
+		IFS=$IFS_ORIGINAL
+		fileName="${list%% *}"
+		fileName="${fileName##*/}"
+		if ! ( echo ${brew_list[@]} | grep "${list%% *}" ); then 
+			{ 
+				{
+				echo -e "<===========> start ${list%% *} start <===========> ";
+				eval 'brew cask install ${list}' 2>&1 | tee ${logFolderCask}/"${fileName}".log && \
+				echo -e "<===========> done ${list%% *} done <===========> " ;
+				} || \
+				echo -e "<===========> erro ${list%% *} erro <===========> " ;
+				}
+		fi
 	done
 	#return 0
 fi

@@ -16,7 +16,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	source install/git.sh
 	source install/python.sh
 	source install/cask.sh
-	source install/latex.sh
+	# source install/latex.sh		# included in cask
 	source install/root.sh
 	source install/hep.sh
 fi
