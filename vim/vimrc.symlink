@@ -137,9 +137,9 @@ map <leader>se :set spell spelllang=en_ca<CR>
 map <leader>sp :set spell spelllang=pt<CR>
 map <leader>S :set nospell<CR>
 " desable shift k
-map <S-k> <Nop>
+" map <S-k> <Nop>
 " desable shift j
-map <S-j> <Nop>
+" map <S-j> <Nop>
 noremap <leader>pp "+p
 noremap <leader>y "+y
 " scroll the viewport faster
@@ -253,11 +253,26 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " ========To be improved============
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <S-j> :m+<CR>
-nmap <S-k> :m-2<CR>
-vmap <S-j> :m'>+<CR>`<my`>mzgv`yo`z
-vmap <S-k> :m'<-2<CR>`>my`<mzgv`yo`z
+" nmap <S-j> :m+<CR>
+" nmap <S-k> :m-2<CR>
+" vmap <S-j> :m'>+<CR>`<my`>mzgv`yo`z
+" vmap <S-k> :m'<-2<CR>`>my`<mzgv`yo`z
+" move lines up and down
+" ¯ => <alt-k>
+nmap ¯ :m+<CR>
+" „ => <alt-j>
+nmap „  :m-2<CR>
+vmap ¯ :m'>+<CR>`<my`>mzgv`yo`z
+vmap „  :m'<-2<CR>`>my`<mzgv`yo`z
 
+" nnoremap ª :m .+1<CR>==
+" nnoremap º :m .-2<CR>==
+"
+" inoremap ª <Esc>:m .+1<CR>==gi
+" inoremap º <Esc>:m .-2<CR>==gi
+"
+" vnoremap ª :m '>+1<CR>gv=gv
+" vnoremap º :m '<-2<CR>gv=gv
 " ==========Mac test==========
 function! Mac_teste()
 	if has("mac") || has("macunix")
