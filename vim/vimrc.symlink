@@ -9,20 +9,20 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'terryma/vim-multiple-cursors' 					"Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
-Plug 'kien/ctrlp.vim' 									"fuzzy find files
+Plug 'terryma/vim-multiple-cursors'						"Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
+Plug 'kien/ctrlp.vim'									"fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }	"file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
 Plug 'godlygeek/tabular'								|": Tab /'char to alin' |":'<,'>Tab /:\zs
-Plug 'othree/eregex.vim' 								" :%S/ for substitute with perl regex
+Plug 'othree/eregex.vim'								" :%S/ for substitute with perl regex
 Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-surround' 								" in vm S' ; in nm ysiw' or cs"=
+Plug 'tpope/vim-surround'								" in vm S' ; in nm ysiw' or cs"=
 Plug 'bronson/vim-crosshairs'							" coursorline upgrade
 Plug 'Yggdroot/indentLine'								" <Leader>il fancy indent guides with spaces only
 " Plug 'nathanaelkane/vim-indent-guides'				" <Leader>ig
-" Plug 'vim-scripts/LanguageTool' 						" not working
+" Plug 'vim-scripts/LanguageTool'						" not working
 " Plug 'rhysd/vim-grammarous'							" not working 
-" Plug 'scrooloose/syntastic' 							" semantic analyzer 
+" Plug 'scrooloose/syntastic'							" semantic analyzer 
 " Plug 'octol/vim-cpp-enhanced-highlight'
 " =========== Color Plugs ===============
 Plug 'vim-airline/vim-airline'
@@ -66,7 +66,8 @@ set t_Co=256                       " set colour to 256
 set wildmenu                       " show matching possibilities in : prompt
 set tabstop=4                      " tap size
 set shiftwidth=4                   " 1 tab == 4 spaces
-set tabstop=4                      " 1 tab == 4 spaces
+set softtabstop=0
+set noexpandtab
 set smarttab                       " Be smart when using tabs
 set scrolloff=5                    " when scrolling all ways show 5 lines
 set cursorline                     " enable the horizontal line
@@ -115,7 +116,7 @@ endif
 
 function! MyIndetation()
 	set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
-      echo 
+	echo
 endfunction
 call MyIndetation()
 set showbreak=↪\ 
@@ -125,10 +126,18 @@ map <leader>I :set nolist<CR>
 " To check if a maping exist try e.g. :verbose map \r
 map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
-map <leader>r :source ~/.vimrc<CR>
+map <leader>rr :source ~/.vimrc<CR>
 map <leader>n :bnext<CR>
 map <leader>pm :set paste<CR>
-map <leader>P :set nopaste<CR>
+map <leader>Pm :set nopaste<CR>
+map <leader>poo :pu<CR><esc>
+map <leader>pOO :pu!<CR><esc>
+map <leader>po+ :pu +<CR>
+map <leader>pO+ :pu!+<CR><esc>
+noremap <leader>pp "+p
+noremap <leader>pP "+P
+noremap <leader>y "+y
+noremap <leader>Y "+Y
 " turn off search highligh
 nnoremap <leader><space> :nohlsearch<CR>
 map <leader>s :echo 'Please use <leader>se for English our <leader>sp for Portuguese'<CR>
@@ -136,18 +145,33 @@ map <leader>s :echo 'Please use <leader>se for English our <leader>sp for Portug
 map <leader>se :set spell spelllang=en_ca<CR>
 map <leader>sp :set spell spelllang=pt<CR>
 map <leader>S :set nospell<CR>
-" desable shift k
-" map <S-k> <Nop>
-" desable shift j
-" map <S-j> <Nop>
-noremap <leader>pp "+p
-noremap <leader>y "+y
+" desable shift k 
+map <S-k> <Nop>
+" desable shift j and pass beavior to <C-j>
+map <S-j> <Nop>
+map <C-j> :join<CR>
+map <C-J> :join!<CR>
 " scroll the viewport faster
-nnoremap <C-k> 3k
-nnoremap <C-j> 3j
-nmap <leader><leader> :w<cr> " shortcut to save
-map <leader>b "_
+nnoremap <S-k> 3k
+nnoremap <S-j> 3j
+nmap <leader><leader> :w<cr> 	" shortcut to save
+map <leader>b "_				" the black hole register
 " map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
+
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+" move lines up and down
+" " <alt-k> ¯ ==>
+" nmap ¯ :m+<CR>
+" " <alt-j> „ ==>
+" nmap „ :m-2<CR>
+" vmap ¯ :m'>+<CR>`<my`>mzgv`yo`z
+" vmap „ :m'<-2<CR>`>my`<mzgv`yo`z
+nnoremap ¯ :m .+1<CR>==
+nnoremap „ :m .-2<CR>==
+inoremap ¯ <Esc>:m .+1<CR>==gi
+inoremap „ <Esc>:m .-2<CR>==gi
+vnoremap ¯ :m '>+1<CR>gv=gv
+vnoremap „ :m '<-2<CR>gv=gv
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
 set backspace=indent,eol,start
@@ -160,7 +184,7 @@ set formatoptions-=cro
 "	compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-	
+
 " =================================
 " =================================
 " ======= Plugs Settings  =========
@@ -252,37 +276,6 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 " ========To be improved============
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-" nmap <S-j> :m+<CR>
-" nmap <S-k> :m-2<CR>
-" vmap <S-j> :m'>+<CR>`<my`>mzgv`yo`z
-" vmap <S-k> :m'<-2<CR>`>my`<mzgv`yo`z
-" move lines up and down
-" ¯ => <alt-k>
-nmap ¯ :m+<CR>
-" „ => <alt-j>
-nmap „  :m-2<CR>
-vmap ¯ :m'>+<CR>`<my`>mzgv`yo`z
-vmap „  :m'<-2<CR>`>my`<mzgv`yo`z
-
-" nnoremap ª :m .+1<CR>==
-" nnoremap º :m .-2<CR>==
-"
-" inoremap ª <Esc>:m .+1<CR>==gi
-" inoremap º <Esc>:m .-2<CR>==gi
-"
-" vnoremap ª :m '>+1<CR>gv=gv
-" vnoremap º :m '<-2<CR>gv=gv
-" ==========Mac test==========
-function! Mac_teste()
-	if has("mac") || has("macunix")
-	echo "mac"
-   " nmap <D-j> <M-j>
-   " nmap <D-k> <M-k>
-   " vmap <D-j> <M-j>
-   " vmap <D-k> <M-k>
-	endif
-endfunction
 " ========== Test Area ==========
 vmap <leader>t :Tab /
 vmap <leader>T :Tab /\zs
@@ -298,6 +291,25 @@ function! MyTab1()
 	echo "texto"
 endfunction
 map <leader>-:call  MyTab1()
+
+" ==========Mac test==========
+function! Mac_teste()
+	if has("mac") || has("macunix")
+	echo "mac"
+   " nmap <D-j> <M-j>
+   " nmap <D-k> <M-k>
+   " vmap <D-j> <M-j>
+   " vmap <D-k> <M-k>
+	endif
+endfunction
+
+if has("unix")
+	let s:uname = system("uname")
+	if s:uname == "Darwin\n"
+		echo "mac"
+	endif
+endif
+
 " " ====== Tabular func ===========
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 " 
