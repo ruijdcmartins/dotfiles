@@ -127,7 +127,7 @@ map <leader>I :set nolist<CR>
 map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
 map <leader>rr :source ~/.vimrc<CR>
-map <leader>n :bnext<CR>
+map <leader>bn :bnext<CR>
 map <leader>pm :set paste<CR>
 map <leader>Pm :set nopaste<CR>
 map <leader>poo :pu<CR><esc>
@@ -172,6 +172,37 @@ inoremap ¯ <Esc>:m .+1<CR>==gi
 inoremap „ <Esc>:m .-2<CR>==gi
 vnoremap ¯ :m '>+1<CR>gv=gv
 vnoremap „ :m '<-2<CR>gv=gv
+
+" Folding setup
+function! FoldindToggle()
+	if (fen)
+		set fdc=4 
+		set fen
+		set fdm=indent
+	else
+		set fdc=0 
+		set nofen 
+		set fdm=indent
+	endif
+endfunction
+" map <leader>f :set fdc=4 | set fen | set nofen | set fdm=indent
+map <leader>f :call FoldindToggle()
+"zc individual close
+"zo individual open
+"za individual toggle
+"zm folds all ; more folding
+"zr unfolds all ; reduce fold 
+"zf manual fold
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+call NumberToggle()
+nnoremap <leader>nr :call NumberToggle()<cr>
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
 set backspace=indent,eol,start
