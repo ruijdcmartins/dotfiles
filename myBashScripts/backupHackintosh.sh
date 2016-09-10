@@ -128,8 +128,6 @@ echo "Runtime:"
 echo "$(( $runtime / (60*60) ))h:$(( ($runtime % (60*60)) / 60 ))m:$(( ($runtime % (60*60)) % 60 ))s"
 
 if [[ -f "$BK_LOG_FILE" ]]; then
-	echo "" >> "$BK_LOG_FILE"
-	echo "===========================" >> "$BK_LOG_FILE"
 	echo "$(date +%Y.%m.%d_%T)" >> "$BK_LOG_FILE"
 	echo " ========== End ========== " >> "$BK_LOG_FILE"
 	echo "===========================" >> "$BK_LOG_FILE"
