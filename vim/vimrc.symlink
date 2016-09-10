@@ -296,19 +296,19 @@ map <leader>-:call  MyTab1()
 function! Mac_teste()
 	if has("mac") || has("macunix")
 	echo "mac"
-   " nmap <D-j> <M-j>
-   " nmap <D-k> <M-k>
-   " vmap <D-j> <M-j>
-   " vmap <D-k> <M-k>
+	" nmap <D-j> <M-j>
+	" nmap <D-k> <M-k>
+	" vmap <D-j> <M-j>
+	" vmap <D-k> <M-k>
 	endif
 endfunction
 
-if has("unix")
-	let s:uname = system("uname")
-	if s:uname == "Darwin\n"
-		echo "mac"
-	endif
-endif
+" if has("unix")
+"     let s:uname = system("uname")
+"     if s:uname == "Darwin\n"
+"         echo "mac from if"
+"     endif
+" endif
 
 " " ====== Tabular func ===========
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
