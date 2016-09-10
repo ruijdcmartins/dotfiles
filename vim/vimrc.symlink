@@ -146,6 +146,7 @@ noremap <leader>y "+y
 nnoremap <C-k> 3k
 nnoremap <C-j> 3j
 nmap <leader><leader> :w<cr> " shortcut to save
+map <leader>b "_
 " map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
