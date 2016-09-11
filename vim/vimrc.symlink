@@ -126,16 +126,16 @@ map <leader>I :set nolist<CR>
 " To check if a maping exist try e.g. :verbose map \r
 map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
-map <leader>rr :source ~/.vimrc<CR>
+map <leader>r :source ~/.vimrc<CR>
 map <leader>bn :bnext<CR>
 map <leader>pm :set paste<CR>
 map <leader>Pm :set nopaste<CR>
 map <leader>poo :pu<CR><esc>
 map <leader>pOO :pu!<CR><esc>
-map <leader>po+ :pu +<CR>
-map <leader>pO+ :pu!+<CR><esc>
+map <leader>ppo :pu +<CR>
+map <leader>ppO :pu! +<CR><esc>
 noremap <leader>pp "+p
-noremap <leader>pP "+P
+noremap <leader>PP "+P
 noremap <leader>y "+y
 noremap <leader>Y "+Y
 " turn off search highligh
@@ -146,14 +146,14 @@ map <leader>se :set spell spelllang=en_ca<CR>
 map <leader>sp :set spell spelllang=pt<CR>
 map <leader>S :set nospell<CR>
 " desable shift k 
-map <S-k> <Nop>
+" map <S-k> <Nop>
 " desable shift j and pass beavior to <C-j>
-map <S-j> <Nop>
-map <C-j> :join<CR>
-map <C-J> :join!<CR>
+" map <S-j> <Nop>
+" map <C-j> :join<CR>
+" map <C-J> :join!<CR>
 " scroll the viewport faster
-nnoremap <S-k> 3k
-nnoremap <S-j> 3j
+nnoremap <C-k> 3k
+nnoremap <C-j> 3j
 nmap <leader><leader> :w<cr> 	" shortcut to save
 map <leader>b "_				" the black hole register
 " map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
@@ -175,8 +175,8 @@ vnoremap „ :m '<-2<CR>gv=gv
 
 " Folding setup
 function! FoldindToggle()
-	if (fen)
-		set fdc=4 
+	if &foldenable ==# "nofoldenable"
+		set foldcolumn=4 
 		set fen
 		set fdm=indent
 	else
@@ -185,8 +185,7 @@ function! FoldindToggle()
 		set fdm=indent
 	endif
 endfunction
-" map <leader>f :set fdc=4 | set fen | set nofen | set fdm=indent
-map <leader>f :call FoldindToggle()
+map <leader>f :call FoldindToggle()<CR>
 "zc individual close
 "zo individual open
 "za individual toggle
@@ -195,14 +194,14 @@ map <leader>f :call FoldindToggle()
 "zf manual fold
 
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
+	if(&relativenumber == 1)
+		set norelativenumber
+	else
+		set relativenumber
+	endif
 endfunc
-call NumberToggle()
-nnoremap <leader>nr :call NumberToggle()<cr>
+" call NumberToggle()
+nnoremap <leader>nr :call NumberToggle()<CR>
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
 set backspace=indent,eol,start
