@@ -39,17 +39,12 @@ else
 endif
 " Plug 'Shougo/neocomplete'
 " Plug 'ervandew/supertab'
-" ========= SnipMate (grabas) ===========
-" Plug 'MarcWeber/vim-addon-mw-utils'
-" Plug 'tomtom/tlib_vim'
-" Plug 'garbas/vim-snipmate'
-" == UtilSnips ==
+" ================ UtilSnips =============
 Plug 'SirVer/ultisnips'
 " Optional
 Plug 'honza/vim-snippets'
 " ========================================
 call plug#end()
-" let g:plug_timeout 300
 " ========================================
 " ============ Plug END ==================
 " ========================================
@@ -85,44 +80,30 @@ set esckeys                        " deables all <esc> conbinations
 "cnoremap %s/ %s/\v
 
 " ======= Colors and Thems ==========
-" --hybrid--
-"let g:hybrid_custom_term_colors = 1
-"let g:hybrid_reduced_contrast = 1
 "colorscheme hybrid 
-" --solarized--
-"set background=dark
-"let g:solarized_visibility = "high"
-"let g:solarized_contrast = "high"
-"let g:solarized_termcolors = 256
 "colorscheme solarized
-" --monokai--
 colorscheme Monokai
-" toggle invisible characters
-" § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
-" tab:▸\
-" tab:»·
-
 if g:colors_name == 'Monokai'
-	highlight SpecialKey ctermfg=59 ctermbg=235 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
 	"The NonText highlighting will be used for eol, extends and precedes.
 	"SpecialKey for nbsp, space, tab and trail. hl-NonText hl-SpecialKey
-	":highlight SpecialKey ctermfg=59 ctermbg=237 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
+	highlight SpecialKey ctermfg=59 ctermbg=235 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
 	":highlight NonText ctermfg=59 ctermbg=236 cterm=NONE guifg=#49483e guibg=#31322c gui=NONE
+	":highlight SpecialKey ctermfg=59 ctermbg=237 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
 	":highlight Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
 	":highlight Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
 	":highlight CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
 	":highlight CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
 endif
-
+" ==========toggle invisible characters==========
+" § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
 function! MyIndetation()
 	set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
-	echo
 endfunction
 call MyIndetation()
 set showbreak=↪\ 
 map <leader>i :call  MyIndetation()<CR>
 map <leader>I :set nolist<CR>
-" ==========My Mappings==============
+" ==============My Mappings==============
 " To check if a maping exist try e.g. :verbose map \r
 map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
@@ -158,8 +139,7 @@ nmap <leader><leader> :w<cr> 	" shortcut to save
 map <leader>b "_				" the black hole register
 " map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
 
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-" move lines up and down
+" ========== move lines up and down==========
 " " <alt-k> ¯ ==>
 " nmap ¯ :m+<CR>
 " " <alt-j> „ ==>
@@ -173,15 +153,15 @@ inoremap „ <Esc>:m .-2<CR>==gi
 vnoremap ¯ :m '>+1<CR>gv=gv
 vnoremap „ :m '<-2<CR>gv=gv
 
-" Folding setup
+" ==========Folding setup==========
 function! FoldindToggle()
 	if &foldenable ==# "nofoldenable"
-		set foldcolumn=4 
 		set fen
+		set foldcolumn=4 
 		set fdm=indent
 	else
-		set fdc=0 
 		set nofen 
+		set fdc=0 
 		set fdm=indent
 	endif
 endfunction
@@ -192,15 +172,17 @@ map <leader>f :call FoldindToggle()<CR>
 "zm folds all ; more folding
 "zr unfolds all ; reduce fold 
 "zf manual fold
-
+" ========= Relative Numbering =========
 function! NumberToggle()
 	if(&relativenumber == 1)
 		set norelativenumber
 	else
+		set number
 		set relativenumber
 	endif
 endfunc
 " call NumberToggle()
+call NumberToggle()
 nnoremap <leader>nr :call NumberToggle()<CR>
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
@@ -252,19 +234,18 @@ autocmd StdinReadPre * let s:std_in=5
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " incompatible YCM
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" ========== YCM ==========
+" ========== YCM & deoplete ==========
 if !has('nvim')
 	let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 	let g:ycm_confirm_extra_conf = 0
-"let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
-"Make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_previous_completion = [ '<C-k>', '<Up>']
-" let g:ycm_key_list_select_completion = [ '<C-j>', '<Down>']
+	"let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
+	"Make YCM compatible with UltiSnips (using supertab)
+	" let g:ycm_key_list_previous_completion = [ '<C-k>', '<Up>']
+	" let g:ycm_key_list_select_completion = [ '<C-j>', '<Down>']
 else
-" ========== deoplete ==========
 	let g:deoplete#enable_at_startup = 1
-" disable autocomplete
-" let g:deoplete#disable_auto_complete = 1
+	" disable autocomplete
+	" let g:deoplete#disable_auto_complete = 1
 	if has("gui_running")
 		inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
 	else
