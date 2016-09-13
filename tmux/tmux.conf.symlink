@@ -19,10 +19,6 @@ bind -n S-M-Right select-pane -R
 bind -n S-M-Up select-pane -U
 bind -n S-M-Down select-pane -D
 
-#====Copy-paste integration=====
-if-shell "uname | grep -q Linux" "source-file ~/.tmux-lxplus.conf" 
-if-shell "uname | grep -q Darwin" "source-file ~/.tmux-macosx.conf" 
-#================
 
 ## Join windows: <prefix> s, <prefix> j
 bind-key j command-prompt -p "join pane from:"  "join-pane -s ':%%'"
@@ -130,3 +126,11 @@ set -g message-bg colour166
 
 # } 
 # 11 14 15 16 34 41 45 126
+
+#====Copy-paste integration=====
+# run-shell "if tmux -V | awk '{ print ($2 > 2.1) }' | grep 1 ; then export PS1='=======>' ; echo 'fds' ; fi"
+# if-shell "tmux -V | awk '{ print ($2 >= 1.8) }' | grep 1" "source-file ~/testing/ps1.tst"
+if-shell "tmux -V | awk '{ print ($2 >= 2.1) }' | grep 1" "source-file ~/.tmux-ge2.1.conf" 
+if-shell "tmux -V | awk '{ print ($2 < 2.1) }' | grep 1" "source-file ~/.tmux-lt2.1.conf" 
+# ; display-message 'tmux-macosx loaded'
+#================
