@@ -135,6 +135,11 @@ if-shell "tmux -V | awk '{ print ($2 < 2.1) }' | grep 1" "source-file ~/.tmux-lt
 # ; display-message 'tmux-macosx loaded'
 
 #=========Tmux Plugins==========
-if-shell "tmux -V | awk '{ print ($2 > 2.1) }' | grep 1" \
-'set -g @plugin mux-plugins/tpm ; set -g @plugin mux-plugins/tmux-sensible ; set -g @plugin mux-plugins/tmux-continuum ; set -g @plugin mux-plugins/tmux-resurrect ; run ~/.tmux/plugins/tpm/tpm'
+set -g @plugin 'mux-plugins/tpm'
+set -g @plugin 'mux-plugins/tmux-sensible'
+set -g @plugin 'mux-plugins/tmux-continuum'
+set -g @plugin 'mux-plugins/tmux-resurrect'
+run '~/.tmux/plugins/tpm/tpm'
+# if-shell "tmux -V | awk '{ print ($2 > 2.1) }' | grep 1" \
+# 'set -g @plugin mux-plugins/tpm ; set -g @plugin mux-plugins/tmux-sensible ; set -g @plugin mux-plugins/tmux-continuum ; set -g @plugin mux-plugins/tmux-resurrect ; run ~/.tmux/plugins/tpm/tpm'
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
