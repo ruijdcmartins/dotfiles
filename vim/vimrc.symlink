@@ -108,7 +108,10 @@ map <leader>I :set nolist<CR>
 map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
 map <leader>r :source ~/.vimrc<CR>
+map <leader>w <C-w><C-w>
+map <leader>vs :vs<CR>
 map <leader>bn :bnext<CR>
+map <leader>bp :bp<CR>
 map <leader>pm :set paste<CR>
 map <leader>Pm :set nopaste<CR>
 map <leader>poo :pu<CR><esc>
