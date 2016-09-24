@@ -43,24 +43,26 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 		brew update
 
 		for brew_upgrade_list in $( cat ${DOTFILES}/install/brew_install_list.txt | \
-			sed -n 's/.*#.*// ; /\/\//!p' )
+		sed -n 's/ *#.*$// ; s/^\/\/.*// ; /^$/!p')
 		do
-			IFS=$IFS_ORIGINAL
 			fileName="${brew_upgrade_list%% *}"
 			fileName="${fileName##*/}"
 			if [[ "${brew_upgrade_list}" == "" ]]; then continue ; fi
-			if ( echo ${brew_list[@]} | grep "${brew_upgrade_list%% *}" > /dev/null ); then  
+			brew_upgrade_list_TEMP=${brew_upgrade_list%% *}
+			IFS=$IFS_ORIGINAL
+			if ( echo ${brew_list[@]} | grep "${brew_upgrade_list_TEMP##*/}" &> /dev/null ) ; then
 				{ 
-					echo -e "<===========> start ${brew_upgrade_list%% *} start <===========> "
-					echo "brew upgrade ${brew_upgrade_list%% *}"
-					{ 
+					echo -e "<===========> ${brew_upgrade_list%% *} start <===========> "
+					{
 						eval 'brew upgrade ${brew_upgrade_list%% *}' 2>&1 | \
 						tee -a ${logFolderBrew}"${fileName}".log && \
 						echo -e "<===========> ${brew_upgrade_list%% *} done <===========>\n" ;
 					} || \
-				echo -e "<===========> ${brew_upgrade_list%% *} erro <===========>\n\n\n" ; }
+				echo -e "<===========> ${brew_upgrade_list%% *} erro <===========>\n\n\n" ;
+				}
 			fi
 		done
+		echo "done"
 	fi
 fi
 
