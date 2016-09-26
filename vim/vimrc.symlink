@@ -19,6 +19,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'								" in vm S' ; in nm ysiw' or cs"=
 Plug 'bronson/vim-crosshairs'							" coursorline upgrade
 Plug 'Yggdroot/indentLine'								" <Leader>il fancy indent guides with spaces only
+Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'nathanaelkane/vim-indent-guides'				" <Leader>ig
 " Plug 'vim-scripts/LanguageTool'						" not working
 " Plug 'rhysd/vim-grammarous'							" not working 
