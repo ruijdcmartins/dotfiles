@@ -2,7 +2,7 @@
 set -g default-terminal "screen-256color"
 
 # reload config file (change file location to your the tmux.conf you want to use)
-bind r source-file ~/.tmux.conf ; display-message "reloaded"
+bind r source-file ~/.tmux.conf # ; display-message "reloaded"
 
 # Increase display-time
 set-option -g display-time 4000
@@ -125,7 +125,6 @@ set -g message-fg colour232
 set -g message-bg colour166
 
 # } 
-# 11 14 15 16 34 41 45 126
 
 #====Copy-paste integration=====
 # run-shell "if tmux -V | awk '{ print ($2 > 2.1) }' | grep 1 ; then export PS1='=======>' ; echo 'fds' ; fi"
@@ -137,8 +136,11 @@ if-shell "tmux -V | awk '{ print ($2 < 2.1) }' | grep 1" "source-file ~/.tmux-lt
 #=========Tmux Plugins==========
 set -g @plugin 'mux-plugins/tpm'
 set -g @plugin 'mux-plugins/tmux-sensible'
-set -g @plugin 'mux-plugins/tmux-continuum'
 set -g @plugin 'mux-plugins/tmux-resurrect'
+set -g @plugin 'mux-plugins/tmux-continuum'
+
+set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-restore 'on'
 run '~/.tmux/plugins/tpm/tpm'
 # if-shell "tmux -V | awk '{ print ($2 > 2.1) }' | grep 1" \
 # 'set -g @plugin mux-plugins/tpm ; set -g @plugin mux-plugins/tmux-sensible ; set -g @plugin mux-plugins/tmux-continuum ; set -g @plugin mux-plugins/tmux-resurrect ; run ~/.tmux/plugins/tpm/tpm'

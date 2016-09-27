@@ -6,11 +6,11 @@ set -g mouse-select-pane on
 set -g mouse-select-window on
 
 # split panes using | and -
+unbind '"'
+unbind %
 bind - split-window -v 
 bind | split-window -h  
 bind c new-window       
-unbind '"'
-unbind %
 
 # https://leanside.com/2014/01/copy-paste-in-tmux/
 
@@ -30,6 +30,3 @@ bind -t vi-copy V rectangle-toggle # `V` changes between line- and columnwise se
 bind -t vi-copy Y copy-end-of-line # ^1
 bind + delete-buffer
 
-
-
-#if-shell "[[ `tmux -V | awk '{print ($2 >= 2.1)}'` -eq 1 ]]" 'source ~/.tmux/tmux_ge_21.conf' 'source ~/.tmux/tmux_lt_21.conf'

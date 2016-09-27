@@ -172,6 +172,7 @@ alias df='df -h'
 alias gitp='git pull'
 alias gits='git status'
 alias gitfq='git fetch --quiet'
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 calculator() { echo $* | awk '{printf "%.17g\n", '"$*"'}' ; } # simple calculator
 encrypt() { openssl enc -aes-256-cbc -e -in $1 -out $2 ; }
 decrypt() { openssl enc -aes-256-cbc -d -in $1 -out $2 ; }

@@ -4,11 +4,11 @@
 set -g mouse on
 
 # split panes using | and -
+unbind '"'
+unbind %
 bind - split-window -v -c "#{pane_current_path}"
 bind | split-window -h -c "#{pane_current_path}" 
 bind c new-window -c "#{pane_current_path}"      
-unbind '"'
-unbind %
 
 #====Copy-paste integration=====
 set-option -g default-command "reattach-to-user-namespace -l bash" # Works like a charm
@@ -34,5 +34,5 @@ bind ] run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux past
 
 
 # Tmux plugins
-run-shell "if [[ ! -d ~/.tmux ]] ; then git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm ; fi"
+# run-shell "if [[ ! -d ~/.tmux ]] ; then git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm ; fi"
 
