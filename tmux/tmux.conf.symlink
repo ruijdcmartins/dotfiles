@@ -140,7 +140,9 @@ set -g @plugin 'mux-plugins/tmux-resurrect'
 set -g @plugin 'mux-plugins/tmux-continuum'
 
 set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-save-interval '0'
 set -g @continuum-restore 'on'
+
 run '~/.tmux/plugins/tpm/tpm'
 # if-shell "tmux -V | awk '{ print ($2 > 2.1) }' | grep 1" \
 # 'set -g @plugin mux-plugins/tpm ; set -g @plugin mux-plugins/tmux-sensible ; set -g @plugin mux-plugins/tmux-continuum ; set -g @plugin mux-plugins/tmux-resurrect ; run ~/.tmux/plugins/tpm/tpm'

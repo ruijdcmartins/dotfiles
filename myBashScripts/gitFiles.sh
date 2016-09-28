@@ -1,6 +1,5 @@
 #!/bin/bash
 # ./gitUpdate.sh file1 file2 .... fileN "commit mesage"
-git pull
 	
 while (( "$#" )); do
 	if [ $# -gt 1 ]; then
@@ -9,6 +8,7 @@ while (( "$#" )); do
 	
 	if [ $# == 1 ]; then
 		git commit -m "$1"
+		git pull
 		git push
 	fi
 

@@ -1,4 +1,3 @@
-
 " ============Plug config=================
 " ========================================
 
@@ -141,6 +140,12 @@ map <leader>S :set nospell<CR>
 " scroll the viewport faster
 nnoremap <C-k> 3k
 nnoremap <C-j> 3j
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+inoremap ‘ <BS>
+inoremap ˇ <Del>
 nmap <leader><leader> :w<cr> 	" shortcut to save
 map <leader>b "_				" the black hole register
 " map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
