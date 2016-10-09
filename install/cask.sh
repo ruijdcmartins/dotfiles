@@ -27,6 +27,7 @@ list_install_cask=(	"xquartz"
 			"soundflower"
 			"Caskroom/cask/deluge"
 			"soulseek"
+			"icefloor"
 			"mactex")
 
 
