@@ -12,10 +12,11 @@ if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
 	source install/osxbasics.sh
+	source install/brew_install.sh
+	source install/cask.sh
 	source install/brew.sh
 	source install/git.sh
 	source install/python.sh
-	source install/cask.sh
 	# source install/latex.sh		# included in cask
 	source install/root.sh
 	source install/hep.sh

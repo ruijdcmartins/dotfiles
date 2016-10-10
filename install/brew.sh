@@ -14,6 +14,10 @@
 
 logFolderBrew="$HOME/logs/dotfilesLogs/brewLogs/brew/"
 
+if [[ ! -d $logFolderBrew ]]; then
+	mkdir -p $logFolderBrew
+fi
+
 if [[ ! -d /usr/local ]]; then
 	mkdir -p /usr/local
 	sudo chown -R `whoami` /usr/local

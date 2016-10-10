@@ -2,8 +2,7 @@
 
 logFolderPip="$HOME/dotfilesLogs/brewLogs/pip/"
 
-pip_list=( "--upgrade pip setuptools"
-			"numpy"
+pip_list=( 	"numpy"
 			"scipy"
 			"matplotlib"
 			"neovim" )
@@ -25,7 +24,7 @@ if ( brew -v &> /dev/null ) ; then
 	if [[ ! -d ${logFolderPip} ]]; then
 		mkdir -p ${logFolderPip}
 	fi
-	
+	pip install --upgrade pip setuptools
 	for i in `seq 0 $(( ${#pip_list[@]} -1 ))`
 	do
 		fileName="${pip_list[$i]%% *}"
@@ -34,5 +33,5 @@ if ( brew -v &> /dev/null ) ; then
 	done
 #return 0
 fi
-pip3 install neovim
+#pip3 install neovim
 return 0

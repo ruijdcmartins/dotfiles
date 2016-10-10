@@ -21,7 +21,6 @@ tmux
 reattach-to-user-namespace
 homebrew/games/tty-solitaire
 python							#
-python3
 bash-completion
 homebrew/completions/brew-cask-completion
 homebrew/completions/pip-completion
