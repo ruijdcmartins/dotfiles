@@ -28,7 +28,7 @@ list_install_cask=(	"xquartz"
 			"Caskroom/cask/deluge"
 			"soulseek"
 			"icefloor"
-			"mactex")
+			"mactex" )
 
 
 IFS_ORIGINAL=$IFS
