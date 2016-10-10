@@ -1,7 +1,8 @@
 // To not upgrade when running brewUpgrade.sh please insert # next to the brew formula
 git
-gcc								#
 boost							#
+gcc								#
+python							#
 cmake
 cloog
 cscope
@@ -10,7 +11,7 @@ flac
 htop
 ruby
 lame
-macvim --with-cscope --with-lua --with-override-system-vim
+// macvim --with-cscope --with-lua --with-override-system-vim
 neovim/neovim/neovim
 nmap
 jhead
@@ -20,7 +21,6 @@ yasm
 tmux
 reattach-to-user-namespace
 homebrew/games/tty-solitaire
-python							#
 bash-completion
 homebrew/completions/brew-cask-completion
 homebrew/completions/pip-completion

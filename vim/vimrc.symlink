@@ -34,11 +34,11 @@ Plug 'flazz/vim-colorschemes'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'sickill/vim-monokai'
 " ============= Auto compleat ===========
-if !has('nvim')
+" if !has('nvim')
 	Plug 'Valloric/YouCompleteMe'	, { 'do': './install.py --clang-completer' }
-else
-	Plug 'Shougo/deoplete.nvim'		, { 'do': ':UpdateRemotePlugins' }
-endif
+" else
+"     Plug 'Shougo/deoplete.nvim'		, { 'do': ':UpdateRemotePlugins' }
+" endif
 " Plug 'Shougo/neocomplete'
 " Plug 'ervandew/supertab'
 " ================ UtilSnips =============
@@ -246,23 +246,23 @@ autocmd StdinReadPre * let s:std_in=5
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ========== YCM & deoplete ==========
-if !has('nvim')
+" if !has('nvim')
 	let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 	let g:ycm_confirm_extra_conf = 0
 	"let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
 	"Make YCM compatible with UltiSnips (using supertab)
 	" let g:ycm_key_list_previous_completion = [ '<C-k>', '<Up>']
 	" let g:ycm_key_list_select_completion = [ '<C-j>', '<Down>']
-else
-	let g:deoplete#enable_at_startup = 1
-	" disable autocomplete
-	" let g:deoplete#disable_auto_complete = 1
-	if has("gui_running")
-		inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
-	else
-		inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
-	endif
-endif
+" else
+"     let g:deoplete#enable_at_startup = 1
+"     " disable autocomplete
+"     " let g:deoplete#disable_auto_complete = 1
+"     if has("gui_running")
+"         inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
+"     else
+"         inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
+"     endif
+" endif
 
 " Add triggers to ycm for LaTeX-Box autocompletion
 " let g:ycm_semantic_triggers = { 'tex'  : ['{'], }

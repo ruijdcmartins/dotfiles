@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ $EUID -ne 0 ]]; then
+	   echo -e "Aborting the install process: This script must be run as root\n"
+	   exit;
+ fi
+
 echo "Installing dotfiles"
 
 #echo "Initializing submodule(s)"
