@@ -92,14 +92,14 @@ fi
 
 apend_RootPaths()
 {
-echo -e "\n=============== Root =================" >> ~/"$1"
+echo -e "\n#=============== Root =================" >> ~/"$1"
 echo "ROOT_FOLDER_VERSION=root-$ROOT_CHOICE_folder/root-$ROOT_CHOICE_version" >> ~/"$1"
 echo 'source ~'"/$ROOT_MAIN_FOLDER/root/"'$ROOT_FOLDER_VERSION'"/bin/thisroot.sh" >> ~/"$1"
 echo 'export ROOTSYS=~'"/$ROOT_MAIN_FOLDER/root/"'"$ROOT_FOLDER_VERSION"' >> ~/"$1"
 echo 'export PATH=$PATH:$ROOTSYS:$ROOTSYS/bin' >> ~/"$1"
 echo 'export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH' >> ~/"$1"
 echo 'export DYLD_LIBRARY_PATH=$ROOTSYS/lib:$DYLD_LIBRARY_PATH' >> ~/"$1"
-echo -e "======================================\n" >> ~/"$1"
+echo -e "#======================================\n" >> ~/"$1"
 }
 
 #################################################################
