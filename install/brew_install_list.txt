@@ -3,21 +3,21 @@ git
 boost							#
 gcc								#
 python							#
-cmake
-cloog
-cscope
+neovim/neovim/neovim
+// cmake
+// cloog
+// cscope
+// yasm
+// macvim --with-cscope --with-lua --with-override-system-vim
 gawk
 flac
 htop
 ruby
 lame
-// macvim --with-cscope --with-lua --with-override-system-vim
-neovim/neovim/neovim
 nmap
 jhead
 unrar
 wget
-yasm
 tmux
 reattach-to-user-namespace
 homebrew/games/tty-solitaire
