@@ -40,7 +40,7 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock orientation left
 
 # Change dock size
-defaults write com.apple.dock tilesize -int 21
+defaults write com.apple.dock tilesize -int 25
 
 #Speed Up Mission Control Animations
 #defaults write com.apple.dock expose-animation-duration -float 0.12 
