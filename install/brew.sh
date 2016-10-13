@@ -88,6 +88,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 			# IFS=$'\n'
 		done
 	#return 0
+	brew tap homebrew/completions
 	fi
 fi
 return 0
