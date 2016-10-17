@@ -6,8 +6,8 @@
 
 hepLogFolder="$HOME/dotfilesLogs/brewLogs/hep/"
 
-list_hep=(	"madgraph5_amcatnlo"
-			"rivet" )
+list_hep=(	"davidchall/hep/madgraph5_amcatnlo"
+			"davidchall/hep/rivet" )
 
 if ( brew -v &> /dev/null ) ; then
 		
