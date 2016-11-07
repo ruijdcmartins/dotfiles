@@ -22,7 +22,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	source install/brew.sh
 	source install/git.sh
 	source install/python.sh
-	# source install/latex.sh		# included in cask
+	source install/latex.sh		# included in cask but not working
 	source install/root.sh
 	source install/hep.sh
 fi

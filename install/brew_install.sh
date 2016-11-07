@@ -5,6 +5,13 @@ if [[ $EUID -ne 0 ]]; then
    exit;
 fi
 
+logFolderBrew="$HOME/logs/dotfilesLogs/brewLogs/brew/"
+
+if [[ ! -d $logFolderBrew ]]; then
+	mkdir -p $logFolderBrew
+fi
+
+
 if [[ $OSTYPE =~ "darwin" ]]; then
 	if ! ( xcode-select -v ) ; then
 	xcode-select --install ||  { echo -e "<===========> \nErro installing xcode!" ; return 1 ; }
