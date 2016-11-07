@@ -29,6 +29,8 @@ list_install_cask=(	"xquartz"
 			"soulseek"
 			"icefloor"
 			"musicbrainz-picard"
+			"mipony"
+			"kid3"
 			"spotify"
 			"mactex" )
 
