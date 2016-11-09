@@ -28,6 +28,10 @@ list_install_cask=(	"xquartz"
 			"Caskroom/cask/deluge"
 			"soulseek"
 			"icefloor"
+			"musicbrainz-picard"
+			"mipony"
+			"kid3"
+			"spotify"
 			"mactex" )
 
 
