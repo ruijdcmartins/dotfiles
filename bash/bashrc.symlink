@@ -108,7 +108,7 @@ export PATH="/usr/local/bin:/usr/local:$PATH"
 
 #   Set Default Editor
 #   ------------------------------------------------------------
-export EDITOR=vim
+export EDITOR=nvim
 #   Set default blocksize for ls, df, du
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
 #   ------------------------------------------------------------
