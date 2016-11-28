@@ -1,8 +1,13 @@
 #!/bin/bash
 
-# find "folder paht" -name '*.flac' -exec ~/flac2mp3.sh {} \;
+if [[ $1 == '' ]]; then
+	base_folder='.'
+else
+	base_folder="$1"
+fi
 
-for f in "$@"; do
+find "$base_folder" -name '*.flac' -print0 | 
+    while IFS= read -r -d $'\0' f; do 
     [[ "$f" != *.flac ]] && continue
     album="$(metaflac --show-tag=album "$f" | sed 's/[^=]*=//')"
     artist="$(metaflac --show-tag=artist "$f" | sed 's/[^=]*=//')"
