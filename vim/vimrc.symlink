@@ -19,6 +19,7 @@ Plug 'tpope/vim-surround'								" in vm S' ; in nm ysiw' or cs"=
 Plug 'bronson/vim-crosshairs'							" coursorline upgrade
 Plug 'Yggdroot/indentLine'								" <Leader>il fancy indent guides with spaces only
 Plug 'raimondi/delimitmate'								" Close brackets
+" ==== Experimenting ====
 " Plug 'coot/atp_vim'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'nathanaelkane/vim-indent-guides'				" <Leader>ig
@@ -126,7 +127,7 @@ noremap <leader>y "+y
 noremap <leader>Y "+Y
 " turn off search highligh
 nnoremap <leader><space> :nohlsearch<CR>
-map <leader>s :echo 'Please use <leader>se for English our <leader>sp for Portuguese'<CR>
+map <leader>s :echo '<leader>se En; <leader>sp Pt; in vm use z=; next ]s; prev [s; add zg; addS zG; wrong zw; wrongS sW;'<CR>
 " <C-x><C-k> for options ; in v mode z= for sugestions
 map <leader>se :set spell spelllang=en_ca<CR>
 map <leader>sp :set spell spelllang=pt<CR>
