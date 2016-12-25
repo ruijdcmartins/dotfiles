@@ -23,7 +23,7 @@ while (( $number_of_matches >=  $var )); do
 done
 
 echo -e "===========================\n"
-read -ep "Please choose indexes to kill $(echo $'\n> ')" killNumber
+read -ep "Please choose indices to kill separated with a sapace $(echo $'\n> ')" killNumber
 
 var=1
 
