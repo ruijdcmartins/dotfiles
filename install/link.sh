@@ -52,7 +52,7 @@ if [ ! -d $HOME/myBashScripts ]; then
 	mkdir -p $HOME/myBashScripts
 fi
 
-linkablesScrips=$( find -H "$BASHSCRIPTS" -maxdepth 3 -name '*.sh' )
+linkablesScrips=$( find -H "$BASHSCRIPTS" -maxdepth 3 -name '*' )
 for file in $linkablesScrips ; do
 	target="$HOME/${file##*.dotfiles/}"
 	if [ -e $target ]; then
