@@ -121,6 +121,7 @@ map <leader>poo :pu<CR><esc>
 map <leader>pOO :pu!<CR><esc>
 map <leader>ppo :pu +<CR>
 map <leader>ppO :pu! +<CR><esc>
+noremap <leader>? :map<CR>
 noremap <leader>pp "+p
 noremap <leader>PP "+P
 noremap <leader>y "+y
@@ -148,7 +149,7 @@ inoremap <C-l> <Right>
 inoremap ‘ <BS>
 inoremap ˇ <Del>
 nmap <leader><leader> :w<cr> 	" shortcut to save
-map <leader>b "_				" the black hole register
+map <leader>b "_ |"the black hole register
 " map <leader>ig :set list listchars=tab:\→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮<CR>
 
 " ========== move lines up and down==========

@@ -138,9 +138,9 @@ if [[ $resposta == "y" || $resposta == "Yes" || $resposta == "yes" ]]; then
 	cd root-$ROOT_CHOICE_folder
 
 	#####################
-	#
-	#		osx
-	#
+	#					#
+	#		osx			#
+	#					#
 	#####################
 	
 	if [[ $OSTYPE =~ "darwin" ]]; then
@@ -158,9 +158,9 @@ if [[ $resposta == "y" || $resposta == "Yes" || $resposta == "yes" ]]; then
 
 
 	#####################
-	#
-	#		linux
-	#
+	#					#
+	#		linux		#
+	#					#
 	#####################
 	
 	if [[ $OSTYPE =~ "linux-gnu" ]]; then
