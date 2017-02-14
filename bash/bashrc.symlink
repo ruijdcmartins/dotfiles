@@ -71,7 +71,7 @@ function git_branch {
 
 function git_pull_check {
 # if [[ $(git fetch --dry-run) =~ "remote" ]]; then echo " pull" ; fi
-	echo ""
+    echo ""
 }
 # 
 PS1="________________________________________________________________________________\n"
@@ -455,6 +455,6 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
 
 if [[ -f ~/.bashrc_local ]]; then
-		. ~/.bashrc_local
+        . ~/.bashrc_local
 fi
 
