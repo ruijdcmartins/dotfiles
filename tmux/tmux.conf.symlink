@@ -2,7 +2,7 @@
 set -g default-terminal "screen-256color"
 
 # reload config file (change file location to your the tmux.conf you want to use)
-bind r source-file ~/.tmux.conf # ; display-message "reloaded"
+bind r source-file ~/.tmux.conf ; display-message "reloaded"
 
 # Increase display-time
 set-option -g display-time 4000

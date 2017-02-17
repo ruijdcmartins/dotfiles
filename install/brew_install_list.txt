@@ -1,8 +1,8 @@
 // To not upgrade when running brewUpgrade.sh please insert # next to the brew formula
 git
-boost							#
-gcc								#
-python							#
+boost                           #
+gcc                             #
+python                          #
 neovim/neovim/neovim
 // cmake
 // cloog
