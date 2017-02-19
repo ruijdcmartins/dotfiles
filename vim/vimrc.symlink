@@ -19,6 +19,9 @@ Plug 'tpope/vim-surround'                               " in vm S' ; in nm ysiw'
 Plug 'bronson/vim-crosshairs'                           " coursorline upgrade
 Plug 'Yggdroot/indentLine'                              " <Leader>il fancy indent guides with spaces only
 Plug 'raimondi/delimitmate'                             " Close brackets
+" Plug 'stevearc/vim-arduino'
+" Plug 'jplaut/vim-arduino-ino'
+Plug '4Evergreen4/vim-hardy'
 " ==== Experimenting ====
 " Plug 'coot/atp_vim'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -228,6 +231,7 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " ======= Plugs Settings  =========
 " =================================
 " =================================
+
 " ==========vim-cpp-enhanced-highlight==========
 " let c_no_curly_error=1
 " let g:cpp_class_scope_highlight = 1
