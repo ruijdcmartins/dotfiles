@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [[ $EUID -ne 0 ]]; then
-	   echo -e "Aborting the install process: This script must be run as root\n"
-	   exit;
+       echo -e "Aborting the install process: This script must be run as root\n"
+       exit;
  fi
 
 echo "Installing dotfiles"
@@ -16,15 +16,15 @@ source install/link.sh
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
-	source install/osxbasics.sh
-	source install/brew_install.sh
-	source install/cask.sh
-	source install/brew.sh
-	source install/git.sh
-	source install/python.sh
-	source install/latex.sh		# included in cask but not working
-	source install/root.sh
-	source install/hep.sh
+    source install/osxbasics.sh
+    source install/brew_install.sh
+    source install/cask.sh
+    source install/brew.sh
+    source install/git.sh
+    source install/python.sh
+    source install/latex.sh     # included in cask but not working
+    source install/root.sh
+    source install/hep.sh
 fi
 
 #echo "creating vim directories"
@@ -38,7 +38,7 @@ echo "Done."
 
 ###############################################################################################
 #
-#										TODO or not TODO
+#                                       TODO or not TODO
 #
 #gfortran from
 #https://gcc.gnu.org/wiki/GFortranBinaries#MacOS

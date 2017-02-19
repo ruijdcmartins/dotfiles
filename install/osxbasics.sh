@@ -14,10 +14,10 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 
 if [[ $OSTYPE =~ "darwin" ]]; then
-	if ! ( xcode-select -v ) ; then
-	xcode-select --install ||  { echo -e "<===========> \nErro installing xcode!" ; return 1 ; }
-	#return 0
-	fi
+    if ! ( xcode-select -v ) ; then
+    xcode-select --install ||  { echo -e "<===========> \nErro installing xcode!" ; return 1 ; }
+    #return 0
+    fi
 fi
 
 

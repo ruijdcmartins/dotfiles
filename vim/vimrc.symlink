@@ -63,14 +63,14 @@ set number                          " number the lines
 set t_Co=256                        " set colour to 256
 set wildmenu                        " show matching possibilities in : prompt
 
+"Tabs...
 set smarttab                        " Be smart when using tabs
 set expandtab                       " Soft tab mode 
 set tabstop=4                       " tap size
 set shiftwidth=4                    " 1 tab == 4 spaces
 set softtabstop=4                   " makes the spaces feel like real tabs
 
-"set expandtab tabstop=2 shiftwidth=2
-
+"No soft tabs:
 " set softtabstop=0
 " set noexpandtab
 
@@ -126,15 +126,18 @@ map <leader>r :source ~/.vimrc<CR>
 map <leader>w <C-w><C-w>
 map <leader>pm :set paste<CR>
 map <leader>Pm :set nopaste<CR>
-map <leader>po :pu<CR><esc>         "paste to next line
-map <leader>pO :pu!<CR><esc>        "paste to previus line
-map <leader>po+ :pu+<CR>            "paste form clipbord
-map <leader>pO+ :pu!+<CR><esc>      "paste form clipbord
-noremap <leader>? :map<CR> |        "list all mapings
+"paste to next line
+map <leader>po :pu
+"paste to previus line
+map <leader>pO :pu!
+"list all mapings
+noremap <leader>? :map<CR>
 noremap <leader>p "+p
 noremap <leader>P "+P
 noremap <leader>y "+y
 noremap <leader>Y "+Y
+map <leader>tt :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
+map <leader>nt :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
 " turn off search highligh
 nnoremap <leader><space> :nohlsearch<CR>
 map <leader>s :echo '<leader>se En; <leader>sp Pt; in vm use z=; next ]s; prev [s; add zg; addS zG; wrong zw; wrongS sW;'<CR>

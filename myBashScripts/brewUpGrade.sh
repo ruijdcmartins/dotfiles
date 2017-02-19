@@ -2,11 +2,11 @@
 
 ###############################################################################################
 #
-#										TODO or not TODO
+#                                       TODO or not TODO
 #
-#	Install and Use GNU Command Line Tools on Mac OS X
-#	https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
-#	brew install coreutils
+#   Install and Use GNU Command Line Tools on Mac OS X
+#   https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+#   brew install coreutils
 #
 ###############################################################################################
 
@@ -29,40 +29,40 @@ IFS=$'\n'
 brew_list=()
 for A in $(brew list)
 do
-	brew_list+=($A)
+    brew_list+=($A)
 done
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 
-	if ( brew -v &> /dev/null ) ; then
+    if ( brew -v &> /dev/null ) ; then
 
-		if [[ ! -d ${logFolderBrew} ]]; then
-			mkdir -p ${logFolderBrew}
-		fi
-		echo "brew update"
-		brew update
+        if [[ ! -d ${logFolderBrew} ]]; then
+            mkdir -p ${logFolderBrew}
+        fi
+        echo "brew update"
+        brew update
 
-		for brew_upgrade_list in $( cat ${DOTFILES}/install/brew_install_list.txt | \
-		sed -n 's/ *#.*$// ; s/^\/\/.*// ; /^$/!p')
-		do
-			fileName="${brew_upgrade_list%% *}"
-			fileName="${fileName##*/}"
-			if [[ "${brew_upgrade_list}" == "" ]]; then continue ; fi
-			brew_upgrade_list_TEMP=${brew_upgrade_list%% *}
-			IFS=$IFS_ORIGINAL
-			if ( echo ${brew_list[@]} | grep "${brew_upgrade_list_TEMP##*/}" &> /dev/null ) ; then
-				{ 
-					echo -e "<===========> ${brew_upgrade_list%% *} start <===========> "
-					{
-						eval 'brew upgrade ${brew_upgrade_list%% *}' 2>&1 | \
-						tee -a ${logFolderBrew}"${fileName}".log && \
-						echo -e "<===========> ${brew_upgrade_list%% *} done <===========>\n" ;
-					} || \
-				echo -e "<===========> ${brew_upgrade_list%% *} erro <===========>\n\n\n" ;
-				}
-			fi
-		done
-		echo "done"
-	fi
+        for brew_upgrade_list in $( cat ${DOTFILES}/install/brew_install_list.txt | \
+        sed -n 's/.*#.*$//g ; s/^\/\/.*// ; /^$/!p')
+        do
+            fileName="${brew_upgrade_list%% *}"
+            fileName="${fileName##*/}"
+            if [[ "${brew_upgrade_list}" == "" ]]; then continue ; fi
+            brew_upgrade_list_TEMP=${brew_upgrade_list%% *}
+            IFS=$IFS_ORIGINAL
+            if ( echo ${brew_list[@]} | grep "${brew_upgrade_list_TEMP##*/}" &> /dev/null ) ; then
+                { 
+                    echo -e "<===========> ${brew_upgrade_list%% *} start <===========> "
+                    {
+                        eval 'brew upgrade ${brew_upgrade_list%% *}' 2>&1 | \
+                        tee -a ${logFolderBrew}"${fileName}".log && \
+                        echo -e "<===========> ${brew_upgrade_list%% *} done <===========>\n" ;
+                    } || \
+                echo -e "<===========> ${brew_upgrade_list%% *} erro <===========>\n\n\n" ;
+                }
+            fi
+        done
+        echo "done"
+    fi
 fi
 
