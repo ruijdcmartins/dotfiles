@@ -23,6 +23,9 @@ Plug 'raimondi/delimitmate'                             " Close brackets
 " Plug 'jplaut/vim-arduino-ino'
 Plug '4Evergreen4/vim-hardy'
 " ==== Experimenting ====
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}     " create .ycm_extra_conf using Makefile
+                                                        " use: YcmGenerateConfig
+Plug 'python-mode/python-mode'
 " Plug 'coot/atp_vim'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'nathanaelkane/vim-indent-guides'                " <Leader>ig
@@ -123,7 +126,6 @@ map <leader>I :set nolist<CR>
 " ==============My Mappings==============
 " To check if a maping exist try e.g. :verbose map \r
 
-map <C-e> :NERDTreeToggle<CR>
 let mapleader = '\'
 map <leader>r :source ~/.vimrc<CR>
 map <leader>w <C-w><C-w>
@@ -225,134 +227,6 @@ set formatoptions-=cro
 "   compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-
-" =================================
-" =================================
-" ======= Plugs Settings  =========
-" =================================
-" =================================
-
-" ==========vim-cpp-enhanced-highlight==========
-" let c_no_curly_error=1
-" let g:cpp_class_scope_highlight = 1
-" let g:cpp_experimental_template_highlight = 1
-
-" ========== eregex ==========
-nnoremap <leader>/ :call eregex#toggle()<CR>
-let g:eregex_default_enable = 0
-let g:eregex_forward_delim = '/'
-let g:eregex_backward_delim = '?'
-" let g:eregex_force_case = 1
-
-" ============= AirLine =============
-set laststatus=2 "to vim airline apear
-let g:airline#extensions#tabline#enabled = 1        "enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t'    "show just the file name
-"AirlineTheme murmur
-
-" ========== syntastic ==========
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" ========== NERDTree automatically ==========
-autocmd StdinReadPre * let s:std_in=5
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " incompatible YCM
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" ========== YCM & deoplete ==========
-" if !has('nvim')
-    let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-    let g:ycm_confirm_extra_conf = 0
-    "let g:ycm_key_list_select_completion = [] "YCM snippet compatibility, disable tab
-    "Make YCM compatible with UltiSnips (using supertab)
-    " let g:ycm_key_list_previous_completion = [ '<C-k>', '<Up>']
-    " let g:ycm_key_list_select_completion = [ '<C-j>', '<Down>']
-" else
-"     let g:deoplete#enable_at_startup = 1
-"     " disable autocomplete
-"     " let g:deoplete#disable_auto_complete = 1
-"     if has("gui_running")
-"         inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
-"     else
-"         inoremap <silent><expr><C-k> deoplete#mappings#manual_complete()
-"     endif
-" endif
-
-" Add triggers to ycm for LaTeX-Box autocompletion
-" let g:ycm_semantic_triggers = { 'tex'  : ['{'], }
-
-" ======= UltilSnips/YCM key binding ========
-"======== 1 =======
-" let g:ycm_key_list_select_completion=["<tab>"]
-" let g:ycm_key_list_previous_completion=["<S-tab>"]
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-" let g:UltiSnipsExpandTrigger="<nop>"
-" let g:ulti_expand_or_jump_res = 0
-" function! <SID>ExpandSnippetOrReturn()
-"     let snippet = UltiSnips#ExpandSnippetOrJump()
-"     if g:ulti_expand_or_jump_res > 0
-"         return snippet
-"     else
-"         return "\<CR>"
-"     endif
-" endfunction
-" inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-"======== 2 =======
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    if pumvisible()
-        return "\<C-n>"
-    else
-        call UltiSnips#JumpForwards()
-        if g:ulti_jump_forwards_res == 0
-            return "\<TAB>"
-        endif
-    endif
-  endif
-  return ""
-endfunction
-
-function! g:UltiSnips_Reverse()
-    call UltiSnips#JumpBackwards()
-        if g:ulti_jump_backwards_res == 0
-            return "\<C-P>"
-        endif
-    return ""
-endfunction
-
-if !exists("g:UltiSnipsJumpForwardTrigger")
-    let g:UltiSnipsJumpForwardTrigger = "<tab>"
-endif
-
-if !exists("g:UltiSnipsJumpBackwardTrigger")
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
-
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
-au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
-" ========== Nerd Commenter ==========
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
 " ========To be improved============
 " ========== Test Area ==========
 vmap <leader>t :Tab /
@@ -371,15 +245,15 @@ endfunction
 map <leader>-:call  MyTab1()
 
 " ==========Mac test==========
-function! Mac_teste()
-    if has("mac") || has("macunix")
-    echo "mac"
-    " nmap <D-j> <M-j>
-    " nmap <D-k> <M-k>
-    " vmap <D-j> <M-j>
-    " vmap <D-k> <M-k>
-    endif
-endfunction
+" function! Mac_teste()
+"     if has("mac") || has("macunix")
+"     echo "mac"
+"     " nmap <D-j> <M-j>
+"     " nmap <D-k> <M-k>
+"     " vmap <D-j> <M-j>
+"     " vmap <D-k> <M-k>
+"     endif
+" endfunction
 
 " if has("unix")
 "     let s:uname = system("uname")
@@ -402,3 +276,4 @@ endfunction
 "   endif
 " endfunction
 " 
+source ~/.vimPluginsrc

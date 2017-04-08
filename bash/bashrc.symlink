@@ -171,6 +171,7 @@ alias du='du -sh'
 alias df='df -h'
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias vim='nvim'
+alias showEnvVar='( set -o posix ; set ) | cat'   # printenv also works
 calculator() { echo $* | awk '{printf "%.17g\n", '"$*"'}' ; } # simple calculator
 encrypt() { openssl enc -aes-256-cbc -e -in $1 -out $2 ; }
 decrypt() { openssl enc -aes-256-cbc -d -in $1 -out $2 ; }
