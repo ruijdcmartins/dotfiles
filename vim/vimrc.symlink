@@ -2,9 +2,13 @@
 " ============Plug config=================
 " ========================================
 source ~/.vimPlugrc
+au BufReadPost *.vimPlugrc set syntax=vim
 " ========================================
 " ============Plug config end=============
 " ========================================
+
+" Check the scriptnames that were loaded
+" :scriptnames
 
 " =============My vim options===========
 set nocompatible                   " be iMproved, required
@@ -18,15 +22,24 @@ set t_Co=256                        " set colour to 256
 set wildmenu                        " show matching possibilities in : prompt
 
 "Tabs...
+" Soft tabs
 set smarttab                        " Be smart when using tabs
 set expandtab                       " Soft tab mode 
-set tabstop=4                       " tap size
-set shiftwidth=4                    " 1 tab == 4 spaces
-set softtabstop=4                   " makes the spaces feel like real tabs
-
 "No soft tabs:
 " set softtabstop=0
 " set noexpandtab
+
+" set tabstop=2                       " tap size
+" set shiftwidth=2                    " 1 tab == 2 spaces
+" set softtabstop=2                   " makes the spaces feel like real tabs
+function! SetTabSize(size)
+    execute "set tabstop=".a:size
+    execute "set shiftwidth=".a:size
+    execute "set softtabstop=".a:size
+endfunction
+command! -nargs=1 Sts call SetTabSize(<f-args>)
+Sts 2
+
 
 set scrolloff=5                     " when scrolling all ways show 5 lines
 set cursorline                      " enable the horizontal line
@@ -89,8 +102,6 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 noremap <leader>y "+y
 noremap <leader>Y "+Y
-map <leader>tt :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
-map <leader>nt :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
 " turn off search highligh
 nnoremap <leader><space> :nohlsearch<CR>
 map <leader>s :echo '<leader>se En; <leader>sp Pt; in vm use z=; next ]s; prev [s; add zg; addS zG; wrong zw; wrongS sW;'<CR>
@@ -151,18 +162,21 @@ map <leader>f :call FoldindToggle()<CR>
 "zm folds all ; more folding
 "zr unfolds all ; reduce fold 
 "zf manual fold
+
 " ========= Relative Numbering =========
-function! NumberToggle()
-    if(&relativenumber == 1)
-        set norelativenumber
-    else
-        set number
-        set relativenumber
-    endif
-endfunc
-" call NumberToggle()
-call NumberToggle()
-nnoremap <leader>nr :call NumberToggle()<CR>
+if v:version >= 703
+  function! NumberToggle()
+      if(&relativenumber == 1)
+          set norelativenumber
+      else
+          set number
+          set relativenumber
+      endif
+  endfunc
+  " call NumberToggle()
+  call NumberToggle()
+  nnoremap <leader>nr :call NumberToggle()<CR>
+endif
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
 set backspace=indent,eol,start
@@ -175,6 +189,93 @@ set formatoptions-=cro
 "   compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
+" ========== Command Alaias ======
+" Generic function to create alias on comand mode case INSENSETIVE
+" Basi exemple
+" cnoreabbrev W w
+fun! SetupCommandAlias(from, to)
+    exec 'cnoreabbrev <expr> '.a:from
+                \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+                \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
+call SetupCommandAlias("W","w")
+
+" ======= Colse Bufer solution =======
+
+" Delete buffer while keeping window layout (don't close buffer's windows).
+" Version 2008-11-18 from http://vim.wikia.com/wiki/VimTip165
+if v:version < 700 || exists('loaded_bclose') || &cp
+finish
+endif
+let loaded_bclose = 1
+if !exists('bclose_multiple')
+let bclose_multiple = 1
+endif
+
+" Display an error message.
+function! s:Warn(msg)
+echohl ErrorMsg
+echomsg a:msg
+echohl NONE
+endfunction
+
+" Command ':Bclose' executes ':bd' to delete buffer in current window.
+" The window will show the alternate buffer (Ctrl-^) if it exists,
+" or the previous buffer (:bp), or a blank buffer if no previous.
+" Command ':Bclose!' is the same, but executes ':bd!' (discard changes).
+" An optional argument can specify which buffer to close (name or number).
+function! s:Bclose(bang, buffer)
+if empty(a:buffer)
+let btarget = bufnr('%')
+elseif a:buffer =~ '^\d\+$'
+let btarget = bufnr(str2nr(a:buffer))
+else
+let btarget = bufnr(a:buffer)
+endif
+if btarget < 0
+call s:Warn('No matching buffer for '.a:buffer)
+return
+endif
+if empty(a:bang) && getbufvar(btarget, '&modified')
+call s:Warn('No write since last change for buffer '.btarget.' (use :Bclose!)')
+return
+endif
+" Numbers of windows that view target buffer which we will delete.
+let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
+if !g:bclose_multiple && len(wnums) > 1
+call s:Warn('Buffer is in multiple windows (use ":let bclose_multiple=1")')
+return
+endif
+let wcurrent = winnr()
+for w in wnums
+execute w.'wincmd w'
+let prevbuf = bufnr('#')
+if prevbuf > 0 && buflisted(prevbuf) && prevbuf != w
+buffer #
+else
+bprevious
+endif
+if btarget == bufnr('%')
+" Numbers of listed buffers which are not the target to be deleted.
+let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val != btarget')
+" Listed, not target, and not displayed.
+let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
+" Take the first buffer, if any (could be more intelligent).
+let bjump = (bhidden + blisted + [-1])[0]
+if bjump > 0
+execute 'buffer '.bjump
+else
+execute 'enew'.a:bang
+endif
+endif
+endfor
+execute 'bdelete'.a:bang.' '.btarget
+execute wcurrent.'wincmd w'
+endfunction
+command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose('<bang>', '<args>')
+nnoremap <silent> <Leader>bd :Bclose<CR>
+nnoremap <silent> <Leader>bD :Bclose!<CR>
+
 " ========To be improved============
 " ========== Test Area ==========
 vmap <leader>t :Tab /
@@ -182,6 +283,8 @@ vmap <leader>T :Tab /\zs
 ": Tab /'char to alin' 
 ":'<,'>Tab /:\zs
 
+" to call a function 
+" :call
 function! MyTab(texto)
     echo a:texto
 endfunction
@@ -192,16 +295,27 @@ function! MyTab1()
 endfunction
 map <leader>-:call  MyTab1()
 
-" ==========Mac test==========
-" function! Mac_teste()
-"     if has("mac") || has("macunix")
-"     echo "mac"
-"     " nmap <D-j> <M-j>
-"     " nmap <D-k> <M-k>
-"     " vmap <D-j> <M-j>
-"     " vmap <D-k> <M-k>
-"     endif
-" endfunction
+
+" let my_sw = 200
+" if my_sw == 20
+"   echo my_sw
+" elseif my_sw > 30
+"   echo "is bigg"
+" endif
+
+
+" "==========Mac test==========
+function! OsType()
+    if has("mac") || has("macunix")
+      echo "mac"
+    " nmap <D-j> <M-j>
+    " nmap <D-k> <M-k>
+    " vmap <D-j> <M-j>
+    " vmap <D-k> <M-k>
+    elseif has ("Linux")
+      echo "Linux"
+    endif
+endfunction
 
 " if has("unix")
 "     let s:uname = system("uname")
@@ -209,6 +323,7 @@ map <leader>-:call  MyTab1()
 "         echo "mac from if"
 "     endif
 " endif
+
 
 " " ====== Tabular func ===========
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
@@ -228,6 +343,7 @@ map <leader>-:call  MyTab1()
 " ============Plugins config ==============
 " ========================================
 source ~/.vimPluginsrc
+au BufReadPost *.vimPluginsrc set syntax=vim
 " ========================================
 " ======== Plugins config end ============
 " ========================================

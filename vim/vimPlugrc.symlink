@@ -1,4 +1,5 @@
 
+" ========================================
 " ============Plug config=================
 " ========================================
 
@@ -14,47 +15,51 @@ Plug 'kien/ctrlp.vim'                                   "fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  "file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
 Plug 'godlygeek/tabular'                                |": Tab /'char to alin' |":'<,'>Tab /:\zs
-Plug 'othree/eregex.vim'                                " :%S/ for substitute with perl regex
-Plug 'scrooloose/nerdcommenter'
+Plug 'othree/eregex.vim' | let eregex = 1               " :%S/ for substitute with perl regex
+Plug 'scrooloose/nerdcommenter' | let nerdcommenterCheck = 1
 Plug 'tpope/vim-surround'                               " in vm S' ; in nm ysiw' or cs"=
 Plug 'bronson/vim-crosshairs'                           " coursorline upgrade
 Plug 'Yggdroot/indentLine'                              " <Leader>il fancy indent guides with spaces only
 Plug 'raimondi/delimitmate'                             " Close brackets
+" ===== Aduino =====
 " Plug 'stevearc/vim-arduino'
 " Plug 'jplaut/vim-arduino-ino'
-Plug '4Evergreen4/vim-hardy'
+" Plug '4Evergreen4/vim-hardy'
 " ==== Experimenting ====
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}     " create .ycm_extra_conf using Makefile
                                                         " use: YcmGenerateConfig
-Plug 'python-mode/python-mode'
+Plug 'python-mode/python-mode' | let pyMode =1
+
 " Plug 'coot/atp_vim'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'nathanaelkane/vim-indent-guides'                " <Leader>ig
 " Plug 'vim-scripts/LanguageTool'                       " not working
 " Plug 'rhysd/vim-grammarous'                           " not working 
-" Plug 'scrooloose/syntastic'                           " semantic analyzer 
-" Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'scrooloose/syntastic' | let syntastic = 1       " semantic analyzer 
+" Plug 'octol/vim-cpp-enhanced-highligh
 " =========== Color Plugs ===============
-Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline' | let AirLine = 1
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
+
 " Plug 'w0ng/vim-hybrid'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'sickill/vim-monokai'
-" ============= Auto compleat ===========
-" if !has('nvim')
-    Plug 'Valloric/YouCompleteMe'   , { 'do': './install.py --clang-completer' }
-" else
-"     Plug 'Shougo/deoplete.nvim'       , { 'do': ':UpdateRemotePlugins' }
-" endif
-" Plug 'Shougo/neocomplete'
-" Plug 'ervandew/supertab'
-" ================ UtilSnips =============
-Plug 'SirVer/ultisnips'
-" Optional
+" ============= Auto compleat and Snips ===========
+Plug 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe' , { 'do': './install.py --clang-completer' } | let Ycm = 1
+Plug 'SirVer/ultisnips' | let UltiSnips = 1
 Plug 'honza/vim-snippets'
+
+" Plug 'Shougo/deoplete.nvim' , { 'do': ':UpdateRemotePlugins' }
+" Plug 'ervandew/supertab'
+" Plug 'Shougo/neocomplete'
+
+" Good for clusters
+" Plug 'Shougo/neocomplcache'
 " ========================================
 call plug#end()
+
 " ========================================
 " ============ Plug END ==================
 " ========================================
