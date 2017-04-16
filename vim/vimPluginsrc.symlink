@@ -108,6 +108,4 @@ if exists("pyMode")
   let g:pymode_doc_bind = "<C-S-d>"
   " enable / desable folding
   let g:pymode_folding = 0
-
-
 endif
