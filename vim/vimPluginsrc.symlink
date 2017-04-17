@@ -4,11 +4,6 @@
 " =================================
 " =================================
 
-" ==========vim-cpp-enhanced-highlight==========
-" let c_no_curly_error=1
-" let g:cpp_class_scope_highlight = 1
-" let g:cpp_experimental_template_highlight = 1
-
 " ========== eregex ==========
 if exists("eregex")
   "echo "eregex"
@@ -18,6 +13,15 @@ if exists("eregex")
   let g:eregex_backward_delim = '?'
   " let g:eregex_force_case = 1
 endif
+
+" ======== Tabular ===========
+if exists("Tabularize")
+  vmap <leader>t :Tab /
+  vmap <leader>T :Tab /\zs
+  ": Tab /'char to alin' 
+  ":'<,'>Tab /:\zs
+endif
+
 " ============= AirLine =============
 if exists("AirLine")
   "echo "AirLine"
@@ -26,17 +30,7 @@ if exists("AirLine")
   let g:airline#extensions#tabline#buffer_idx_mode = 1  "show bufer number
   let g:airline#extensions#tabline#fnamemod = ':t'      "show just the file name
 endif
-" ========== syntastic ==========
-if exists("syntastic")
-  "echo "syntastic"
-  " set statusline+=%#warningmsg#
-  " set statusline+=%{SyntasticStatuslineFlag()}
-  " set statusline+=%*
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
-endif
+
 " ========== NERDTree ==========
 if exists(":NERDTree")
   "echo "NerdTree"
@@ -69,13 +63,13 @@ if exists("UltiSnips")
     let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
     let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
     let g:SuperTabDefaultCompletionType = '<C-j>'
-
     " better key bindings for UltiSnipsExpandTrigger
     let g:UltiSnipsExpandTrigger = "<tab>"
     let g:UltiSnipsJumpForwardTrigger = "<tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
   endif
 endif
+
 " ========== Nerd Commenter ==========
 if exists("nerdcommenterCheck")
   "echo "nerdcommenterCheck"
@@ -109,3 +103,4 @@ if exists("pyMode")
   " enable / desable folding
   let g:pymode_folding = 0
 endif
+

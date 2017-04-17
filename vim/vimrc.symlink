@@ -1,16 +1,20 @@
 " ========================================
 " ============Plug config=================
 " ========================================
-source ~/.vimPlugrc
 au BufReadPost *.vimPlugrc set syntax=vim
+source ~/.vimPlugrc
 " ========================================
 " ============Plug config end=============
 " ========================================
 
-" Check the scriptnames that were loaded
-" :scriptnames
-
 " =============My vim options===========
+
+" going hard on vim
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+
 set nocompatible                   " be iMproved, required
 filetype indent plugin on
 syntax on
@@ -20,7 +24,7 @@ set incsearch                       " search as characters are entered
 set number                          " number the lines
 set t_Co=256                        " set colour to 256
 set wildmenu                        " show matching possibilities in : prompt
-
+set path+=**                        " subfolders search for files and completion 
 "Tabs...
 " Soft tabs
 set smarttab                        " Be smart when using tabs
@@ -33,9 +37,9 @@ set expandtab                       " Soft tab mode
 " set shiftwidth=2                    " 1 tab == 2 spaces
 " set softtabstop=2                   " makes the spaces feel like real tabs
 function! SetTabSize(size)
-    execute "set tabstop=".a:size
-    execute "set shiftwidth=".a:size
-    execute "set softtabstop=".a:size
+  execute "set tabstop=".a:size
+  execute "set shiftwidth=".a:size
+  execute "set softtabstop=".a:size
 endfunction
 command! -nargs=1 Sts call SetTabSize(<f-args>)
 Sts 2
@@ -78,15 +82,13 @@ endif
 " ==========toggle invisible characters==========
 " § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
 function! MyIndetation()
-    set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
+  set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
 endfunction
 call MyIndetation()
 set showbreak=↪\ 
 map <leader>i :call  MyIndetation()<CR>
 map <leader>I :set nolist<CR>
 " ==============My Mappings==============
-" To check if a maping exist try e.g. :verbose map \r
-
 let mapleader = '\'
 map <leader>r :source ~/.vimrc<CR>
 map <leader>w <C-w><C-w>
@@ -108,7 +110,7 @@ map <leader>s :echo '<leader>se En; <leader>sp Pt; in vm use z=; next ]s; prev [
 " <C-x><C-k> for options ; in v mode z= for sugestions
 map <leader>se :set spell spelllang=en_ca<CR>
 map <leader>sp :set spell spelllang=pt<CR>
-map <leader>S :set nospell<CR>
+map <leader>sn :set nospell<CR>
 map <leader>d "_d |"the black hole register
 map <leader>D "_D |"the black hole register
 " desable shift k 
@@ -145,35 +147,28 @@ vnoremap „ :m '<-2<CR>gv=gv
 
 " ==========Folding setup==========
 function! FoldindToggle()
-    if &foldenable ==# "nofoldenable"
-        set fen
-        set foldcolumn=4 
-        set fdm=indent
-    else
-        set nofen 
-        set fdc=0 
-        set fdm=indent
-    endif
+  if &foldenable ==# "nofoldenable"
+    set fen
+    set foldcolumn=4 
+    set fdm=indent
+  else
+    set nofen 
+    set fdc=0 
+    set fdm=indent
+  endif
 endfunction
 map <leader>f :call FoldindToggle()<CR>
-"zc individual close
-"zo individual open
-"za individual toggle
-"zm folds all ; more folding
-"zr unfolds all ; reduce fold 
-"zf manual fold
 
 " ========= Relative Numbering =========
 if v:version >= 703
   function! NumberToggle()
-      if(&relativenumber == 1)
-          set norelativenumber
-      else
-          set number
-          set relativenumber
-      endif
+    if(&relativenumber == 1)
+      set norelativenumber
+    else
+      set number
+      set relativenumber
+    endif
   endfunc
-  " call NumberToggle()
   call NumberToggle()
   nnoremap <leader>nr :call NumberToggle()<CR>
 endif
@@ -186,7 +181,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set formatoptions-=cro
 
 " ========== Crontab ==========
-"   compatibility workaround for using Vim 
+" compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
 " ========== Command Alaias ======
@@ -278,15 +273,11 @@ nnoremap <silent> <Leader>bD :Bclose!<CR>
 
 " ========To be improved============
 " ========== Test Area ==========
-vmap <leader>t :Tab /
-vmap <leader>T :Tab /\zs
-": Tab /'char to alin' 
-":'<,'>Tab /:\zs
 
 " to call a function 
 " :call
 function! MyTab(texto)
-    echo a:texto
+  echo a:texto
 endfunction
 "map <leader>T=MyTab()<CR>
 

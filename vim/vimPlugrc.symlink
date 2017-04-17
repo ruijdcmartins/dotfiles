@@ -15,27 +15,35 @@ Plug 'kien/ctrlp.vim'                                   "fuzzy find files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  "file drawer, open with :NERDTreeToggle
 Plug 'benmills/vimux'
 Plug 'godlygeek/tabular'                                |": Tab /'char to alin' |":'<,'>Tab /:\zs
-Plug 'othree/eregex.vim' | let eregex = 1               " :%S/ for substitute with perl regex
 Plug 'scrooloose/nerdcommenter' | let nerdcommenterCheck = 1
 Plug 'tpope/vim-surround'                               " in vm S' ; in nm ysiw' or cs"=
 Plug 'bronson/vim-crosshairs'                           " coursorline upgrade
 Plug 'Yggdroot/indentLine'                              " <Leader>il fancy indent guides with spaces only
 Plug 'raimondi/delimitmate'                             " Close brackets
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}     " create .ycm_extra_conf using Makefile
+                                                        " use: YcmGenerateConfig
+"Plug 'python-mode/python-mode' | let pyMode =1
 " ===== Aduino =====
 " Plug 'stevearc/vim-arduino'
 " Plug 'jplaut/vim-arduino-ino'
 " Plug '4Evergreen4/vim-hardy'
 " ==== Experimenting ====
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}     " create .ycm_extra_conf using Makefile
-                                                        " use: YcmGenerateConfig
-Plug 'python-mode/python-mode' | let pyMode =1
 
+"Plug 'easymotion/vim-easymotion'
+"Plug 'docunext/closetag.vim'                           " close html and xml tags
+Plug 'mattn/emmet-vim'                                  " html css stuff
+Plug 'skammer/vim-css-color'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-fugitive'                               " git interation
+Plug 'mattn/gist-vim'                                   " create a git automaticly
+"Plug 'vim-syntastic/syntastic'                         " plugin to check for errors
+
+"Plug 'othree/eregex.vim' | let eregex = 1               " :%S/ for substitute with perl regex
 " Plug 'coot/atp_vim'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'nathanaelkane/vim-indent-guides'                " <Leader>ig
 " Plug 'vim-scripts/LanguageTool'                       " not working
 " Plug 'rhysd/vim-grammarous'                           " not working 
-" Plug 'scrooloose/syntastic' | let syntastic = 1       " semantic analyzer 
 " Plug 'octol/vim-cpp-enhanced-highligh
 " =========== Color Plugs ===============
 Plug 'vim-airline/vim-airline' | let AirLine = 1
