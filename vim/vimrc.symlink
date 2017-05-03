@@ -25,6 +25,7 @@ set number                          " number the lines
 set t_Co=256                        " set colour to 256
 set wildmenu                        " show matching possibilities in : prompt
 set path+=**                        " subfolders search for files and completion 
+set complete+=i,kspell              " add options to vim completion
 "Tabs...
 " Soft tabs
 set smarttab                        " Be smart when using tabs
@@ -36,14 +37,13 @@ set expandtab                       " Soft tab mode
 " set tabstop=2                       " tap size
 " set shiftwidth=2                    " 1 tab == 2 spaces
 " set softtabstop=2                   " makes the spaces feel like real tabs
-function! SetTabSize(size)
+function! MyTabSize(size)
   execute "set tabstop=".a:size
   execute "set shiftwidth=".a:size
   execute "set softtabstop=".a:size
 endfunction
-command! -nargs=1 Sts call SetTabSize(<f-args>)
-Sts 2
-
+command! -nargs=1 SetTabSize call MyTabSize(<f-args>)
+SetTabSize 2
 
 set scrolloff=5                     " when scrolling all ways show 5 lines
 set cursorline                      " enable the horizontal line
@@ -58,26 +58,20 @@ set esckeys                         " deables all <esc> conbinations
 set splitbelow
 set splitright
 
-"Very magic
-"nnoremap / /\v
-"vnoremap / /\v
-"noremap / /\v
-"cnoremap %s/ %s/\v
-
 " ======= Colors and Thems ==========
 "colorscheme hybrid 
 "colorscheme solarized
 colorscheme Monokai
 if g:colors_name == 'Monokai'
-    "The NonText highlighting will be used for eol, extends and precedes.
-    "SpecialKey for nbsp, space, tab and trail. hl-NonText hl-SpecialKey
-    highlight SpecialKey ctermfg=59 ctermbg=235 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
-    ":highlight NonText ctermfg=59 ctermbg=236 cterm=NONE guifg=#49483e guibg=#31322c gui=NONE
-    ":highlight SpecialKey ctermfg=59 ctermbg=237 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
-    ":highlight Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
-    ":highlight Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
-    ":highlight CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
-    ":highlight CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+  "The NonText highlighting will be used for eol, extends and precedes.
+  "SpecialKey for nbsp, space, tab and trail. hl-NonText hl-SpecialKey
+  highlight SpecialKey ctermfg=59 ctermbg=235 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
+  ":highlight NonText ctermfg=59 ctermbg=236 cterm=NONE guifg=#49483e guibg=#31322c gui=NONE
+  ":highlight SpecialKey ctermfg=59 ctermbg=237 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
+  ":highlight Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
+  ":highlight Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
+  ":highlight CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+  ":highlight CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
 endif
 " ==========toggle invisible characters==========
 " § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
@@ -138,26 +132,34 @@ nmap <leader><leader> :w<cr>    " shortcut to save
 " nmap „ :m-2<CR>
 " vmap ¯ :m'>+<CR>`<my`>mzgv`yo`z
 " vmap „ :m'<-2<CR>`>my`<mzgv`yo`z
-nnoremap ¯ :m .+1<CR>==
-nnoremap „ :m .-2<CR>==
+
+" nnoremap ¯ :m .+1<CR>==
+" nnoremap „ :m .-2<CR>==
 inoremap ¯ <Esc>:m .+1<CR>==gi
 inoremap „ <Esc>:m .-2<CR>==gi
 vnoremap ¯ :m '>+1<CR>gv=gv
 vnoremap „ :m '<-2<CR>gv=gv
 
+nnoremap ¯ 0Vdp0 
+nnoremap „ 0Vdkkp0
 " ==========Folding setup==========
 function! FoldindToggle()
   if &foldenable ==# "nofoldenable"
-    set fen
+    set foldenable
     set foldcolumn=4 
-    set fdm=indent
+    set foldminlines=3
+    set foldmethod=indent
+    " hi FoldColumn ctermfg=Black
+    hi FoldColumn ctermbg=239 ctermfg=244
   else
-    set nofen 
-    set fdc=0 
-    set fdm=indent
+    set nofoldenable
+    set foldcolumn=0 
+    set foldmethod=indent
   endif
 endfunction
 map <leader>f :call FoldindToggle()<CR>
+command! SetFoldindToggle call FoldindToggle()
+SetFoldindToggle
 
 " ========= Relative Numbering =========
 if v:version >= 703
@@ -282,7 +284,7 @@ endfunction
 "map <leader>T=MyTab()<CR>
 
 function! MyTab1()
-    echo "texto"
+  echo "texto"
 endfunction
 map <leader>-:call  MyTab1()
 

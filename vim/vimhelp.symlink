@@ -1,37 +1,67 @@
 Vim commands for customizing
+  Vim documentation shot cuts, use tab wille typing 
+   :help CTRL
+
+  Vim default mappings
+   :help index
+
+  List of all currently defined mappings
+   :map
+   :map-alt-keys
+   :map <C-p>
+
   Check the scriptnames that were loaded
    :scriptnames
 
   Check the resistors content
    :reg
+   :reg "
 
   Check status of current variable of vim
    :set expandtab?
 
 Vim commands for text editing
+  Check this manuals/sheat sheet:
+  http://vimdoc.sourceforge.net/vimum.html
+  http://bullium.com/support/vim.html
+  http://www.keyxl.com/aaa8263/290/VIM-keyboard-shortcuts.htm
+
   Just a couple of vim commands to don't forget
   vim registers http://www.brianstorti.com/vim-registers/
   https://sanctum.geek.nz/arabesque/advanced-vim-registers/
 
-  ctrl o => move to back cursor/file
-  crtl i => move to forward 
+  <C-o>   => move to back cursor/file
+  <C-i>   => move to forward cursor/file
+  <C-p,n> => show completion options
+  <C-a>   => increment number or alphabetic character at or after the cursor
+  <C-x>   => decrement number or alphabetic character at or after the cursor
+  <C-x>   => completion options in insert mode
 
-  in visual mode select your text an sort it on with command mode 
+  Move to matching braces
+   %
+
+  In visual mode select your text an sort it on with command mode 
    :'<,'>sort
 
-  in insert mode paste text from any register
+  In insert mode paste text from any register
   the default register is ""
    <C-r> [your chosen register]
    <C-r> "
 
-  access the expression resistor in insert mode and do some math
+  Access the expression resistor in insert mode and do some math
    <C-r> =
 
-  call a macro repeatedly
+  Repeat the last macro
    @@
 
+  Preform action on multiple files that are in buffers windows and tabs
+   :bufdo %s/pattern/replace/ge | update
+   :bufdo execute "normal! @a" | update
+   :windo
+   :tabdo
+
   Argument list, this can be used to do a substitution on multiple files
-   :args `find . -name *.txt`
+   :args `find . -name '*.txt'`
    :args
    :argdo :%s/bananas/morangos/g | w
 
@@ -42,3 +72,12 @@ Vim commands for text editing
    zm folds all ; more folding
    zr unfolds all ; reduce fold 
    zf manual fold
+
+  Use Very Magic for the real regex
+  http://vimregex.com/
+   :help magic
+   /\v
+   :s/\v(CapturingGroup1|orSomethingElse)moreRegex stuf/NewStuf \1/
+
+  Afther a search you can do a subtitution just by doing
+   :s//NewStuf/
