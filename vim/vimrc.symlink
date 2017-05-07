@@ -380,12 +380,3 @@ endfunction
 "   endif
 " endfunction
 
-" ========================================
-" ============Plugins config ==============
-" ========================================
-source ~/.vimPluginsrc
-au BufReadPost *.vimPluginsrc set syntax=vim
-" ========================================
-" ======== Plugins config end ============
-" ========================================
-" 
