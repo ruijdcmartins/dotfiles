@@ -11,8 +11,13 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'terryma/vim-multiple-cursors'                     "Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
 Plug 'kien/ctrlp.vim'                                   "fuzzy find files
+Plug 'benmills/vimux'
+Plug 'tpope/vim-surround'                               " in vm S' ; in nm ysiw' or cs"=
+Plug 'bronson/vim-crosshairs'                           " coursorline upgrade
+Plug 'Yggdroot/indentLine'                              " <Leader>il fancy indent guides with spaces only
+Plug 'raimondi/delimitmate'                             " Close brackets
 " ========== NERDTree ==========
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | let Nerdtree = 1
+"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | let Nerdtree = 1
 if exists("Nerdtree")
   "echo "NerdTree"
   map <C-e> :NERDTreeToggle<CR>
@@ -23,7 +28,6 @@ if exists("Nerdtree")
 
   "file drawer, open with :NERDTreeToggle
 endif
-Plug 'benmills/vimux'
 " ======== Tabular ===========
 Plug 'godlygeek/tabular' | let tabular =1
 if exists("tabular")
@@ -54,12 +58,8 @@ if exists("nerdcommenterCheck")
   " Enable trimming of trailing whitespace when uncommenting
   let g:NERDTrimTrailingWhitespace = 1
 endif
-Plug 'tpope/vim-surround'                               " in vm S' ; in nm ysiw' or cs"=
-Plug 'bronson/vim-crosshairs'                           " coursorline upgrade
-Plug 'Yggdroot/indentLine'                              " <Leader>il fancy indent guides with spaces only
-Plug 'raimondi/delimitmate'                             " Close brackets
 " ============== PyMode ================
-"Plug 'python-mode/python-mode' | let pyMode =1
+Plug 'python-mode/python-mode' | let pyMode =1
 if exists("pyMode")
   "echo "pyMode"
   ":help pymode
