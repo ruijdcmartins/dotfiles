@@ -1,5 +1,66 @@
-# Enable colors to vim
-set -g default-terminal "screen-256color"
+#Create envorment varible with TMUX_VERSION
+run-shell "tmux setenv -g TMUX_VERSION $(tmux -V | cut -c 6-)"
+# run-shell "tumx setenv -g TMUX_VERSION $(tmux -V | awk '{ print $2 }')"
+
+#====Copy-paste integration=====
+# if-shell "tmux -V | awk '{ print ($2 >= 2.1) }' | grep 1" "source-file ~/.tmux-ge2.1.conf"
+# if-shell "tmux -V | awk '{ print ($2 < 2.1) }' | grep 1" "source-file ~/.tmux-lt2.1.conf"
+
+# Use vim keybindings in copy mode 
+# setw -g mode-keys vi
+set-window-option -g mode-keys vi
+
+unbind '"';
+unbind %;
+
+#====== Not in the right place !!!=========
+# set-option -g default-command "reattach-to-user-namespace -l bash"
+
+# Bind 'P' to use pbpaste from clipboard
+# bind P run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+
+# Update default binding of `Enter` to also use copy-pipe
+# unbind -T vi-copy Enter
+# bind-key -T vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
+#======================================
+
+if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.4" | bc)" = 1 ]' \
+  "bind-key -T copy-mode-vi 'v' send -X begin-selection; \
+  bind-key -T copy-mode-vi 'V' send -X select-line; \
+  bind-key -T copy-mode-vi 'r' send -X rectangle-toggle; \
+  bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'"
+  # unbind -T copy-mode-vi Enter; \
+  # bind-key -T copy-mode-vi Enter copy-pipe 'reattach-to-user-namespace pbcopy'; \
+
+
+if-shell -b '[ "$(echo "$TMUX_VERSION < 2.4" | bc)" = 1 ]' \
+  "bind-key Escape copy-mode; \
+  bind-key -t vi-copy Escape cancel; \
+  bind-key p paste-buffer; \
+  bind-key -t vi-copy v begin-selection; \
+  bind-key -t vi-copy V select-line; \
+  bind-key -t vi-copy y copy-selection; \
+  bind-key -t vi-copy r rectangle-toggle; \
+  bind -t vi-copy Y copy-end-of-line; \
+  bind -t vi-copy y copy-pipe 'xclip -in -selection clipboard'"
+  # unbind -t vi-copy Enter; \
+  # bind-key -t vi-copy Enter copy-pipe 'reattach-to-user-namespace pbcopy'; \
+
+if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.1" | bc)" = 1 ]' \
+  "set -g mouse on; \
+  bind - split-window -v -c '#{pane_current_path}'; \
+  bind | split-window -h -c '#{pane_current_path}'; \
+  bind c new-window -c '#{pane_current_path}'"
+
+if-shell -b '[ "$(echo "$TMUX_VERSION < 2.1" | bc)" = 1 ]' \
+  "set -g mode-mouse on; \
+  set -g mouse-resize-pane on; \
+  set -g mouse-select-pane on; \
+  set -g mouse-select-window on; \
+  bind - split-window -v; \
+  bind | split-window -h; \
+  bind c new-window"
 
 # reload config file (change file location to your the tmux.conf you want to use)
 bind r source-file ~/.tmux.conf ; display-message "reloaded"
@@ -30,6 +91,9 @@ bind-key C "break-pane"
 ######################
 ### DESIGN CHANGES ###
 ######################
+
+# Enable colors to vim
+set -g default-terminal "screen-256color"
 
 # panes
 set -g pane-border-fg black
@@ -74,8 +138,6 @@ set-option -g visual-bell off
 set-option -g visual-silence off
 set-window-option -g monitor-activity off
 set-option -g bell-action none
-
-set -g default-terminal "screen-256color"
 
 # The modes {
 setw -g clock-mode-colour colour135
@@ -126,12 +188,6 @@ set -g message-bg colour166
 
 # } 
 
-#====Copy-paste integration=====
-# run-shell "if tmux -V | awk '{ print ($2 > 2.1) }' | grep 1 ; then export PS1='=======>' ; echo 'fds' ; fi"
-# if-shell "tmux -V | awk '{ print ($2 >= 1.8) }' | grep 1" "source-file ~/testing/ps1.tst"
-if-shell "tmux -V | awk '{ print ($2 >= 2.1) }' | grep 1" "source-file ~/.tmux-ge2.1.conf" 
-if-shell "tmux -V | awk '{ print ($2 < 2.1) }' | grep 1" "source-file ~/.tmux-lt2.1.conf" 
-# ; display-message 'tmux-macosx loaded'
 
 #=========Tmux Plugins==========
 set -g @plugin 'mux-plugins/tpm'
@@ -140,11 +196,7 @@ set -g @plugin 'mux-plugins/tmux-resurrect'
 set -g @plugin 'mux-plugins/tmux-continuum'
 run '~/.tmux/plugins/tpm/tpm'
 
+#=========Plugins Config==========
 set -g @resurrect-capture-pane-contents 'on'
-# set -g @continuum-save-interval '0'
 set -g @continuum-save-interval '15'
 set -g @continuum-restore 'on'
-# set -g status-left 'Continuum status: #{continuum_status}'
-# if-shell "tmux -V | awk '{ print ($2 > 2.1) }' | grep 1" \
-# 'set -g @plugin mux-plugins/tpm ; set -g @plugin mux-plugins/tmux-sensible ; set -g @plugin mux-plugins/tmux-continuum ; set -g @plugin mux-plugins/tmux-resurrect ; run ~/.tmux/plugins/tpm/tpm'
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)

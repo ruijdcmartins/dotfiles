@@ -45,7 +45,7 @@ endfunction
 command! -nargs=1 SetTabSize call MyTabSize(<f-args>)
 SetTabSize 2
 set scrolloff=5                     " when scrolling all ways show 5 lines
-set cursorline                      " enable the horizontal line
+set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
 " set cursorcolumn                  " enable the vertical line
 set hidden                          " change buffer without saving
 set wrap                            " this enables visual  wrapping
@@ -61,6 +61,8 @@ set splitright
 "colorscheme solarized
 colorscheme Monokai
 if g:colors_name == 'Monokai'
+  "Visual mode revese colors
+  hi Visual cterm=reverse ctermbg=241 gui=reverse guibg=#665c54
   "The NonText highlighting will be used for eol, extends and precedes.
   "SpecialKey for nbsp, space, tab and trail. hl-NonText hl-SpecialKey
   highlight SpecialKey ctermfg=59 ctermbg=235 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE

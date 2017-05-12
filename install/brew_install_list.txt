@@ -19,6 +19,7 @@ jhead
 unrar
 wget
 tmux
+xclip
 reattach-to-user-namespace
 homebrew/games/tty-solitaire
 bash-completion

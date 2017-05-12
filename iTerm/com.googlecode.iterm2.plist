@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AllowClipboardAccess</key>
+	<true/>
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>AppleAntiAliasingThreshold</key>
@@ -31529,7 +31531,7 @@
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>1041 748 400 129 0 0 1440 900 </string>
+	<string>522 578 400 129 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>412 381 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
@@ -31537,7 +31539,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>4 380 796 473 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>17 130 1081 609 0 0 1440 877 </string>
+	<string>196 268 570 452 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -39284,13 +39286,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-12-01T18:57:11Z</date>
+	<date>2017-05-11T18:55:54Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
-	<string>3.0.12</string>
+	<string>3.0.15</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
