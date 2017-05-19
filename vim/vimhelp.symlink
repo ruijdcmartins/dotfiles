@@ -20,6 +20,23 @@ Vim commands for customizing
   Check status of current variable of vim
    :set expandtab?
 
+  Buffers, Tabs and Windows defenition:
+    A buffer is the in-memory text of a file.
+    A window is a viewport on a buffer.
+    A tab page is a collection of windows.
+   == Usage of tabs ==
+   :tabe[dit] filename	Open filename in a new tab
+   :tabs Show a list of tabs
+   <C-W> T	Move current split window into its own tab
+   :q	Close window, closing tab if it contains a single window
+   :tabc[lose]	Close the current tab page and all its windows
+   :tabo[nly]	Close all tabs apart from the current one
+   gt	Move to next tab
+   gT	Move to previous tab
+   #gt Move to tab number #
+   == Usage of windows ==
+   <C-W>=  resize windows equally 
+
 Vim commands for text editing
   Check this manuals/sheat sheet:
   http://vimdoc.sourceforge.net/vimum.html
@@ -30,8 +47,18 @@ Vim commands for text editing
   vim registers http://www.brianstorti.com/vim-registers/
   https://sanctum.geek.nz/arabesque/advanced-vim-registers/
 
-  <C-o>   => move to back cursor/file
-  <C-i>   => move to forward cursor/file
+  *       => move to next matching word under the cursor
+  #       => move to previous matching word under the cursor
+
+  Markers
+   m[a-z] => create a marker named a to z on current position
+   m[A-Z] => cerate a marker named A to Z on current position across files
+   '[a-z] => go to first char of the line marked from a to z
+   `[a-z] => go to the exact char marked
+   ''     => go to the last jump
+
+  <C-o>   => move back cursor/file
+  <C-i>   => move forward cursor/file
   <C-p,n> => show completion options
   <C-a>   => increment number or alphabetic character at or after the cursor
   <C-x>   => decrement number or alphabetic character at or after the cursor

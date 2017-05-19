@@ -189,6 +189,10 @@ vnoremap „ :m '<-2<CR>gv=gv
 nnoremap ¯ 0Vdp0 
 nnoremap „ 0Vdkkp0
 
+" Tab movement
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+
 " ==========Folding setup==========
 function! FoldindToggle()
   if &foldenable ==# "nofoldenable"

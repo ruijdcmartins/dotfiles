@@ -19,7 +19,11 @@ fi
 #  9.  Reminders & Notes
 #
 #  ---------------------------------------------------------------------------
-
+# TODO: Discover were you are with varibles like
+#       $HOSTNAME
+#       $USER
+#       $OSTYPE
+#       $MACHTYPE
 #   -------------------------------
 #   1. ENVIRONMENT CONFIGURATION
 #   -------------------------------
@@ -38,7 +42,24 @@ COLOR_OCHRE="\033[38;5;95m"
 COLOR_BLUE="\033[0;34m"
 COLOR_SOFT_BLUE="\033[0;36m"
 COLOR_WHITE="\033[0;37m"
+COLOR_PINK="\033[1;33m"
 COLOR_RESET="\[\033[0m"
+
+#Define colors depending on the machine
+case $HOSTNAME in
+MBPaR*)
+  HOST_COLOR=$COLOR_SOFT_BLUE
+  ;;
+lip*)
+  HOST_COLOR=$COLOR_PINK
+  ;;
+search6)
+  HOST_COLOR=$COLOR_RED
+  ;;
+*)
+  HOST_COLOR=$COLOR_RED
+  ;;
+esac
 
 function git_color {
   local git_status="$(git status 2> /dev/null)"
@@ -76,7 +97,7 @@ function git_pull_check {
 # 
 PS1="________________________________________________________________________________\n"
 PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
-PS1+="@ \[$COLOR_SOFT_BLUE\]\h$COLOR_RESET\] "  # pc local name
+PS1+="@ \[$HOST_COLOR\]\h$COLOR_RESET\] "       # pc local name
 PS1+="\[$COLOR_GREEN\](\u)$COLOR_RESET\] "      # user name
 PS1+="\[\$(git_color)\]"                        # colors git status
 PS1+="\$(git_branch) \$(git_pull_check)$COLOR_RESET\]"             # prints current branch
