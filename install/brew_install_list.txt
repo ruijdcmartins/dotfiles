@@ -21,7 +21,7 @@ wget
 tmux
 xclip
 reattach-to-user-namespace
-homebrew/games/tty-solitaire
+tty-solitaire
 bash-completion
-homebrew/completions/brew-cask-completion
-homebrew/completions/pip-completion
+brew-cask-completion
+pip-completion
