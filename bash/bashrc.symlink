@@ -47,23 +47,19 @@ COLOR_RESET="\[\033[0m"
 
 #Define colors depending on the machine
 case $HOSTNAME in
-MBPaR*)
+MBPaR* | iMac*)
   HOST_COLOR=$COLOR_SOFT_BLUE
   ;;
-lip*)
-  HOST_COLOR=$COLOR_PINK
-  ;;
-search6)
+search6 | lip*)
   HOST_COLOR=$COLOR_RED
   ;;
 *)
-  HOST_COLOR=$COLOR_RED
+  HOST_COLOR=$COLOR_PINK
   ;;
 esac
 
 function git_color {
   local git_status="$(git status 2> /dev/null)"
-
 # if [[ ! $(git status 2> /dev/null | grep 'working \w\+ clean')  ]]; then
   if [[ ! $(git status 2> /dev/null | grep 'working \(directory\|tree\) clean')  ]]; then
     echo -e $COLOR_RED
@@ -80,7 +76,7 @@ function git_branch {
   local git_status="$(git status 2> /dev/null)"
   local on_branch="On branch ([^${IFS}]*)"
   local on_commit="HEAD detached at ([^${IFS}]*)"
-
+#
   if [[ $git_status =~ $on_branch ]]; then
     local branch=${BASH_REMATCH[1]}
     echo "$branch"
@@ -129,7 +125,7 @@ export PATH="/usr/local/bin:/usr/local:$PATH"
 
 #   Set Default Editor
 #   ------------------------------------------------------------
-export EDITOR=nvim
+type nvim >/dev/null 2>&1 && export EDITOR=nvim
 #   Set default blocksize for ls, df, du
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
 #   ------------------------------------------------------------
@@ -192,7 +188,7 @@ alias ..='cd ..'
 alias du='du -sh'
 alias df='df -h'
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
-alias vim='nvim'
+type nvim >/dev/null 2>&1 && alias vim='nvim'
 alias showEnvVar='( set -o posix ; set ) | cat'   # printenv also works
 calculator() { echo $* | awk '{printf "%.17g\n", '"$*"'}' ; } # simple calculator
 encrypt() { openssl enc -aes-256-cbc -e -in $1 -out $2 ; }
