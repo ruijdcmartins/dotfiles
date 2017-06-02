@@ -27,7 +27,7 @@ echo -e "-- Create new simple session                 > new_session_name"
 echo -e "-- Create a new session and attach to other  > new_settion_name -t existing_session_name"
 read -ep "$(echo $'\n> ')" in_var
 
-if [[ "$in_var" =~ [0-9]+ ]] && (( "$in" <= "$n" )) 2> /dev/null; then 
+if [[ "$in_var" =~ [0-9]+ ]] && (( "$in_var" <= "$n" )) 2> /dev/null; then 
   # echo "------"
   # echo "${tmux_sessions[$in_var]}"
   tmux a -t "${tmux_sessions[$in_var]}"
