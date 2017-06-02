@@ -44,6 +44,12 @@ function! MyTabSize(size)
 endfunction
 command! -nargs=1 SetTabSize call MyTabSize(<f-args>)
 SetTabSize 2
+
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
+
 set scrolloff=5                     " when scrolling all ways show 5 lines
 set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
 " set cursorcolumn                  " enable the vertical line
