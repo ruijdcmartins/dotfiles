@@ -153,4 +153,6 @@ Vim commands for text editing
 
   vim-fugitive
    :Git add % | :Gwrite             => git add current file
+   :Gwrite .    => add all the files
+   :Gstatus     => use - to add to commit list
    :Gcommit
