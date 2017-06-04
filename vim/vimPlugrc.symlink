@@ -9,15 +9,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'terryma/vim-multiple-cursors'                             "Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
-Plug 'kien/ctrlp.vim'                                           "fuzzy find files
+" *** pi ***
 Plug 'benmills/vimux'
 Plug 'tpope/vim-surround'                                       " in vm S' ; in nm ysiw' or cs"=
+Plug 'scrooloose/nerdcommenter' | let nerdcommenterCheck = 1
+" *** pi ***
+Plug 'terryma/vim-multiple-cursors'                             "Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
+Plug 'kien/ctrlp.vim'                                           "fuzzy find files
 Plug 'bronson/vim-crosshairs'                                   " coursorline upgrade
 Plug 'Yggdroot/indentLine'                                      " <Leader>il fancy indent guides with spaces only
 Plug 'raimondi/delimitmate'                                     " Close brackets
 Plug 'godlygeek/tabular' | let tabular =1
-Plug 'scrooloose/nerdcommenter' | let nerdcommenterCheck = 1
 Plug 'python-mode/python-mode' | let pyMode =1
 " Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | let Nerdtree = 1
 " Plug 'othree/eregex.vim' | let eregex = 1                       " :%S/ for substitute with perl regex
@@ -28,9 +30,11 @@ Plug 'python-mode/python-mode' | let pyMode =1
 " Plug 'rhysd/vim-grammarous'                                   " not working 
 " Plug 'octol/vim-cpp-enhanced-highligh
 "=========== Color Plugs ===============
+" *** pi ***
 Plug 'vim-airline/vim-airline' | let AirLine = 1
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
+" *** pi ***
 " Plug 'w0ng/vim-hybrid'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'sickill/vim-monokai'
@@ -39,22 +43,27 @@ Plug 'flazz/vim-colorschemes'
 " Plug 'jplaut/vim-arduino-ino'
 " Plug '4Evergreen4/vim-hardy'
 "============= Auto compleat and Snips ===========
-Plug 'ervandew/supertab'
+
+" === Defaut competaion and snips ===
+"Plug 'ervandew/supertab' | let supertab = 1
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
  " create .ycm_extra_conf using Makefile
  " use: YcmGenerateConfig
 Plug 'Valloric/YouCompleteMe' , { 'do': './install.py --clang-completer' } | let Ycm = 1
 Plug 'SirVer/ultisnips' | let UltiSnips = 1
 Plug 'honza/vim-snippets'
-" Plug 'Shougo/deoplete.nvim' , { 'do': ':UpdateRemotePlugins' }
-" Plug 'ervandew/supertab'
-" Plug 'Shougo/neocomplete'
 
-" Good for clusters
-" Plug 'Shougo/neocomplcache'
+" === competaion and snips good for clusters ===
+" *** pi ***
+"Plug 'Shougo/neocomplcache' | let neocomplcache = 1
+" snipmate dependencies
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+"Plug 'honza/vim-snippets'
+" *** pi ***
 
 "==== Experimenting ====
-
 "Plug 'easymotion/vim-easymotion'
 "Plug 'docunext/closetag.vim'                                   " close html and xml tags
 Plug 'mattn/emmet-vim'                                          " html css stuff
@@ -68,6 +77,14 @@ Plug 'mattn/gist-vim'                                           " create a git a
 " =========== Plugins config =============
 " ========================================
 
+" ========== neocomplcache =========
+if exists("neocomplcache")
+  let g:neocomplcache_enable_at_startup = 1
+  " use <C-j> as <C-n> when popup menu is visable
+  autocmd VimEnter * inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-j>"
+  autocmd VimEnter * inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<C-k>"
+endif
+
 " ========= YCM =========
 if exists("Ycm")
   "echo "Ycm"
@@ -77,9 +94,11 @@ if exists("Ycm")
   let g:ycm_complete_in_comments = 1
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
   let g:ycm_seed_identifiers_with_syntax = 1
+  let g:ycm_filetype_whitelist = { '*': 1 }
+  "let g:ycm_filetype_blacklist = { 'infolog' : 1 }
 endif
 
-" ======= UltilSnips/YCM key binding ========
+" ======= UltilSnips/YCM/superTab key binding ========
 if exists("UltiSnips")
   "========= 1 =========
   if UltiSnips == 1

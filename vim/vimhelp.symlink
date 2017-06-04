@@ -1,4 +1,7 @@
+*Vim core*
+
 Vim commands for customizing
+
   Vim documentation shot cuts, use tab wille typing 
    :help CTRL
 
@@ -38,6 +41,7 @@ Vim commands for customizing
    <C-W>=  resize windows equally 
 
 Vim commands for text editing
+
   Check this manuals/sheat sheet:
   http://vimdoc.sourceforge.net/vimum.html
   http://bullium.com/support/vim.html
@@ -108,3 +112,44 @@ Vim commands for text editing
 
   Afther a search you can do a subtitution just by doing
    :s//NewStuf/
+
+  Auto Complete
+   1. <C-X><C-L>    => Whole lines
+   2. <C-X><C-N>    => keywords in the current file
+   3. <C-X><C-K>    => keywords in 'dictionary'
+   4. <C-X><C-T>    => keywords in 'thesaurus', thesaurus-style
+   5. <C-X><C-I>    => keywords in the current and included files
+   6. <C-X><C-]>    => tags
+   7. <C-X><C-F>    => file names
+   8. <C-X><C-D>    => definitions or macros
+   9. <C-X><C-V>    => Vim command-line
+   10. <C-X><C-U>   => User defined completion
+   11. <C-X><C-O>   => omni completion
+   12. <C-X>_s      => Spelling suggestions
+   13. <C-N>        => keywords in 'complete'
+
+*Plugins*
+  
+  vim-surrond
+   normal mode options
+    cs'"            => change surround ' to "
+    ds"             => delete surround "
+    ysiw[           => add surround [] inner word
+    dst             => delete surround tag <a>HTML STILE</a>
+    cst<b>          => change surround tag to <b></b>
+   visual mode options
+    S'                => add surround '
+
+  tabular
+   Basic/Auto
+    :Tabularize /,                 => Aline the next lines concerning ,
+    :Tab /,                        => Just the same
+   Usage of lN cN rN for right center and left aligned, and N for the number of spaces
+  tabular will cycle the lN's for each line 
+    :Tabularize / => /l4l0         => this was the one used here, left aligned and 4 sapces ...
+   Advance regex
+    :Tabularize /regex/l1c2r3      => atom is defind in the regex them that is the match
+    :Tabularize /\v[.=]/r0c0l1c1l0
+
+  vim-fugitive
+   :Gcommit
