@@ -21,10 +21,10 @@ else
   done
 fi
 
-echo -e "                         ====  Chose your path  ===="
+echo -e "                       ====  Choose your path  ===="
 echo -e "-- Attach to one existing session            > session_number"
 echo -e "-- Create new simple session                 > new_session_name"
-echo -e "-- Create a new session and attach to other  > new_settion_name -t existing_session_name"
+echo -e "-- Create a new session and attach to other  > new_session_name -t existing_session_name"
 read -ep "$(echo $'\n> ')" in_var
 
 if [[ "$in_var" =~ [0-9]+ ]] && (( "$in_var" <= "$n" )) 2> /dev/null; then 

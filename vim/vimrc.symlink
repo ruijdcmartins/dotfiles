@@ -8,7 +8,6 @@ source ~/.vimPlugrc
 " ========================================
 
 " =============My vim options===========
-
 " going hard on vim
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -25,7 +24,8 @@ set number                          " number the lines
 set t_Co=256                        " set colour to 256
 set wildmenu                        " show matching possibilities in : prompt
 set path+=**                        " subfolders search for files and completion 
-set complete+=i,kspell              " add options to vim completion
+set complete+=i                     " add options to vim completion
+" set complete+=i,kspell              " add options to vim completion
 "Tabs...
 " Soft tabs
 set smarttab                        " Be smart when using tabs
@@ -45,14 +45,6 @@ endfunction
 command! -nargs=1 SetTabSize call MyTabSize(<f-args>)
 SetTabSize 2
 
-" in makefiles, don't expand tabs to spaces, since actual tab characters are
-" needed, and have indentation at 8 chars to be sure that all indents are tabs
-" (despite the mappings later):
-autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
-
-set scrolloff=5                     " when scrolling all ways show 5 lines
-set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
-" set cursorcolumn                  " enable the vertical line
 set hidden                          " change buffer without saving
 set wrap                            " this enables visual  wrapping
 set textwidth=0 wrapmargin=0        " this turns off physical line wrapping
@@ -62,10 +54,22 @@ set timeoutlen=1000 ttimeoutlen=10  " time delay for key combinations and changi
 set splitbelow
 set splitright
 
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
+
+set scrolloff=5                     " when scrolling all ways show 5 lines
+" set cursorcolumn                  " enable the vertical line
+" --- pi ---
+set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
+" --- pi ---
+
 " ======= Colors and Thems ==========
 "colorscheme hybrid 
 "colorscheme solarized
 colorscheme Monokai
+" --- pi ---
 if g:colors_name == 'Monokai'
   "Visual mode revese colors
   hi Visual cterm=reverse ctermbg=241 gui=reverse guibg=#665c54
@@ -79,15 +83,40 @@ if g:colors_name == 'Monokai'
   ":highlight CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
   ":highlight CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
 endif
+" --- pi ---
 
 " ========== File tree explorer ==========
-map <C-e> :Lexplore<CR>
+if exists(":Lexplore")
+  map <C-e> :Lexplore<CR>
+else
+  " Toggle Vexplore with Ctrl-E
+  function! ToggleVExplorer()
+    if exists("t:expl_buf_num")
+        let expl_win_num = bufwinnr(t:expl_buf_num)
+        if expl_win_num != -1
+            let cur_win_nr = winnr()
+            exec expl_win_num . 'wincmd w'
+            close
+            exec cur_win_nr . 'wincmd w'
+            unlet t:expl_buf_num
+        else
+            unlet t:expl_buf_num
+        endif
+    else
+        exec '1wincmd w'
+        Vexplore
+        let t:expl_buf_num = bufnr("%")
+    endif
+  endfunction
+  map <silent> <C-e> :call ToggleVExplorer()<CR>
+endif
+" more delfunctions of file explorer
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
-" absolute width of netrw window
+" absolute width of netrw window incompatible
 let g:netrw_winsize = -28
 " do not display info on the top of window
 let g:netrw_banner = 0
@@ -126,14 +155,22 @@ endfun
 " augroup END
 
 " ==========toggle invisible characters==========
+" --- pi ---
 " § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
-function! MyIndetation()
-  set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
+let g:IndentSts = '0'
+function! IndentationToggle(switch_)
+  if a:switch_== '0'
+    set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
+    set showbreak=↪\
+    let g:IndentSts = '1'
+  else
+    set nolist
+    let g:IndentSts = '0'
+  endif
 endfunction
-call MyIndetation()
-set showbreak=↪\ 
-map <leader>i :call  MyIndetation()<CR>
-map <leader>I :set nolist<CR>
+call IndentationToggle(IndentSts)
+command! SetIndentationToggle call IndentationToggle(IndentSts)
+" --- pi ---
 
 " ==============My Mappings==============
 let mapleader = '\'
@@ -222,6 +259,7 @@ SetFoldindToggle
 command! HelpMe :vs ~/.vimhelp
 
 " ========= Relative Numbering =========
+" --- pi ---
 if v:version >= 703
   function! NumberToggle()
     if(&relativenumber == 1)
@@ -234,6 +272,7 @@ if v:version >= 703
   call NumberToggle()
   nnoremap <leader>nr :call NumberToggle()<CR>
 endif
+" --- pi ---
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
 set backspace=indent,eol,start
@@ -255,25 +294,25 @@ fun! SetupCommandAlias(from, to)
                 \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
                 \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
-call SetupCommandAlias("W","w")
+call SetupCommandAlias("Wq","wq")
 
 " ======= Colse Bufer solution =======
 
 " Delete buffer while keeping window layout (don't close buffer's windows).
 " Version 2008-11-18 from http://vim.wikia.com/wiki/VimTip165
 if v:version < 700 || exists('loaded_bclose') || &cp
-finish
+  finish
 endif
 let loaded_bclose = 1
 if !exists('bclose_multiple')
-let bclose_multiple = 1
+  let bclose_multiple = 1
 endif
 
 " Display an error message.
 function! s:Warn(msg)
-echohl ErrorMsg
-echomsg a:msg
-echohl NONE
+  echohl ErrorMsg
+  echomsg a:msg
+  echohl NONE
 endfunction
 
 " Command ':Bclose' executes ':bd' to delete buffer in current window.
@@ -282,52 +321,52 @@ endfunction
 " Command ':Bclose!' is the same, but executes ':bd!' (discard changes).
 " An optional argument can specify which buffer to close (name or number).
 function! s:Bclose(bang, buffer)
-if empty(a:buffer)
-let btarget = bufnr('%')
-elseif a:buffer =~ '^\d\+$'
-let btarget = bufnr(str2nr(a:buffer))
-else
-let btarget = bufnr(a:buffer)
-endif
-if btarget < 0
-call s:Warn('No matching buffer for '.a:buffer)
-return
-endif
-if empty(a:bang) && getbufvar(btarget, '&modified')
-call s:Warn('No write since last change for buffer '.btarget.' (use :Bclose!)')
-return
-endif
-" Numbers of windows that view target buffer which we will delete.
-let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
-if !g:bclose_multiple && len(wnums) > 1
-call s:Warn('Buffer is in multiple windows (use ":let bclose_multiple=1")')
-return
-endif
-let wcurrent = winnr()
-for w in wnums
-execute w.'wincmd w'
-let prevbuf = bufnr('#')
-if prevbuf > 0 && buflisted(prevbuf) && prevbuf != w
-buffer #
-else
-bprevious
-endif
-if btarget == bufnr('%')
-" Numbers of listed buffers which are not the target to be deleted.
-let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val != btarget')
-" Listed, not target, and not displayed.
-let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
-" Take the first buffer, if any (could be more intelligent).
-let bjump = (bhidden + blisted + [-1])[0]
-if bjump > 0
-execute 'buffer '.bjump
-else
-execute 'enew'.a:bang
-endif
-endif
-endfor
-execute 'bdelete'.a:bang.' '.btarget
-execute wcurrent.'wincmd w'
+  if empty(a:buffer)
+    let btarget = bufnr('%')
+  elseif a:buffer =~ '^\d\+$'
+    let btarget = bufnr(str2nr(a:buffer))
+  else
+    let btarget = bufnr(a:buffer)
+  endif
+  if btarget < 0
+    call s:Warn('No matching buffer for '.a:buffer)
+      return
+  endif
+  if empty(a:bang) && getbufvar(btarget, '&modified')
+    call s:Warn('No write since last change for buffer '.btarget.' (use :Bclose!)')
+      return
+  endif
+  " Numbers of windows that view target buffer which we will delete.
+  let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
+  if !g:bclose_multiple && len(wnums) > 1
+    call s:Warn('Buffer is in multiple windows (use ":let bclose_multiple=1")')
+      return
+  endif
+  let wcurrent = winnr()
+  for w in wnums
+    execute w.'wincmd w'
+    let prevbuf = bufnr('#')
+    if prevbuf > 0 && buflisted(prevbuf) && prevbuf != w
+      buffer #
+    else
+      bprevious
+    endif
+    if btarget == bufnr('%')
+      " Numbers of listed buffers which are not the target to be deleted.
+      let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val != btarget')
+      " Listed, not target, and not displayed.
+      let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
+      " Take the first buffer, if any (could be more intelligent).
+      let bjump = (bhidden + blisted + [-1])[0]
+      if bjump > 0
+        execute 'buffer '.bjump
+      else
+        execute 'enew'.a:bang
+      endif
+    endif
+  endfor
+  execute 'bdelete'.a:bang.' '.btarget
+  execute wcurrent.'wincmd w'
 endfunction
 command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose('<bang>', '<args>')
 nnoremap <silent> <Leader>bd :Bclose<CR>

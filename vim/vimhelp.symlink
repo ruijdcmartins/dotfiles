@@ -152,4 +152,5 @@ Vim commands for text editing
     :Tabularize /\v[.=]/r0c0l1c1l0
 
   vim-fugitive
+   :Git add % | :Gwrite             => git add current file
    :Gcommit
