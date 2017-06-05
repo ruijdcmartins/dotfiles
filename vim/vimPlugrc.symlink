@@ -70,6 +70,7 @@ Plug 'mattn/emmet-vim'                                          " html css stuff
 Plug 'skammer/vim-css-color'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'                                       " git interation
+Plug 'mattn/webapi-vim'                                         " dependency gist-vim
 Plug 'mattn/gist-vim'                                           " create a git automaticly
 "Plug 'vim-syntastic/syntastic'                                 " plugin to check for errors
 
