@@ -152,7 +152,12 @@ Vim commands for text editing
     :Tabularize /\v[.=]/r0c0l1c1l0
 
   vim-fugitive
-   :Git add % | :Gwrite             => git add current file
-   :Gwrite .    => add all the files
-   :Gstatus     => use - to add to commit list
-   :Gcommit
+   :Git add % | :Gwrite      => git add current file
+   :Git add .                => add all the files
+   :Gcommit .
+   :Gstatus                  => - to add selected file to commit list
+                             => p show selected file patchs changes | git add --patch
+                             => C to commit
+    .....
+
+  
