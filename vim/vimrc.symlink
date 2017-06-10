@@ -256,7 +256,7 @@ command! SetFoldindToggle call FoldindToggle()
 SetFoldindToggle
 
 " ========= My Help File =========
-command! HelpMe :vs ~/.vimhelp
+command! HelpMe :vs ~/.vimhelp | set filetype=help
 
 " ========= Relative Numbering =========
 " --- pi ---

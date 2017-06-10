@@ -1,12 +1,36 @@
-*Vim core*
 
+==============================================================================
+1. About                                                     *my-vim*
 Vim commands for customizing
+
+------------------------------------------------------------------------------
+Short cut: press * to go and # to come back
+
+*Vim-core*
+  |mappings|
+  |tabs|
+  |windows|
+  |Movement| 
+  |Markers|
+  |increment|
+  |decrement|
+  |matching-braces| 
+  |register| 
+  |Foldind|
+  |Auto-Complete|
+
+*Plugins*
+  |vim-surrond||
+  ||tabular|
+  |vim-fugitive|
+------------------------------------------------------------------------------
 
   Vim documentation shot cuts, use tab wille typing 
    :help CTRL
 
-  Vim default mappings
+  Vim default |mappings|
    :help index
+   g ]   => to "open" a tag
 
   List of all currently defined mappings
    :map
@@ -27,7 +51,8 @@ Vim commands for customizing
     A buffer is the in-memory text of a file.
     A window is a viewport on a buffer.
     A tab page is a collection of windows.
-   == Usage of tabs ==
+   
+   == Usage of |tabs| ==
    :tabe[dit] filename	Open filename in a new tab
    :tabs Show a list of tabs
    <C-W> T	Move current split window into its own tab
@@ -37,10 +62,11 @@ Vim commands for customizing
    gt	Move to next tab
    gT	Move to previous tab
    #gt Move to tab number #
-   == Usage of windows ==
+   
+   == Usage of |windows| ==
    <C-W>=  resize windows equally 
 
-Vim commands for text editing
+NOTE Vim commands for text editing
 
   Check this manuals/sheat sheet:
   http://vimdoc.sourceforge.net/vimum.html
@@ -51,28 +77,33 @@ Vim commands for text editing
   vim registers http://www.brianstorti.com/vim-registers/
   https://sanctum.geek.nz/arabesque/advanced-vim-registers/
 
-  *       => move to next matching word under the cursor
-  #       => move to previous matching word under the cursor
+  |Movement|
+   *       => move to next matching word under the cursor
+   #       => move to previous matching word under the cursor
+   <C-o>   => move back cursor/file
+   <C-i>   => move forward cursor/file
+   
+   <C-p,n> => show completion options
+   <C-a>   => |increment| number or alphabetic character at or after the cursor
+   <C-x>   => |decrement| number or alphabetic character at or after the cursor
+   <C-x>   => completion options in insert mode
 
-  Markers
+  |Markers|
    m[a-z] => create a marker named a to z on current position
    m[A-Z] => cerate a marker named A to Z on current position across files
    '[a-z] => go to first char of the line marked from a to z
    `[a-z] => go to the exact char marked
    ''     => go to the last jump
 
-  <C-o>   => move back cursor/file
-  <C-i>   => move forward cursor/file
-  <C-p,n> => show completion options
-  <C-a>   => increment number or alphabetic character at or after the cursor
-  <C-x>   => decrement number or alphabetic character at or after the cursor
-  <C-x>   => completion options in insert mode
 
-  Move to matching braces
+  Move to |matching-braces|
    %
 
   In visual mode select your text an sort it on with command mode 
    :'<,'>sort
+
+  To append to register just capitalize the |register|
+  "Ayiw
 
   In insert mode paste text from any register
   the default register is ""
@@ -96,7 +127,7 @@ Vim commands for text editing
    :args
    :argdo :%s/bananas/morangos/g | w
 
-  Foldind commands
+  |Foldind| commands
    zc individual close
    zo individual open
    za individual toggle
@@ -113,24 +144,24 @@ Vim commands for text editing
   Afther a search you can do a subtitution just by doing
    :s//NewStuf/
 
-  Auto Complete
-   1. <C-X><C-L>    => Whole lines
-   2. <C-X><C-N>    => keywords in the current file
-   3. <C-X><C-K>    => keywords in 'dictionary'
-   4. <C-X><C-T>    => keywords in 'thesaurus', thesaurus-style
-   5. <C-X><C-I>    => keywords in the current and included files
-   6. <C-X><C-]>    => tags
-   7. <C-X><C-F>    => file names
-   8. <C-X><C-D>    => definitions or macros
-   9. <C-X><C-V>    => Vim command-line
-   10. <C-X><C-U>   => User defined completion
-   11. <C-X><C-O>   => omni completion
-   12. <C-X>_s      => Spelling suggestions
-   13. <C-N>        => keywords in 'complete'
+  |Auto-Complete|
+   <C-X><C-L>    => Whole lines
+   <C-X><C-N>    => keywords in the current file
+   <C-X><C-K>    => keywords in 'dictionary'
+   <C-X><C-T>    => keywords in 'thesaurus', thesaurus-style
+   <C-X><C-I>    => keywords in the current and included files
+   <C-X><C-]>    => tags
+   <C-X><C-F>    => file names
+   <C-X><C-D>    => definitions or macros
+   <C-X><C-V>    => Vim command-line
+   <C-X><C-U>   => User defined completion
+   <C-X><C-O>   => omni completion
+   <C-X>_s      => Spelling suggestions
+   <C-N>        => keywords in 'complete'
 
 *Plugins*
-  
-  vim-surrond
+
+  |vim-surrond|
    normal mode options
     cs'"            => change surround ' to "
     ds"             => delete surround "
@@ -140,18 +171,18 @@ Vim commands for text editing
    visual mode options
     S'                => add surround '
 
-  tabular
+  |tabular|
    Basic/Auto
     :Tabularize /,                 => Aline the next lines concerning ,
     :Tab /,                        => Just the same
    Usage of lN cN rN for right center and left aligned, and N for the number of spaces
-  tabular will cycle the lN's for each line 
+   tabular will cycle the lN's for each line 
     :Tabularize / => /l4l0         => this was the one used here, left aligned and 4 sapces ...
    Advance regex
     :Tabularize /regex/l1c2r3      => atom is defind in the regex them that is the match
     :Tabularize /\v[.=]/r0c0l1c1l0
 
-  vim-fugitive
+  |vim-fugitive|
    :Git add % | :Gwrite      => git add current file
    :Git add .                => add all the files
    :Gcommit .
