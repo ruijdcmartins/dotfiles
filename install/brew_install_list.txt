@@ -1,4 +1,5 @@
 // To not upgrade when running brewUpgrade.sh please insert # next to the brew formula
+bash
 git
 boost                           #
 gcc                             #

@@ -25,6 +25,8 @@ if [ "$(uname)" == "Darwin" ]; then
     source install/latex.sh     # included in cask but not working
     source install/root.sh
     source install/hep.sh
+    source install/powerline-fonts.sh
+    source install/bash.sh
 fi
 
 #echo "creating vim directories"

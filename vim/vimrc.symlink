@@ -285,6 +285,12 @@ set formatoptions-=cro
 " compatibility workaround for using Vim 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
+" ========== .md files ======
+let g:vim_markdown_conceal = 1
+set conceallevel=2
+let g:vim_markdown_folding_disabled = 1
+au FileType markdown setl conceallevel
+
 " ========== Command Alaias ======
 " Generic function to create alias on comand mode case INSENSETIVE
 " Basi exemple

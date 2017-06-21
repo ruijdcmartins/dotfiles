@@ -101,6 +101,9 @@ PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
 export PS1
 export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "
 
+# TMUX_POWERLINE_
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+
 # if [[ -e ~/.git-prompt.sh ]]; then
 #     source ~/.git-prompt.sh
 #     GIT_PS1_SHOWSTASHSTATE="+"
