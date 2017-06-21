@@ -85,6 +85,9 @@ if g:colors_name == 'Monokai'
 endif
 " --- pi ---
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 " ========== File tree explorer ==========
 if exists(":Lexplore")
   map <C-e> :Lexplore<CR>
