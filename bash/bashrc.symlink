@@ -24,6 +24,22 @@ fi
 #       $USER
 #       $OSTYPE
 #       $MACHTYPE
+ostype() { echo $OSTYPE | tr '[A-Z]' '[a-z]'; }
+
+export SHELL_PLATFORM='unknown'
+
+case "$(ostype)" in
+	*'linux'*)
+    SHELL_PLATFORM='linux'
+    ;;
+	*'darwin'*)
+    SHELL_PLATFORM='osx'
+    ;;
+	*'bsd'*)
+    SHELL_PLATFORM='bsd'
+    ;;
+esac
+
 #   -------------------------------
 #   1. ENVIRONMENT CONFIGURATION
 #   -------------------------------
@@ -98,11 +114,11 @@ PS1+="\[$COLOR_GREEN\](\u)$COLOR_RESET\] "      # user name
 PS1+="\[\$(git_color)\]"                        # colors git status
 PS1+="\$(git_branch) \$(git_pull_check)$COLOR_RESET\]"             # prints current branch
 PS1+="\n| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "   # pronpt
+# TMUX_POWERLINE_
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 export PS1
 export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "
 
-# TMUX_POWERLINE_
-PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 # if [[ -e ~/.git-prompt.sh ]]; then
 #     source ~/.git-prompt.sh
