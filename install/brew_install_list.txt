@@ -4,7 +4,7 @@ git
 boost                           #
 gcc                             #
 python                          #
-neovim/neovim/neovim
+neovim
 // cmake
 // cloog
 // cscope
