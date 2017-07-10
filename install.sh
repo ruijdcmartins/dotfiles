@@ -3,7 +3,7 @@
 if [[ $EUID -ne 0 ]]; then
        echo -e "Aborting the install process: This script must be run as root\n"
        exit;
- fi
+fi
 
 echo "Installing dotfiles"
 
@@ -46,4 +46,4 @@ echo "Done."
 #https://gcc.gnu.org/wiki/GFortranBinaries#MacOS
 #MacOS
 #The gfortran maintainers offer nice Apple-style installers for…….
-#NOT from source 
+#NOT from source

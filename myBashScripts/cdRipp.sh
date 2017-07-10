@@ -1,73 +1,78 @@
 #!/bin/bash
-# This script uses ~/lameInsaneUsingFor.sh the 'cat lameInsaneUsingFor.sh' is on the end of the sript 
-lameInsaneFor()
+
+##################################
+##########   Variables  ##########
+##################################
+
+
+defaultVolumes=("SSD_Boot" "Quatro.Tera" "Dois.Tera")
+availableVolumes=$(ls /Volumes/)
+destinyFolder="$HOME/Desktop/RipedCds/"
+
+
+##################################
+##########   Functions  ##########
+##################################
+
+copyAiffFolder()
 {
-for f in "$@"
-	do
-    [[ "$f" != *.aiff ]] && continue
-
-    lame --preset insane "$f" "${f%.aiff}.mp3"
-done
+echo "this folther has aiff files so is good to go!"
+echo '-------------------------------------'
+echo "copying files"
+mkdir -vp $destinyFolder
+cp -v *.aiff "${destinyFolder}/"
 }
-#export -f lameInsaneUsingFor
 
-if ls -1 $1 | grep \.aiff ; then
-	FODER_TO_COPIE=$1
-	echo "this folther has aiff files so is good to go!"
-	echo '-------------------------------------'
-	echo 'FODER_TO_COPIE' '=' $FODER_TO_COPIE
-	cd ..
-	
-	PATH_TO_EXCLUDE=$1
-	echo '-------------------------------------'
-	
-	cd - > /dev/null
-	cd ~/Desktop/RipedCds/
-	
-	mkdir ~/Desktop/RipedCds"${FODER_TO_COPIE#$PATH_TO_EXCLUDE}"
-	
-	cd - > /dev/null
-	echo '-------------------------------------'
-	echo 'coping forder ' "$FODER_TO_COPIE" ' to ' "~/Desktop/RipedCds"${FODER_TO_COPIE#$PATH_TO_EXCLUDE}""
-	cp -R ${1}.*aiff ~/Desktop/RipedCds"${FODER_TO_COPIE#$PATH_TO_EXCLUDE}"
-	
-	echo '-------------------------------------'
-	echo 'FODER_COPIED' 'to' "~/Desktop/RipedCds"${FODER_TO_COPIE#$PATH_TO_EXCLUDE}""
-	
-	cd ~/Desktop/RipedCds"${FODER_TO_COPIE#$PATH_TO_EXCLUDE}"
-	
-	echo '-------------------------------------'
-	echo 'starting lame for aiff in the folder' 
-	
-	#find . -name '*.aiff' -exec lameInsaneUsingFor.sh {} \;
-	#find . -name '*.aiff' exec bash -c 'lameInsaneFor' {} \;
-	find . -name '*.aiff' | while read file; do lameInsaneFor "$file"; done
+aiffToMp3Lame()
+{
+#cd ${destinyFolder}
+echo '-------------------------------------'
+echo "converting aiff files to mp3 in ${PWD}"
+# VERY GOOD METHOD TO DEAL WITH WITHE SAPACES ON FILE NAMES
+for f in * ; do
+  [[ "$f" != *.aiff ]] && continue
+  lame --preset insane "$f" "${f%.aiff}.mp3"
+done
+#find . -name '*.aiff' -exec lameInsaneUsingFor.sh {} \;
+#find . -name '*.aiff' exec bash -c 'aiffToMp3Lame' {} \;
+#find . -name '*.aiff' | while read file; do aiffToMp3Lame "$file"; done
+}
 
-	echo '-------------------------------------'
-	echo "If you want to remove the .aiff files type 1"
-	echo "If you want to open the folder whit the mp3s type 2"
-	echo "If you want to exacute all previos options type 3"
-	echo '-------------------------------------'
-	echo -e "\n"
-	echo -e "Please chose 1,2,3"
-	
-	read RESPOSTA
-	case $RESPOSTA in
-		1) 	rm *.aiff ;;
-		2) 	open . ;;
-		3) 	rm *.aiff 
-			open . ;;
-	esac
-	cd - > /dev/null
-else
-	echo "NO aiff files, bad folder to run the script"
+cleanTempFiles()
+{
+echo '-------------------------------------'
+echo "If you want to remove the .aiff files type 1"
+echo "If you want to open the folder whit the mp3s type 2"
+echo "If you want to exacute all previos options type 3"
+echo '-------------------------------------'
+echo -e "\n"
+echo -e "Please chose 1,2,3 \n >"
+
+read RESPOSTA
+case $RESPOSTA in
+  1)  rm *.aiff
+      ;;
+  2)  open .
+      ;;
+  3)  rm *.aiff
+      open .
+      ;;
+esac
+}
+
+##################################
+###########    MAIN   ############
+##################################
+
+if (( "$#" == 0 )) ; then
+  aiffInPWD=$(ls -1 *.aiff)
+  if [[ $aiffInPWD ]] ; then
+    lastFolderOfPWD=${PWD##/*/}
+    destinyFolder="${destinyFolder}${lastFolderOfPWD}"
+    copyAiffFolder
+    cd ${destinyFolder}
+    aiffToMp3Lame
+    cleanTempFiles
+    cd - > /dev/null
+  fi
 fi
-
-#cat lameInsaneUsingFor.sh
-#for f in "$@"
-#	do
-#    [[ "$f" != *.aiff ]] && continue
-#   
-#    lame --preset insane "$f" "${f%.aiff}.mp3"
-#done
-#more coments
