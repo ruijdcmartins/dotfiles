@@ -497,3 +497,4 @@ if [[ -f ~/.bashrc_local ]]; then
 fi
 
 export PYTHONSTARTUP=~/.pythonrc
+
