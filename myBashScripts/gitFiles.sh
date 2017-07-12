@@ -6,17 +6,20 @@ if [[ $# == 0 ]] ; then echo "No input, no fun!" ; exit ; fi
 cmmMsg=""
 gitignore=""
 in=("$@")
-[ -f .gitignore ] && gitignore+=$(cat .gitignore)
+[ -f .gitignore ] && gitignore=($(cat .gitignore))
 # echo "$gitignore"
 # echo $in
 echo "------   adding to git rep   ------"
 for (( i = 0; i < ${#in[@]}; i++ )); do
   addFile=true
-  for skip in "$gitignore"; do
-    { echo "${in[i]}" | grep "$skip" &> /dev/null ; } && { addFile=false ; break ; }
+  for (( j = 0 ; j < ${#gitignore[@]} ; ++j )); do
+    if [[ "${in[i]}" == ${gitignore[j]} ]] ; then 
+      addFile=false ; break ;
+    fi
   done
-  { echo "${in[i]}" | grep "\-m" &> /dev/null ; } && { addFile=false ;
-    cmmMsg=${in[i+1]} ; (( i++ )) ; }
+  if [[ "${in[i]}" == "-m" ]] ; then
+      addFile=false ; cmmMsg=${in[i+1]} ; (( i++ )) ; 
+  fi
   if ( $addFile ) ; then
     git add ${in[i]}
     echo ${in[i]}
@@ -30,6 +33,7 @@ git commit -m \""$cmmMsg"\"
 git pull
 git push
 
+# echo "git commit -m $cmmMsg"
 # while (( "$#" )); do
 #   if [ $# -gt 1 ]; then
 #
