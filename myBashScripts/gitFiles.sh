@@ -15,8 +15,8 @@ for (( i = 0; i < ${#in[@]}; i++ )); do
   for skip in "$gitignore"; do
     { echo "${in[i]}" | grep "$skip" &> /dev/null ; } && { addFile=false ; break ; }
   done
-  { echo "${in[i]}" | grep "\-m" &> /dev/null ; } && { addFile=false && \
-    cmmMsg=${in[i+1]} && ((i++)) ; }
+  { echo "${in[i]}" | grep "\-m" &> /dev/null ; } && { addFile=false ;
+    cmmMsg=${in[i+1]} ; (( i++ )) ; }
   if ( $addFile ) ; then
     git add ${in[i]}
     echo ${in[i]}
@@ -26,7 +26,7 @@ echo "-----------------------------------"
 
 if [[ -z $cmmMsg ]] ; then read -ep "Please enter a commit mesage `echo $'\n> '`" cmmMsg ; fi
 
-git commit -m \"$cmmMsg\"
+git commit -m "$cmmMsg"
 git pull
 git push
 

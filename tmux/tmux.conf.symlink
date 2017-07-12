@@ -155,7 +155,7 @@ set -g pane-active-border-fg colour51
 
 # }
 # The statusbar {
-#
+
 set -g status-position bottom
 set -g status-bg colour234
 set -g status-fg colour137
