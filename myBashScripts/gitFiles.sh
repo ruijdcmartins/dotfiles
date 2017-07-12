@@ -1,19 +1,49 @@
 #!/bin/bash
-# ./gitUpdate.sh file1 file2 .... fileN "commit mesage"
-	
-while (( "$#" )); do
-	if [ $# -gt 1 ]; then
-		git add "$1"
-	fi
-	
-	if [ $# == 1 ]; then
-		git commit -m "$1"
-		git pull
-		git push
-	fi
+# ./gitUpdate.sh file1 file2 .... fileN -m "commit mesage"
 
-	shift
+if [[ $# == 0 ]] ; then echo "No input, no fun!" ; exit ; fi
+
+cmmMsg=""
+gitignore=""
+in=("$@")
+[ -f .gitignore ] && gitignore+=$(cat .gitignore)
+# echo "$gitignore"
+# echo $in
+echo "------   adding to git rep   ------"
+for (( i = 0; i < ${#in[@]}; i++ )); do
+  addFile=true
+  for skip in "$gitignore"; do
+    { echo "${in[i]}" | grep "$skip" &> /dev/null ; } && { addFile=false ; break ; }
+  done
+  { echo "${in[i]}" | grep "\-m" &> /dev/null ; } && { addFile=false && \
+    cmmMsg=${in[i+1]} && ((i++)) ; }
+  if ( $addFile ) ; then
+    git add ${in[i]}
+    echo ${in[i]}
+  fi
 done
+echo "-----------------------------------"
+
+if [[ -z $cmmMsg ]] ; then read -ep "Please enter a commit mesage `echo $'\n> '`" cmmMsg ; fi
+
+git commit -m \"$cmmMsg\"
+git pull
+git push
+
+# while (( "$#" )); do
+#   if [ $# -gt 1 ]; then
+#
+#     echo git add \"$1\"
+#   fi
+#
+#   if [ $# == 1 ]; then
+#     echo "git commit -m \"$1\""
+#     echo "git pull"
+#     echo "git push"
+#   fi
+#
+#   shift
+# done
 
 #git fetch --all
 #git reset --hard origin/master
