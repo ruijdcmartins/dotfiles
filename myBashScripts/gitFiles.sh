@@ -26,7 +26,7 @@ echo "-----------------------------------"
 
 if [[ -z $cmmMsg ]] ; then read -ep "Please enter a commit mesage `echo $'\n> '`" cmmMsg ; fi
 
-git commit -m "$cmmMsg"
+git commit -m \""$cmmMsg"\"
 git pull
 git push
 
