@@ -1,6 +1,8 @@
 #!/bin/bash
 # ./gitUpdate.sh file1 file2 .... fileN -m "commit mesage"
 
+source functions_and_tools.sh
+
 if [[ $# == 0 ]] ; then echo "No input, no fun!" ; exit ; fi
 
 cmmMsg=""
@@ -29,10 +31,12 @@ echo "-----------------------------------"
 
 if [[ -z $cmmMsg ]] ; then read -ep "Please enter a commit mesage `echo $'\n> '`" cmmMsg ; fi
 
-git commit -m \""$cmmMsg"\"
-git pull
-git push
-
+echo "Proced with the commit ?"
+if yes_or_no ; then
+  git commit -m \""$cmmMsg"\"
+  git pull
+  git push
+fi
 # echo "git commit -m $cmmMsg"
 # while (( "$#" )); do
 #   if [ $# -gt 1 ]; then

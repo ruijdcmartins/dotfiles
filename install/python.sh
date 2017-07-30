@@ -5,6 +5,12 @@ logFolderPip="$HOME/dotfilesLogs/brewLogs/pip/"
 pip_list=(  "numpy"
             "scipy"
             "matplotlib"
+            "pandas"
+            "pandas-datareader"
+            "plotly"
+            "cufflinks"
+            "ipython"
+            '"ipython[notebook]"'
             "neovim" )
 
 
