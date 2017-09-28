@@ -4,7 +4,7 @@
 
 Simplify3D_FOLDER='/Applications/Simplify3D-4.0.0/'
 
-cd Simplify3D_FOLDER
+cd $Simplify3D_FOLDER
 
 DYLD_INSERT_LIBRARIES=./Interface.dylib DYLD_FORCE_FLAT_NAMESPACE=1 ./Simplify3D.app/Contents/MacOS/Simplify3D
 
