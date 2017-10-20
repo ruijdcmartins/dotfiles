@@ -1,51 +1,76 @@
 #!/usr/bin/env bash
 
-unset ROOT_CHOICE_version
-unset ROOT_CHOICE_folder
-unset ROOT_MAIN_FOLDER
+unset Root_Version
+unset Root_Folder_Surname
+unset Developing_Folder
 unset CORES
-unset ROOT_CHOICE_folder_temp
+unset Root_Folder_Surname_temp
 
+#Root_Version=5.34.19 # on macBook
+#Root_Version=6.06.00
+Root_Version=6.10.08
 
-#ROOT_CHOICE_version=6.06.00
-ROOT_CHOICE_version=5.34.34 # last of 5.34
-#ROOT_CHOICE_version=5.34.19 # on macBook
-
-ROOT_CHOICE_folder="$ROOT_CHOICE_version"
-ROOT_MAIN_FOLDER=developing
+Root_Folder_Surname="$Root_Version"
+Developing_Folder="developing"
 
 CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
-#viva o Sporting!
+
+# # # # # # # # # # # #
+# Defining  Functions #
+# # # # # # # # # # # #
+
+yes_or_no()
+{
+    #Possible argument for yes_or_no
+    if [[ $1 =~ ^[yY](es)? ]] ; then
+        return 0
+    elif [[ $1 =~ ^[nN]o? ]] ; then
+        return 1
+    fi
+
+    #Promp interaction
+    unset yes_or_no_option
+    read -p "Type Yes(y) or No(n) `echo $'\n> '`" yes_or_no_option
+    if [[ $yes_or_no_option =~ ^[yY](es)? ]] ; then
+        return 0
+    elif [[ $yes_or_no_option =~ ^[nN]o? ]] ; then
+        return 1
+    else
+        echo "Invalid option!"
+        yes_or_no
+    fi
+}
+
+
 check_folder()
 {
-if [[ -d "root-$ROOT_CHOICE_folder" ]]; then
-    echo -e "\n========!! Folder root-$ROOT_CHOICE_folder in ===> $ROOT_MAIN_FOLDER/root/root-$ROOT_CHOICE_folder alredy exist !!========\n"
-    echo "If you want do delete and proceed the installation please type Yes(y), to exit type No(n)"
-    read res_temp
-    if [[ "$res_temp" == "y" || "$res_temp" == "Yes" || "$res_temp" == "yes" ]]; then
-        rm -R root-"$ROOT_CHOICE_folder"
-        mkdir root-"$ROOT_CHOICE_folder" ||  { echo -e "\n!! Wrong choice !!\n" ; check_folder ; }
+#if [[ -d "root-$Root_Folder_Surname" ]]; then
+if [[ -d "${1}/${2}" ]]; then
+    echo -e "\n======== !!! Folder ${1}/${2} alredy exist !!! ========\n"
+    echo "If you want do delete this folder and proceed the installation?"
+    if ( yes_or_no ); then
+        rm -ri "${1}/${2}"
+        mkdir -p "${1}/${2}" ||  { echo -e "\n!! Wrong choice !!\n" ; check_folder ; }
         return 0
-    fi
-    if [[ $res_temp == "n" || $res_temp == "no" || $res_temp == "No" ]]; then
-        echo -e "\nCreate new direcotry for the installation ? \nPlease type Yes(y), to exit type No(n)\n"
-        read resposta00
-        if [[ $resposta00 == "n" || $resposta00 == "no" || $resposta00 == "No" ]]; then
-        exit 1
+    else
+        echo -e "\nCreate new direcotry for the installation ?"
+        if ( ! yes_or_no ); then
+          exit 1
         fi
-        ROOT_CHOICE_folder="$ROOT_CHOICE_version"
-        if [[ "$resposta00" == "y" || "$resposta00" == "Yes" || "$resposta00" == "yes" ]]; then
-        echo -e "\nThe name of the folder will be root-$ROOT_CHOICE_folder plus what you type next."
-        read ROOT_CHOICE_folder_temp
-        ROOT_CHOICE_folder="$ROOT_CHOICE_folder""$ROOT_CHOICE_folder_temp"
-        mkdir root-"$ROOT_CHOICE_folder" ||  { echo -e "\n\n!! Wrong choice !!\n" ; check_folder ; }
-        return 0
+        Root_Folder_Surname="${Root_Version}"
+        if ( yes_or_no ); then
+          echo -e "\nThe name of the folder will be root-${Root_Folder_Surname} plus what you type next."
+          read Root_Folder_Surname_temp
+          Root_Folder_Surname="${Root_Folder_Surname}""${Root_Folder_Surname_temp}"
+          Root_Build_folder="root-${Root_Folder_Surname}"
+          mkdir ${Root_Build_folder} ||  { echo -e "\n\n!! Wrong choice !!\n" ; check_folder ; }
+          return 0
         fi
     fi
 echo "ERROR"
 exit 1
 else
-    mkdir root-"$ROOT_CHOICE_folder" ||  { echo -e "\n\n!! Wrong choice !!\n" ; check_folder ; }
+    mkdir "${Root_Versions_Base_Folder}/${Root_Build_folder}" ||  { echo -e "\n\n!! Wrong choice !!\n" ; check_folder ; }
     return 0
 fi
 }
@@ -55,18 +80,16 @@ check_thisroot()
 # if function retuns 1, change the dotedfile
 if [[ -f ~/"$1" ]]; then
     if ! ( grep -q '^ROOT_FOLDER_VERSION=' ~/"$1" ) && ! ( grep -q '^source.*thisroot.sh$' ~/"$1" ); then return 1 ; fi
-    
+
     if ( grep -q '^ROOT_FOLDER_VERSION=' ~/"$1" ) && ( grep -q '^source.*thisroot.sh$' ~/"$1" ); then
         echo -e "\n\n===========================================\n"
         echo "Previous instalaton was detected on $1"
         echo -e "Do you want to change the variable ROOT_FOLDER_VERSION on $1 to the current version intalled?\n"
         echo "If yes ~/${1}BKUP will be created"
-        echo "Please confirm Yes(y) or No(n)"
-        read resposta2
-        if [[ $resposta2 == "y" || $resposta2 == "Yes" || $resposta2 == "yes" ]]; then
+        if ( yes_or_no ); then
             cp ~/"$1" ~/"$1"BKUP
-            sed 's|\(^ROOT_FOLDER_VERSION=\).*|\1'"root-$ROOT_CHOICE_folder/root-$ROOT_CHOICE_version|" ~/"$1"BKUP > ~/"$1"
-            echo 'source ~'"/$ROOT_MAIN_FOLDER/$ROOT_FOLDER_VERSION/bin/thisroot.sh"
+            sed 's|\(^ROOT_FOLDER_VERSION=\).*|\1'"root-$Root_Folder_Surname|" ~/"$1"BKUP > ~/"$1"
+            echo 'source ~'"/$Developing_Folder/$ROOT_FOLDER_VERSION/bin/thisroot.sh"
             source ~/"$1"
             return 0
         fi
@@ -76,9 +99,7 @@ if [[ -f ~/"$1" ]]; then
             echo "Previous instalaton was detected on $1"
             echo -e "Do you want to comment the line source.*thisroot.sh on $1 to the current version intalled?\n"
             echo "If yes ~/${1}BKUP will be created"
-            echo "Please confirm Yes(y) or No(n)"
-            read resposta2
-            if [[ $resposta2 == "y" || $resposta2 == "Yes" || $resposta2 == "yes" ]]; then
+            if ( yes_or_no ); then
                 cp ~/"$1" ~/"$1"BKUP
                 sed 's|\(^source.*thisroot.sh$\)|#\1|g' ~/"$1"BKUP > ~/"$1"
                 return 1
@@ -87,106 +108,145 @@ if [[ -f ~/"$1" ]]; then
     fi
 else
     return 1
-fi  
+fi
 }
 
 apend_RootPaths()
 {
-echo "ROOT_TO_BE_SOURCED=root-$ROOT_CHOICE_version" >> ~/"$1"
-echo "case '$ROOT_TO_BE_SOURCED' in" >> ~/"$1"
-echo "  $ROOT_TO_BE_SOURCED)" >> ~/"$1"
-echo -e "\n#=============== Root =================" >> ~/"$1"
-echo "ROOT_FOLDER_VERSION=root-$ROOT_CHOICE_folder/root-$ROOT_CHOICE_version" >> ~/"$1"
-echo 'source ~'"/$ROOT_MAIN_FOLDER/root/"'$ROOT_FOLDER_VERSION'"/bin/thisroot.sh" >> ~/"$1"
-echo 'export ROOTSYS=~'"/$ROOT_MAIN_FOLDER/root/"'"$ROOT_FOLDER_VERSION"' >> ~/"$1"
-echo 'export PATH=$PATH:$ROOTSYS:$ROOTSYS/bin' >> ~/"$1"
-echo 'export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH' >> ~/"$1"
-echo 'export DYLD_LIBRARY_PATH=$ROOTSYS/lib:$DYLD_LIBRARY_PATH' >> ~/"$1"
-echo -e "#======================================\n" >> ~/"$1"
-echo ";;" >> ~/"$1"
-echo "esac" >> ~/"$1"
+read -r -d '' Root_Paths <<EOF
+
+#=============== Root =================
+ROOT_FOLDER_VERSION="$Root_Build_folder"
+ROOTSYS=\$HOME/$Developing_Folder/root/\$ROOT_FOLDER_VERSION
+source \$ROOTSYS/bin/thisroot.sh
+export ROOTSYS
+export PATH=\$PATH:\$ROOTSYS:\$ROOTSYS/bin
+export LD_LIBRARY_PATH=\$ROOTSYS/lib:\$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=\$ROOTSYS/lib:\$DYLD_LIBRARY_PATH
+#======================================
+EOF
+
+if (( $# == 0 )); then
+  echo "$Root_Paths"
+else
+  echo "$Root_Paths" >> ~/$1
+fi
+
 }
 
-#################################################################
-#################################################################
-#################################################################
+
+
+####################
+####################
+###              ###
+###     MAIN     ###
+###              ###
+####################
+####################
 
 echo -e "\n\n==========================================="
-echo -e "Root instalation \tVertion $ROOT_CHOICE_version"
-echo "To change the version abort the scrip and edit the variable ROOT_CHOICE_version on this scrip"
-echo "Proceed with the instalation? Type Yes(y) or No(n)"
-read resposta
+echo -e "Root instalation \tVertion $Root_Version"
+echo "To change the version abort the scrip and edit the variable Root_Version on this scrip"
+echo "Please press return to proceed"
+read JUST_PRES_RETURN
 
-if [[ $resposta == "y" || $resposta == "Yes" || $resposta == "yes" ]]; then
+    # Go to home !
     cd ~
 
-    mkdir -p $ROOT_MAIN_FOLDER/root
+    # Create roots base folder
 
-    cd $ROOT_MAIN_FOLDER/root
+    Root_Versions_Base_Folder="$HOME/${Developing_Folder}/root"
+    Root_Tar_File="root_v${Root_Version}.source.tar.gz"
+    Root_UnTar_Folder="root-${Root_Folder_Surname}_TEMP"
+    Root_Build_folder="root-${Root_Folder_Surname}"
 
-    check_folder
-    
-    curl -o root_v"$ROOT_CHOICE_version".source.tar.gz https://root.cern.ch/download/root_v"$ROOT_CHOICE_version".source.tar.gz  || wget -O root_v"$ROOT_CHOICE_version".source.tar.gz https://root.cern.ch/download/root_v"$ROOT_CHOICE_version".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
-    # wget -O root_v"$ROOT_CHOICE_version".source.tar.gz https://root.cern.ch/download/root_v"$ROOT_CHOICE_version".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
-    # curl -o root_v"$ROOT_CHOICE_version".source.tar.gz https://root.cern.ch/download/root_v"$ROOT_CHOICE_version".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
+    #echo "${Root_Version}"                                  # 5.34.34
+    #echo "${Root_Folder_Surname}"                           # 5.34.34
+    #echo "$Root_Versions_Base_Folder"                       # /Users/andrereigoto/developing_tst/root
+    #echo "$Root_Versions_Base_Folder/$Root_Tar_File"        # /Users/andrereigoto/developing_tst/root/root_v5.34.34.source.tar.gz
+    #echo "$Root_Versions_Base_Folder/$Root_UnTar_Folder"    # /Users/andrereigoto/developing_tst/root/root-5.34.34_TEMP
+    #echo "$Root_Versions_Base_Folder/$Root_Build_folder"    # /Users/andrereigoto/developing_tst/root/root-5.34.34
 
-    echo -e "ROOT_CHOICE_version \t\t ROOT_CHOICE_folder"
-    echo -e "$ROOT_CHOICE_version \t\t\t $ROOT_CHOICE_folder"
+    mkdir -p $Root_Versions_Base_Folder
 
-    tar -xf root_v"$ROOT_CHOICE_version".source.tar.gz -C root-"$ROOT_CHOICE_folder" --strip-components 1 || { echo -e "\nunTar failed\n" ; exit 1 ; }
+   check_folder $Root_Versions_Base_Folder $Root_Build_folder
 
-    cd root-$ROOT_CHOICE_folder
 
-    #####################
-    #                   #
-    #       osx         #
-    #                   #
-    #####################
-    
-    if [[ $OSTYPE =~ "darwin" ]]; then
-        
-        ./configure --prefix=$PWD/root-"$ROOT_CHOICE_version" --etcdir=$PWD/root-"$ROOT_CHOICE_version"/etc --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
-    
-        make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
-        make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
-    
-        if      ( check_thisroot ".bashrc" ) ;          then echo "Done"
-        elif    ( check_thisroot ".bash_profile" ) ;    then echo "Done"
-        else apend_RootPaths ".bash_profile"
-        fi
+    cd $Root_Versions_Base_Folder || { echo -e "\nRoot_Versions_Base_Folder not created\n" ; exit 1 ; }
+
+    curl -o $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz  || wget -O $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
+    # wget -O root_v"$Root_Version".source.tar.gz https://root.cern.ch/download/root_v"$Root_Version".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
+    # curl -o root_v"$Root_Version".source.tar.gz https://root.cern.ch/download/root_v"$Root_Version".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
+
+    echo -e "Root_Version \t\t Root_Folder_Surname"
+    echo -e "$Root_Version \t\t\t $Root_Folder_Surname"
+
+    mkdir -p "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+    tar -xf $Root_Tar_File -C $Root_UnTar_Folder --strip-components 1 || { echo -e "\nunTar failed\n" ; exit 1 ; }
+
+    cd $Root_Build_folder
+
+#####################
+#####################
+#        osx        #
+#####################
+#####################
+
+if [[ $OSTYPE =~ "darwin" ]]; then
+
+    #./configure --prefix=$PWD/root-"$Root_Version" --etcdir=$PWD/root-"$Root_Version"/etc --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    #make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
+    #make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
+
+    if [[ $Root_Version == "5.34.34" ]]; then
+      cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" -DGSL_DIR='/usr/local/Cellar/gsl@1/1.16/' -DGSL_CONFIG_EXECUTABLE='/usr/local/Cellar/gsl@1/1.16/bin/gsl-config' "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+    else
+      cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
     fi
 
+    make all install -j8 || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
 
-    #####################
-    #                   #
-    #       linux       #
-    #                   #
-    #####################
-    
-    if [[ $OSTYPE =~ "linux-gnu" ]]; then
-    
-        #Check if packages are installed        
-        #dpkg-query -W -f='${Package} \t ${Status} ${Version}\n' {git,dpkg-dev,make,g++,gcc,binutils,libx11-dev,libxpm-dev,libxft-dev,libxext-dev}
-            
-        #Required packages
-        sudo apt-get --yes --force-yes install git dpkg-dev make g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev
-        #Optional packages
-        sudo apt-get --yes --force-yes install gfortran libssl-dev libpcre3-dev \
-        xlibmesa-glu-dev libglew1.5-dev libftgl-dev \
-        libmysqlclient-dev libfftw3-dev cfitsio-dev \
-        graphviz-dev libavahi-compat-libdnssd-dev \
-        libldap2-dev python-dev libxml2-dev libkrb5-dev \
-        libgsl0-dev libqt4-dev
-        
-        sudo apt-get --yes --force-yes install texlive python-numpy vim
-    
-        ./configure --prefix=$PWD/root-"$ROOT_CHOICE_version" --etcdir=$PWD/root-"$ROOT_CHOICE_version"/etc --all || { echo -e "\nConfigure failed\n" ; exit 1 ; }
-        make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
-        make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
-    
-    
-        if  ( check_thisroot ".bashrc" ) ;  then echo "Done"
-        else apend_RootPaths ".bashrc"
-        fi
+    if      ( check_thisroot ".bashrc" )       ;    then  apend_RootPaths ; apend_RootPaths > "${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"; echo -e "Append this info in your bashrc or bach_profile!! \n Exemple in ${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"
+    elif    ( check_thisroot ".bash_profile" ) ;    then  apend_RootPaths ; apend_RootPaths > "${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"; echo -e "Append this info in your bashrc or bach_profile!! \n Exemple in ${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"
+    else apend_RootPaths ".bash_profile"       ;    echo "Done !!"
+    fi
+
+    rm -rf "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+
+fi
+
+
+#####################
+#####################
+#       linux       #
+#####################
+#####################
+
+#if [[ $OSTYPE =~ "linux-gnu" ]]; then
+if [[ $OSTYPE =~ "BANANA" ]]; then
+    #Check if packages are installed
+    #dpkg-query -W -f='${Package} \t ${Status} ${Version}\n' {git,dpkg-dev,make,g++,gcc,binutils,libx11-dev,libxpm-dev,libxft-dev,libxext-dev}
+
+    #Required packages
+    sudo apt-get --yes --force-yes install git dpkg-dev make g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev
+    #Optional packages
+    sudo apt-get --yes --force-yes install gfortran libssl-dev libpcre3-dev \
+    xlibmesa-glu-dev libglew1.5-dev libftgl-dev \
+    libmysqlclient-dev libfftw3-dev cfitsio-dev \
+    graphviz-dev libavahi-compat-libdnssd-dev \
+    libldap2-dev python-dev libxml2-dev libkrb5-dev \
+    libgsl0-dev libqt4-dev
+
+    sudo apt-get --yes --force-yes install texlive python-numpy vim
+
+    ./configure --prefix=$PWD/root-"$Root_Version" --etcdir=$PWD/root-"$Root_Version"/etc --all || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    #./configure --prefix="$PWD/../root-TST" --etcdir="$PWD/../root-TST/etc" --all
+    make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
+    make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
+
+
+    if  ( check_thisroot ".bashrc" ) ;  then echo "Done"
+    else apend_RootPaths ".bashrc"
     fi
 fi
+

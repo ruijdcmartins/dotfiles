@@ -3,7 +3,7 @@
 #  Description:  This file holds all my BASH configurations and aliases
 #
 # Source global definitions
-if [ -f /etc/bashrc ]; then 
+if [ -f /etc/bashrc ]; then
      . /etc/bashrc
 fi
 
@@ -106,7 +106,7 @@ function git_pull_check {
 # if [[ $(git fetch --dry-run) =~ "remote" ]]; then echo " pull" ; fi
     echo ""
 }
-# 
+#
 PS1="________________________________________________________________________________\n"
 PS1+="\[$COLOR_YELLOW\]\w$COLOR_RESET\] "       # current folder
 PS1+="@ \[$HOST_COLOR\]\h$COLOR_RESET\] "       # pc local name
@@ -157,11 +157,6 @@ export BLOCKSIZE=1k
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
-# =========== Bash Completion ===========
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-. $(brew --prefix)/etc/bash_completion
-fi
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 # ================== iTerm Profile ==============
 TTY_temp=$(tty)
 TTY=${TTY_temp#*/*/}
@@ -495,6 +490,3 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 if [[ -f ~/.bashrc_local ]]; then
         . ~/.bashrc_local
 fi
-
-export PYTHONSTARTUP=~/.pythonrc
-

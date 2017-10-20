@@ -12,6 +12,8 @@
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
 	<integer>1</integer>
+	<key>AppleWindowTabbingMode</key>
+	<string>manual</string>
 	<key>CopySelection</key>
 	<true/>
 	<key>Custom Color Presets</key>
@@ -31497,6 +31499,8 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>27DDE371-8F16-4789-9C1B-640D05E3FAE4</string>
+	<key>HotkeyMigratedFromSingleToMulti</key>
+	<true/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
@@ -31541,13 +31545,13 @@
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>522 578 400 129 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>412 381 620 392 0 0 1440 900 </string>
+	<string>412 363 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>4 280 796 473 0 0 1440 900 </string>
+	<string>4 258 918 495 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>367 56 1067 711 0 0 1440 877 </string>
+	<string>464 27 976 441 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -39298,13 +39302,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-07-04T22:13:56Z</date>
+	<date>2017-10-10T23:34:16Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
-	<string>3.0.15</string>
+	<string>3.1.2</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
