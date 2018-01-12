@@ -7,8 +7,9 @@ unset CORES
 unset Root_Folder_Surname_temp
 
 #Root_Version=5.34.19 # on macBook
+Root_Version=5.34.36 # on macBook
 #Root_Version=6.06.00
-Root_Version=6.10.08
+# Root_Version=6.10.08
 
 Root_Folder_Surname="$Root_Version"
 Developing_Folder="developing"
@@ -174,7 +175,15 @@ read JUST_PRES_RETURN
 
     cd $Root_Versions_Base_Folder || { echo -e "\nRoot_Versions_Base_Folder not created\n" ; exit 1 ; }
 
-    curl -o $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz  || wget -O $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
+  if [[ -f $Root_Tar_File ]]; then
+    echo "$Root_Tar_File file alredy exist !!"
+    echo "Download again the file(yes) or use the one that is on the computer(no)?"
+      if ( yes_or_no ); then
+        curl -o $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz  || wget -O $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
+      fi
+  else
+        curl -o $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz  || wget -O $Root_Tar_File https://root.cern.ch/download/root_v"${Root_Version}".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
+  fi
     # wget -O root_v"$Root_Version".source.tar.gz https://root.cern.ch/download/root_v"$Root_Version".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
     # curl -o root_v"$Root_Version".source.tar.gz https://root.cern.ch/download/root_v"$Root_Version".source.tar.gz || { echo -e "\nDownload failed\n" ; exit 1 ; }
 
@@ -188,23 +197,64 @@ read JUST_PRES_RETURN
 
 #####################
 #####################
-#        osx        #
+#                   #
+#        osX        #
+#                   #
 #####################
 #####################
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 
-    #./configure --prefix=$PWD/root-"$Root_Version" --etcdir=$PWD/root-"$Root_Version"/etc --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
-    #make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
-    #make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
+    # -- Old method --
+    #   ./configure --prefix=$PWD/root-"$Root_Version" --etcdir=$PWD/root-"$Root_Version"/etc --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    #   ./configure --prefix="$Root_Versions_Base_Folder/$Root_Build_folder" --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    #   make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
+    #   make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
+    # -- Old method --
+
+    # Brew executables in /usr/local/bin
+    #export CC='/usr/local/Cellar/gcc/6.2.0/bin/gcc-6'
+    #export CXX='/usr/local/Cellar/gcc/6.2.0/bin/g++-6'
+    #export FC='/usr/local/Cellar/gcc/6.2.0/bin/gfortran-6'
+
+    #export CC='/usr/local/Cellar/gcc/7.2.0/bin/gcc-7'
+    #export CXX='/usr/local/Cellar/gcc/7.2.0/bin/g++-7'
+    #export FC='/usr/local/Cellar/gcc/7.2.0/bin/gfortran-7'
+
+    #export CC='/usr/local/Cellar/gcc@4.9/4.9.4/bin/gcc-4.9'
+    #export CXX='/usr/local/Cellar/gcc@4.9/4.9.4/bin/g++-4.9'
+    #export FC='/usr/local/Cellar/gcc@4.9/4.9.4/bin/gfortran-4.9'
+
+    # Xcode mode
+    #export CXX=`xcrun -find c++`
+    #export CC=`xcrun -find cc`
+    # -Dlibcxx=ON   \
+
+    #export CFLAGS=-I/opt/X11/include
+    #export CXXFLAGS=-I/opt/X11/include
+    #export CPPFLAGS=-I/opt/X11/include
 
     if [[ $Root_Version == "5.34.34" ]]; then
       cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" -DGSL_DIR='/usr/local/Cellar/gsl@1/1.16/' -DGSL_CONFIG_EXECUTABLE='/usr/local/Cellar/gsl@1/1.16/bin/gsl-config' "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
     else
-      cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+      #cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+      #cmake -G Xcode -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+      #cmake -Dcxx17=ON -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+      #cmake -Dcxx14=ON -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+
+      #cmake  -Dminimal=ON
+
+      cmake -Dcxx11=ON    \
+            -Droofit=ON   \
+            -Dminuit2=ON  \
+            -Dtmva=ON     \
+            -Dpython=ON   \
+            -Dx11=ON      \
+            -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+      ccmake "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
     fi
 
-    make all install -j8 || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
+    make all install -j"$CORES" || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
 
     if      ( check_thisroot ".bashrc" )       ;    then  apend_RootPaths ; apend_RootPaths > "${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"; echo -e "Append this info in your bashrc or bach_profile!! \n Exemple in ${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"
     elif    ( check_thisroot ".bash_profile" ) ;    then  apend_RootPaths ; apend_RootPaths > "${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"; echo -e "Append this info in your bashrc or bach_profile!! \n Exemple in ${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"
@@ -218,7 +268,9 @@ fi
 
 #####################
 #####################
-#       linux       #
+#                   #
+#       Linux       #
+#                   #
 #####################
 #####################
 
