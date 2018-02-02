@@ -5,7 +5,7 @@ boost                           #
 gcc                             #
 python                          #
 neovim
-// cmake
+//  cmake
 // cloog
 // cscope
 // yasm
