@@ -17,10 +17,12 @@ Plug 'scrooloose/nerdcommenter' | let nerdcommenterCheck = 1
 Plug 'terryma/vim-multiple-cursors'                             "Ctrl-n, Ctrl-p, Ctrl-x, MultipleCursorsFind
 Plug 'kien/ctrlp.vim'                                           "fuzzy find files
 Plug 'bronson/vim-crosshairs'                                   " coursorline upgrade
-Plug 'Yggdroot/indentLine'                                      " <Leader>il fancy indent guides with spaces only
+" Plug 'Yggdroot/indentLine'                                      " <Leader>il fancy indent guides with spaces only
 Plug 'raimondi/delimitmate'                                     " Close brackets
 Plug 'godlygeek/tabular' | let tabular =1
 Plug 'python-mode/python-mode' | let pyMode =1
+Plug 'dhruvasagar/vim-zoom' | let vimZoom =1
+Plug 'triglav/vim-visual-increment'
 " Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | let Nerdtree = 1
 " Plug 'othree/eregex.vim' | let eregex = 1                       " :%S/ for substitute with perl regex
 " Plug 'coot/atp_vim'
@@ -190,6 +192,10 @@ if exists("eregex")
   let g:eregex_forward_delim = '/'
   let g:eregex_backward_delim = '?'
   " let g:eregex_force_case = 1
+endif
+
+if exists("vimZoom")
+  map <leader>z <C-w>m 
 endif
 
 " ========================================

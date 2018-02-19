@@ -16,13 +16,20 @@ Short cut: press * to go and # to come back
   |decrement|
   |matching-braces| 
   |register| 
+  |regex|
   |Foldind|
   |Auto-Complete|
+  |<C-| 
+  |Control| keys in insert mode
+  |visual-block|
+
 
 *Plugins*
+  |multiple_cursor|
   |vim-surrond||
   ||tabular|
   |vim-fugitive|
+
 ------------------------------------------------------------------------------
 
   Vim documentation shot cuts, use tab wille typing 
@@ -48,6 +55,7 @@ Short cut: press * to go and # to come back
    :set expandtab?
 
   Buffers, Tabs and Windows defenition:
+    http://www.symbolundefined.com/index.php/2017/04/29/vim-buffers-windows-and-tabs/
     A buffer is the in-memory text of a file.
     A window is a viewport on a buffer.
     A tab page is a collection of windows.
@@ -65,6 +73,7 @@ Short cut: press * to go and # to come back
    
    == Usage of |windows| ==
    <C-W>=  resize windows equally 
+   :vsplit
 
 NOTE Vim commands for text editing
 
@@ -80,6 +89,12 @@ NOTE Vim commands for text editing
   |Movement|
    *       => move to next matching word under the cursor
    #       => move to previous matching word under the cursor
+   -       => first non-blank character of previos line
+   0       => go-to-beginning-of-line
+   ^       => first non-blank character of a line
+   _       => first non-blank character of a line 
+   $       => go-to-end-of-line
+   g_      => last non-blank character of a line
    <C-o>   => move back cursor/file
    <C-i>   => move forward cursor/file
    
@@ -95,22 +110,26 @@ NOTE Vim commands for text editing
    `[a-z] => go to the exact char marked
    ''     => go to the last jump
 
-
   Move to |matching-braces|
    %
+   <C-m>  => my mapping
 
   In visual mode select your text an sort it on with command mode 
    :'<,'>sort
 
-  To append to register just capitalize the |register|
-  "Ayiw
-
-  In insert mode paste text from any register
-  the default register is ""
+   In insert mode paste text from any |register|
    <C-r> [your chosen register]
    <C-r> "
 
-  Access the expression resistor in insert mode and do some math
+   Spetial |registers|
+   "  is the default register is
+   clipboard register is +
+   black hole register is _
+
+  To append to register just capitalize the |register|
+  "Ayiw
+
+  Access the expression |resistor| in insert mode and do some math
    <C-r> =
 
   Repeat the last macro
@@ -135,7 +154,7 @@ NOTE Vim commands for text editing
    zr unfolds all ; reduce fold 
    zf manual fold
 
-  Use Very Magic for the real regex
+  Use Very Magic for the real |regex|
   http://vimregex.com/
    :help magic
    /\v
@@ -143,6 +162,15 @@ NOTE Vim commands for text editing
 
   Afther a search you can do a subtitution just by doing
    :s//NewStuf/
+
+  
+  perl  |  vim
+  (?:)     %()   => Non capture group
+  (?!)     ()@!  => negative lookaround
+  ()?      (){-} => as few as possible
+
+  Example to use with print py2 to print py3
+   %s/\v(^\s{-}print)\s+%(\()@!(.*)/\1(\2)/c
 
   |Auto-Complete|
    <C-X><C-L>    => Whole lines
@@ -154,12 +182,31 @@ NOTE Vim commands for text editing
    <C-X><C-F>    => file names
    <C-X><C-D>    => definitions or macros
    <C-X><C-V>    => Vim command-line
-   <C-X><C-U>   => User defined completion
-   <C-X><C-O>   => omni completion
-   <C-X>_s      => Spelling suggestions
-   <C-N>        => keywords in 'complete'
+   <C-X><C-U>    => User defined completion
+   <C-X><C-O>    => omni completion
+   <C-X>_s       => Spelling suggestions
+   <C-N>         => keywords in 'complete'
 
+  |Control| keys in insert mode
+  <C-O>    allows execute one command in insert mode
+  <C-W>    delete word to the left of cursor
+  <C-O> D  delete everything to the right of cursor
+  <C-U>    delete everything to the left of cursor
+  <C-H>    backspace/delete
+  <C-J>    insert newline (easier than reaching for the return key)
+  <C-T>    indent current line
+  <C-D>    un-indent current line
+
+  |visual-block|
+  <C-V> I       visual block selecion and then insert mode I
+  <C-V> $A      to append at the end of the line 
+  <C-V> <       indentation !!
+  <C-V> >       indentation !!
+  <C-V>g<C-A>   iterate thou selection 
 *Plugins*
+
+  |multiple_cursor|
+  <C-n>
 
   |vim-surrond|
    normal mode options
@@ -191,4 +238,6 @@ NOTE Vim commands for text editing
                              => C to commit
     .....
 
+  |vim-zoom|
+  <C-w>m          => zoom the current window (is is maped to <leader>z)
   

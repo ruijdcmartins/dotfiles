@@ -201,6 +201,7 @@ map <leader>sp :set spell spelllang=pt<CR>
 map <leader>sn :set nospell<CR>
 map <leader>d "_d |"the black hole register
 map <leader>D "_D |"the black hole register
+map <C-m> %
 " desable shift k 
 " map <S-k> <Nop>
 " desable shift j and pass beavior to <C-j>
