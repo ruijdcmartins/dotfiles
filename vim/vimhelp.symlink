@@ -185,7 +185,7 @@ NOTE Vim commands for text editing
    <C-X><C-U>    => User defined completion
    <C-X><C-O>    => omni completion
    <C-X>_s       => Spelling suggestions
-   <C-N>         => keywords in 'complete'
+   <C-N>         => keywords in 'complete' on buffer
 
   |Control| keys in insert mode
   <C-O>    allows execute one command in insert mode
