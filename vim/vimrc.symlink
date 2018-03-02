@@ -7,6 +7,14 @@ source ~/.vimPlugrc
 " ============Plug config end=============
 " ========================================
 
+" To use with raspberry
+" let OsType = system('echo uname -m')
+" if OsType == 'armv7l'
+"    nnoremap <somekey> <ohanotherkey!>
+" elseif
+" else
+" endif
+
 " =============My vim options===========
 " going hard on vim
 " noremap <Up> <nop>
