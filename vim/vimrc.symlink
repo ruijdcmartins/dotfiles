@@ -83,7 +83,7 @@ autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
 set scrolloff=5                     " when scrolling all ways show 5 lines
 " set cursorcolumn                  " enable the vertical line
 " --- pi ---
-if OsType != 'armv7l'
+if ! OsType =~ 'armv7l'
   set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
   hi clear SpellBad
   hi SpellBad cterm=underline         " solves the pronblem with spellCheck and cursorline"
@@ -187,7 +187,7 @@ endfun
 " ==========toggle invisible characters==========
 " --- pi ---
 " § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
-if OsType == 'armv7l'
+if OsType =~ 'armv7l'
   let g:IndentSts = '1'
 else
   let g:IndentSts = '0'
@@ -304,7 +304,9 @@ if v:version >= 703
       set relativenumber
     endif
   endfunc
-  call NumberToggle()
+  if ! OsType =~ 'armv7l'
+    call NumberToggle()
+  endif
   nnoremap <leader>nr :call NumberToggle()<CR>
 endif
 " --- pi ---
