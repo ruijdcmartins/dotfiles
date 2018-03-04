@@ -7,21 +7,13 @@ source ~/.vimPlugrc
 " ============Plug config end=============
 " ========================================
 
-" To use with raspberry
-" let OsType = system('echo uname -m')
-" if OsType == 'armv7l'
-"    nnoremap <somekey> <ohanotherkey!>
-" elseif
-" else
-" endif
-
 " =============My vim options===========
-" going hard on vim
-" noremap <Up> <nop>
-" noremap <Down> <nop>
-" noremap <Left> <nop>
-" noremap <Right> <nop>
 
+let OsType = system('uname -m')
+" rapsberry -> armv7l
+" OSx       -> x86_64
+
+" going hard on vim
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
 nnoremap <Up> <nop>
@@ -91,9 +83,12 @@ autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
 set scrolloff=5                     " when scrolling all ways show 5 lines
 " set cursorcolumn                  " enable the vertical line
 " --- pi ---
-set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
-hi clear SpellBad
-hi SpellBad cterm=underline         " solves the pronblem with spellCheck and cursorline"
+if OsType != 'armv7l'
+  set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
+  hi clear SpellBad
+  hi SpellBad cterm=underline         " solves the pronblem with spellCheck and cursorline"
+endif
+
 " --- pi ---
 
 " ======= Colors and Thems ==========
@@ -192,7 +187,11 @@ endfun
 " ==========toggle invisible characters==========
 " --- pi ---
 " § ¦ ┆  │ • ¶ ÷ → ← ▶ ◀ ❮ ❯ ⟨ ⟩ ★ ♦ ◥  ¬ ↲ ↪ ↳ ≈ ¿ ◊ ˚ º ª ˆ ^ ˆ › ␣ · ⋅ ” ˝ Ω » © √ ∫ ¬ µ Å ß ∆ ƒ ˙ ˇ ¯ ‚ ’ ˛ Œ Æ ® ™ ¥ ‡ ˚ Ø ∏
-let g:IndentSts = '0'
+if OsType == 'armv7l'
+  let g:IndentSts = '1'
+else
+  let g:IndentSts = '0'
+endif
 function! IndentationToggle(switch_)
   if a:switch_== '0'
     set list listchars=tab:┆⋅,eol:↲,trail:·,extends:⟩,precedes:⟨
