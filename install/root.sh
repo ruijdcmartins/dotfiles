@@ -283,14 +283,17 @@ if [[ $OSTYPE =~ "linux-gnu" ]]; then
     #dpkg-query -W -f='${Package} \t ${Status} ${Version}\n' {git,dpkg-dev,make,g++,gcc,binutils,libx11-dev,libxpm-dev,libxft-dev,libxext-dev}
 
     #Required packages
-    sudo apt-get --yes --force-yes install git dpkg-dev make g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev
+    sudo apt-get --yes --force-yes install git dpkg-dev cmake make g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev
+
     #Optional packages
-    sudo apt-get --yes --force-yes install gfortran libssl-dev libpcre3-dev \
+    sudo apt-get install gfortran libssl-dev libpcre3-dev \
     xlibmesa-glu-dev libglew1.5-dev libftgl-dev \
-    libmysqlclient-dev libfftw3-dev cfitsio-dev \
+    libmysqlclient-dev libfftw3-dev libcfitsio-dev \
     graphviz-dev libavahi-compat-libdnssd-dev \
     libldap2-dev python-dev libxml2-dev libkrb5-dev \
     libgsl0-dev libqt4-dev
+
+    # sudo apt-get --yes --force-yes cfitsio-dev make
 
     sudo apt-get --yes --force-yes install texlive python-numpy vim
 
@@ -299,7 +302,7 @@ if [[ $OSTYPE =~ "linux-gnu" ]]; then
     # make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
     # make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
 
-    cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
+    cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder" || { echo -e "\nConfigure failed\n" ; exit 1 ; }
 
     make all install -j"$CORES" || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
 
