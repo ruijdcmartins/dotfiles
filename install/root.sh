@@ -195,23 +195,23 @@ read JUST_PRES_RETURN
 
     cd $Root_Build_folder
 
-echo
-echo "#####################"
-echo "#####################"
-echo "#                   #"
-echo "#        osX        #"
-echo "#                   #"
-echo "#####################"
-echo "#####################"
-echo
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 
+    echo
+    echo "#####################"
+    echo "#####################"
+    echo "#                   #"
+    echo "#        osX        #"
+    echo "#                   #"
+    echo "#####################"
+    echo "#####################"
+    echo
+
+
     # -- Old method --
-    #   ./configure --prefix=$PWD/root-"$Root_Version" --etcdir=$PWD/root-"$Root_Version"/etc --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
-    #   ./configure --prefix="$Root_Versions_Base_Folder/$Root_Build_folder" --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
-    #   make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
-    #   make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
+    #   "$Root_Versions_Base_Folder/$Root_UnTar_Folder"/configure --prefix="$Root_Versions_Base_Folder/$Root_Build_folder" --enable-roofit --enable-minuit2 --enable-tmva --enable-python || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    #   make all install -j"$CORES" || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
     # -- Old method --
 
     # Brew executables in /usr/local/bin
@@ -256,7 +256,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
       ccmake "$Root_Versions_Base_Folder/$Root_UnTar_Folder"
     fi
 
-    make all install -j"$CORES" || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
+    cmake --build . -- -j"$CORES" || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
 
     if      ( check_thisroot ".bashrc" )       ;    then  apend_RootPaths ; apend_RootPaths > "${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"; echo -e "Append this info in your bashrc or bach_profile!! \n Exemple in ${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"
     elif    ( check_thisroot ".bash_profile" ) ;    then  apend_RootPaths ; apend_RootPaths > "${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"; echo -e "Append this info in your bashrc or bach_profile!! \n Exemple in ${Root_Versions_Base_Folder}/${Root_Build_folder}-Paths_exemple.txt"
@@ -267,23 +267,26 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
 fi
 
-echo
-echo "#####################"
-echo "#####################"
-echo "#                   #"
-echo "#       Linux       #"
-echo "#                   #"
-echo "#####################"
-echo "#####################"
-echo
+
 
 if [[ $OSTYPE =~ "linux-gnu" ]]; then
+
+    echo
+    echo "#####################"
+    echo "#####################"
+    echo "#                   #"
+    echo "#       Linux       #"
+    echo "#                   #"
+    echo "#####################"
+    echo "#####################"
+    echo
+
 #if [[ $OSTYPE =~ "BANANA" ]]; then
     #Check if packages are installed
     #dpkg-query -W -f='${Package} \t ${Status} ${Version}\n' {git,dpkg-dev,make,g++,gcc,binutils,libx11-dev,libxpm-dev,libxft-dev,libxext-dev}
 
     #Required packages
-    sudo apt-get --yes --force-yes install git dpkg-dev cmake make g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev
+    sudo apt-get --yes --force-yes install git dpkg-dev cmake cmake-curses-gui make g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev
 
     #Optional packages
     sudo apt-get install gfortran libssl-dev libpcre3-dev \
@@ -297,14 +300,14 @@ if [[ $OSTYPE =~ "linux-gnu" ]]; then
 
     sudo apt-get --yes --force-yes install texlive python-numpy vim
 
-    # ./configure --prefix="$Root_Versions_Base_Folder/$Root_Build_folder" --all || { echo -e "\nConfigure failed\n" ; exit 1 ; }
-    # #./configure --prefix="$PWD/../root-TST" --etcdir="$PWD/../root-TST/etc" --all
-    # make -j"$CORES" || { echo -e "\nMake failed\n" ; exit 1 ; }
-    # make install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
+    # -- Old method --
+    # #./configure --prefix="$Root_Versions_Base_Folder/$Root_Build_folder" --etcdir="$Root_Versions_Base_Folder/$Root_Build_folder/etc" --all || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    # "$Root_Versions_Base_Folder/$Root_UnTar_Folder"/configure --prefix="$Root_Versions_Base_Folder/$Root_Build_folder" --all || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    # make all install -j"$CORES" || { echo -e "\nMake install failed\n" ; exit 1 ; }
+    # -- Old method --
 
-    cmake -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder" || { echo -e "\nConfigure failed\n" ; exit 1 ; }
-
-    make all install -j"$CORES" || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
+    cmake -Dall=ON -DCMAKE_INSTALL_PREFIX:PATH="$Root_Versions_Base_Folder/$Root_Build_folder" "$Root_Versions_Base_Folder/$Root_UnTar_Folder" || { echo -e "\nConfigure failed\n" ; exit 1 ; }
+    cmake --build . -- -j"$CORES" || { echo -e "\nMake install failed!!!\n" ; exit 1 ; }
 
     if  ( check_thisroot ".bashrc" ) ;  then echo "Done"
     else apend_RootPaths ".bashrc"
