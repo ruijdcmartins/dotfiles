@@ -3,9 +3,9 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DOTFILES=${SCRIPT_DIR%/install}
 BASHSCRIPTS="$DOTFILES/scripts"
-
+BASHSCRIPTS_LINKS="$HOME/.local/scripts"
 # DOTFILES1=$HOME/.dotfiles
-# BASHSCRIPTS1=$HOME/.dotfiles/myBashScripts
+# BASHSCRIPTS1=$HOME/.dotfiles/.local/scripts
 
 echo -e "\nCreating symlinks"
 echo "=============================="
@@ -20,7 +20,9 @@ for file in $linkables ; do
     fi
 done
 
+####################
 # Still tryning neovim
+####################
 echo -e "\n\nInstalling linking vimrc and neovim at ~/.config"
 echo "=============================="
 if [ ! -d $HOME/.config/nvim ]; then
@@ -43,18 +45,20 @@ if [[ -e ~/.config/nvim/init.vim ]]; then
         #ln -s $DOTFILES/vim/vim.symlink $HOME/.config/nvim/init.vim
         ln -s $HOME/.vimrc $HOME/.nvimrc
 fi
-
+####################
 # Linking scripts
-echo -e "\n\nInstalling ~/.local/scripts"
+####################
+
+echo -e "\n\nInstalling $BASHSCRIPTS_LINKS"
 echo "=============================="
-if [ ! -d $HOME/.local/scripts ]; then
-    echo "Creating ~/.local/scripts"
-    mkdir -p $HOME/.local/scripts
+if [ ! -d $BASHSCRIPTS_LINKS ]; then
+    echo "Creating $BASHSCRIPTS_LINKS"
+    mkdir -p $BASHSCRIPTS_LINKS
 fi
 
 linkablesScrips=$( find -H "$BASHSCRIPTS" -maxdepth 3 -name '*' )
 for file in $linkablesScrips ; do
-    target="$HOME/${file##*.dotfiles/}"
+    target="$BASHSCRIPTS_LINKS/${file##/*/}"
     if [ -e $target ]; then
         echo "~${target#$HOME} already exists... Skipping."
     else

@@ -479,4 +479,16 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   the above create files that are almost all zeros - if random bytes are desired
 #   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
 
+#   ---------------------------------------
+#   10. OS specific 
+#   ---------------------------------------
 
+if $SHELL_PLATFORM ~= "osx" ; then
+  # ============ Brew request ===========
+  export PATH="/usr/local/sbin:$PATH"
+  export PATH="/usr/local/bin:/usr/local:$PATH"
+  # =========== Bash Completion ===========
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+  fi
+fi
