@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DOTFILES=${SCRIPT_DIR%/install}
-BASHSCRIPTS="$DOTFILES/myBashScripts"
+BASHSCRIPTS="$DOTFILES/scripts"
 
 # DOTFILES1=$HOME/.dotfiles
 # BASHSCRIPTS1=$HOME/.dotfiles/myBashScripts
@@ -45,11 +45,11 @@ if [[ -e ~/.config/nvim/init.vim ]]; then
 fi
 
 # Linking scripts
-echo -e "\n\nInstalling ~/myBashScripts"
+echo -e "\n\nInstalling ~/.local/scripts"
 echo "=============================="
-if [ ! -d $HOME/myBashScripts ]; then
-    echo "Creating ~/myBashScripts"
-    mkdir -p $HOME/myBashScripts
+if [ ! -d $HOME/.local/scripts ]; then
+    echo "Creating ~/.local/scripts"
+    mkdir -p $HOME/.local/scripts
 fi
 
 linkablesScrips=$( find -H "$BASHSCRIPTS" -maxdepth 3 -name '*' )

@@ -1,11 +1,6 @@
 #  ---------------------------------------------------------------------------
 #
 #  Description:  This file holds all my BASH configurations and aliases
-#
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-     . /etc/bashrc
-fi
 
 #  Sections:
 #  1.  Environment Configuration
@@ -137,10 +132,7 @@ export PS2="| \[$COLOR_YELLOW\]=>$COLOR_RESET\] "
 
 #   Set Paths
 #   ------------------------------------------------------------
-export PATH="$PATH:$HOME/myBashScripts:."
-# ============ Brew request ===========
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/bin:/usr/local:$PATH"
+export PATH="$PATH:$HOME/.local/scripts:."
 
 #   Set Default Editor
 #   ------------------------------------------------------------
@@ -487,11 +479,4 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   the above create files that are almost all zeros - if random bytes are desired
 #   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
 
-# =========== Bash Completion ===========
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-. $(brew --prefix)/etc/bash_completion
-fi
 
-if [[ -f ~/.bashrc_local ]]; then
-        . ~/.bashrc_local
-fi
