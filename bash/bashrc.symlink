@@ -485,7 +485,7 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   10. OS specific 
 #   ---------------------------------------
 
-if $SHELL_PLATFORM ~= "osx" ; then
+if [[ $SHELL_PLATFORM =~ "osx" ]] ; then
   # ============ Brew request ===========
   export PATH="/usr/local/sbin:$PATH"
   export PATH="/usr/local/bin:/usr/local:$PATH"
