@@ -44,13 +44,13 @@ set incsearch                       " search as characters are entered
 set number                          " number the lines
 set t_Co=256                        " set colour to 256
 set wildmenu                        " show matching possibilities in : prompt
-set path+=**                        " subfolders search for files and completion 
+set path+=**                        " subfolders search for files and completion
 set complete+=i                     " add options to vim completion
 " set complete+=i,kspell              " add options to vim completion
 "Tabs...
 " Soft tabs
 set smarttab                        " Be smart when using tabs
-set expandtab                       " Soft tab mode 
+set expandtab                       " Soft tab mode
 "No soft tabs:
 " set softtabstop=0
 " set noexpandtab
@@ -58,13 +58,13 @@ set expandtab                       " Soft tab mode
 " set tabstop=2                       " tap size
 " set shiftwidth=2                    " 1 tab == 2 spaces
 " set softtabstop=2                   " makes the spaces feel like real tabs
-function! MyTabSize(size)
+function! SetTabSize(size)
   execute "set tabstop=".a:size
   execute "set shiftwidth=".a:size
   execute "set softtabstop=".a:size
 endfunction
-command! -nargs=1 SetTabSize call MyTabSize(<f-args>)
-SetTabSize 2
+command! -nargs=1 MyTabSize call SetTabSize(<f-args>)
+MyTabSize 2
 
 set hidden                          " change buffer without saving
 set wrap                            " this enables visual  wrapping
@@ -83,16 +83,15 @@ autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
 set scrolloff=5                     " when scrolling all ways show 5 lines
 " set cursorcolumn                  " enable the vertical line
 " --- pi ---
-if ! OsType =~ 'armv7l'
+if OsType !~ 'armv7l'
   set cursorline                      " enable the horizontal line THIS OPTION IS SLOW!!!!!!
   hi clear SpellBad
   hi SpellBad cterm=underline         " solves the pronblem with spellCheck and cursorline"
 endif
-
 " --- pi ---
 
 " ======= Colors and Thems ==========
-"colorscheme hybrid 
+"colorscheme hybrid
 "colorscheme solarized
 colorscheme Monokai
 " --- pi ---
@@ -203,7 +202,7 @@ function! IndentationToggle(switch_)
   endif
 endfunction
 call IndentationToggle(IndentSts)
-command! SetIndentationToggle call IndentationToggle(IndentSts)
+command! MyIndentationToggle call IndentationToggle(IndentSts)
 " --- pi ---
 
 " ==============My Mappings==============
@@ -232,7 +231,7 @@ map <leader>s<space> :set nospell<CR>
 map <leader>d "_d |"the black hole register
 map <leader>D "_D |"the black hole register
 map <C-m> %
-" desable shift k 
+" desable shift k
 " map <S-k> <Nop>
 " desable shift j and pass beavior to <C-j>
 " map <S-j> <Nop>
@@ -264,7 +263,7 @@ inoremap „ <Esc>:m .-2<CR>==gi
 vnoremap ¯ :m '>+1<CR>gv=gv
 vnoremap „ :m '<-2<CR>gv=gv
 
-nnoremap ¯ 0Vdp0 
+nnoremap ¯ 0Vdp0
 nnoremap „ 0Vdkkp0
 
 " Tab movement
@@ -275,40 +274,41 @@ nnoremap <S-Tab> gT
 function! FoldindToggle()
   if &foldenable ==# "nofoldenable"
     set foldenable
-    set foldcolumn=4 
+    set foldcolumn=4
     set foldminlines=3
     set foldmethod=indent
     " hi FoldColumn ctermfg=Black
     hi FoldColumn ctermbg=239 ctermfg=244
   else
     set nofoldenable
-    set foldcolumn=0 
+    set foldcolumn=0
     set foldmethod=indent
   endif
 endfunction
 map <leader>f :call FoldindToggle()<CR>
-command! SetFoldindToggle call FoldindToggle()
-SetFoldindToggle
+command! MyFoldindToggle call FoldindToggle()
+MyFoldindToggle
 
 " ========= My Help File =========
 command! HelpMe :vs ~/.vimhelp | set filetype=help
 
 " ========= Relative Numbering =========
 " --- pi ---
-if v:version >= 703
-  function! NumberToggle()
-    if(&relativenumber == 1)
-      set norelativenumber
-    else
-      set number
-      set relativenumber
-    endif
-  endfunc
-  if ! OsType =~ 'armv7l'
-    call NumberToggle()
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+    set nonumber
+  else
+    set number
+    set relativenumber
   endif
-  nnoremap <leader>nr :call NumberToggle()<CR>
+endfunc
+if OsType !~ 'armv7l'
+  call NumberToggle()
 endif
+command! MyNumberToggle call NumberToggle()
+MyNumberToggle
+
 " --- pi ---
 "============ Backspace ============
 set backspace=2 " make backspace work like most other apps
@@ -319,7 +319,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set formatoptions-=cro
 
 " ========== Crontab ==========
-" compatibility workaround for using Vim 
+" compatibility workaround for using Vim
 autocmd filetype crontab setlocal nobackup nowritebackup
 
 " ========== .md files ======
@@ -418,7 +418,7 @@ nnoremap <silent> <Leader>bD :Bclose!<CR>
 " ========To be improved============
 " ========== Test Area ==========
 
-" to call a function 
+" to call a function
 " :call
 function! MyTab(texto)
   echo a:texto
@@ -462,7 +462,7 @@ endfunction
 
 " " ====== Tabular func ===========
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-" 
+"
 " function! s:align()
 "   let p = '^\s*|\s.*\s|\s*$'
 "   if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
