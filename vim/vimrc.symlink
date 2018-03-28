@@ -307,7 +307,6 @@ if OsType !~ 'armv7l'
   call NumberToggle()
 endif
 command! MyNumberToggle call NumberToggle()
-MyNumberToggle
 
 " --- pi ---
 "============ Backspace ============
