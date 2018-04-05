@@ -7,6 +7,11 @@ BASHSCRIPTS_LINKS="$HOME/.local/scripts"
 # DOTFILES1=$HOME/.dotfiles
 # BASHSCRIPTS1=$HOME/.dotfiles/.local/scripts
 
+if ! grep --quiet "^[^#].*~/\.profile" ~/.bash_profile ; then 
+  echo "if [ -f ~/.profile ]; then" >> ~/.bash_profile
+  echo ". ~/.profile ; fi"  >> ~/.bash_profile
+fi
+
 echo -e "\nCreating symlinks"
 echo "=============================="
 linkables=$( find -H "$DOTFILES" -maxdepth 3 -name '*.symlink' )
