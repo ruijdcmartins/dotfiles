@@ -8,6 +8,7 @@ BASHSCRIPTS_LINKS="$HOME/.local/scripts"
 # BASHSCRIPTS1=$HOME/.dotfiles/.local/scripts
 
 if ! grep --quiet "^[^#].*~/\.profile" ~/.bash_profile ; then 
+  echo "" >> ~/.bash_profile
   echo "if [ -f ~/.profile ]; then" >> ~/.bash_profile
   echo ". ~/.profile ; fi"  >> ~/.bash_profile
 fi
