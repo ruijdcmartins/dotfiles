@@ -13,10 +13,8 @@ mkdir -p $HOME/.local/gcc-${gcc_version}
 tar xzf gcc-${gcc_version}.tar.gz
 cd gcc-${gcc_version}
 ./contrib/download_prerequisites
-cd ..
-mkdir objdir
-cd objdir
-$PWD/../gcc-${gcc_version}/configure --prefix=$HOME/.local/gcc-${gcc_version} --enable-languages=c,c++,fortran,go
+mkdir build && cd build
+../configure --prefix=$HOME/.local/gcc-${gcc_version} --enable-languages=c,c++,fortran,go
 make
 make install
 
