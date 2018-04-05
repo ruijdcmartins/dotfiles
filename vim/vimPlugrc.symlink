@@ -20,7 +20,7 @@ Plug 'bronson/vim-crosshairs'                                   " coursorline up
 " Plug 'Yggdroot/indentLine'                                      " <Leader>il fancy indent guides with spaces only
 Plug 'raimondi/delimitmate'                                     " Close brackets
 Plug 'godlygeek/tabular' | let tabular =1
-Plug 'python-mode/python-mode' | let pyMode =1
+Plug 'python-mode/python-mode', { 'branch': 'develop' } | let pyMode =1
 Plug 'dhruvasagar/vim-zoom' | let vimZoom =1
 Plug 'triglav/vim-visual-increment'
 " Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | let Nerdtree = 1
