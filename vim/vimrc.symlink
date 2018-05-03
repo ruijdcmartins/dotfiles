@@ -21,12 +21,12 @@ nnoremap <Down> <nop>
 nnoremap <PageUp> <nop>
 nnoremap <PageDown> <nop>
 
-inoremap <Left> <nop>
-inoremap <Right> <nop>
-inoremap <Up> <nop>
-inoremap <Down> <nop>
-inoremap <PageUp> <nop>
-inoremap <PageDown> <nop>
+" inoremap <Left> <nop>
+" inoremap <Right> <nop>
+" inoremap <Up> <nop>
+" inoremap <Down> <nop>
+" inoremap <PageUp> <nop>
+" inoremap <PageDown> <nop>
 
 vnoremap <Left> <nop>
 vnoremap <Right> <nop>
