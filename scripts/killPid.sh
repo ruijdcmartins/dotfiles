@@ -28,12 +28,15 @@ read -ep "Please choose indices to kill separated with a sapace $(echo $'\n> ')"
 var=1
 
 while (( $number_of_matches >=  $var )); do
-	for i in $killNumber ; 
-	do
-		if [[ "$var" =~ "$i"$ ]]; then
-			echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $1 }' | xargs kill -9 && echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $0 " !! Was killd !!" }'
-		fi
-	done
-
+  if [[ "$killNumber" =~ ^[Aa](ll)? ]]; then
+    echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $1 }' | xargs kill -9 && echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $0 " !! Was killd !!" }'
+  else 
+    for i in $killNumber ; 
+    do
+      if [[ "$var" =~ "$i"$ ]]; then
+        echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $1 }' | xargs kill -9 && echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $0 " !! Was killd !!" }'
+      fi
+    done
+  fi
 	((var+=1))
 done
