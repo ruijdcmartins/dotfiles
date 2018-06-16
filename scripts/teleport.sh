@@ -69,7 +69,7 @@ done
 check_args(){
 if [[ $# -eq 0 ]] ; then
   print_dic
-  echo ""
+  echo "Make this spot teleportabe type -a(ad)"
   read -ep "Here to go?$(echo $'\n> ')" choice
 elif [[ $# -eq 1 ]] ; then
   choice=$1
