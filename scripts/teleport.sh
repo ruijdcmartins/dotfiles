@@ -28,7 +28,7 @@ print_dic(){
 echo ""
 counter=1
 for key in "${!dic_folders[@]}"; do
-  echo "$counter => $key - ${dic_folders[$key]}";
+  printf "%-2s - %-20s => %s\n" "$counter" "$key" "${dic_folders[$key]}"
   ((counter++))
 done
 }
@@ -68,8 +68,9 @@ done
 #define options via flagged input arguments
 check_args(){
 if [[ $# -eq 0 ]] ; then
+  echo "To make this spot teleportabe type -a(ad)"
   print_dic
-  echo "Make this spot teleportabe type -a(ad)"
+  echo ""
   read -ep "Here to go?$(echo $'\n> ')" choice
 elif [[ $# -eq 1 ]] ; then
   choice=$1
