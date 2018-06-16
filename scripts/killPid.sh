@@ -25,11 +25,14 @@ done
 echo -e "===========================\n"
 read -ep "Please choose indices to kill separated with a sapace $(echo $'\n> ')" killNumber
 
+echo -e "$all_infoPid"
+echo "####################-#################"
+
 var=1
 
 while (( $number_of_matches >=  $var )); do
-  if [[ "$killNumber" =~ ^[Aa](ll)? ]]; then
-    echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $1 }' | xargs kill -9 && echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $0 " !! Was killd !!" }'
+  if [[ $killNumber =~ ^[Aa](ll)? ]]; then
+    echo -e "$all_infoPid" | sed -n "${var}p" | awk '/killPid.sh/{ print $1 }' | xargs kill -9 && echo -e "$all_infoPid" | sed -n "${var}p" | awk '{ print $0 " !! Was killd !!" }'
   else 
     for i in $killNumber ; 
     do

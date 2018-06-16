@@ -206,7 +206,7 @@ decrypt() { openssl enc -aes-256-cbc -d -in $1 -out $2 ; }
 # ============= Git Stuff ===============
 
 alias gitFq='git fetch --quiet'
-alias gitS='git status'
+alias gitS='git status -uall'
 alias gitP='git pull'
 alias gitI='git config --list'
 
