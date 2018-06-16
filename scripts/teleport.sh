@@ -19,8 +19,8 @@ if [[ -z $1  ]] ; then
 else
   folder=$1
 fi
-echo -e "Name this teleportation folder:\n $folder"
-read -ep "$(echo $'\n> ')" folder_alias
+echo -e "\nName this teleportation destination:"
+read -ep "$folder $(echo $'\n> ')" folder_alias
 dic_folders+=(["$folder_alias"]="$folder")
 }
 
@@ -69,6 +69,7 @@ done
 check_args(){
 if [[ $# -eq 0 ]] ; then
   echo "To make this spot teleportabe type -a(ad)"
+  echo "To edit the possible destination type -e(dit)"
   print_dic
   echo ""
   read -ep "Here to go?$(echo $'\n> ')" choice
@@ -86,6 +87,9 @@ case $choice in
   -a | -add)
     add_destination
     save_to_file
+    ;;
+  -e | -edit)
+    vim $location_of_dic
     ;;
   *)
     folder_by_key $choice
