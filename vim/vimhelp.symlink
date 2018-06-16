@@ -239,6 +239,8 @@ NOTE Vim commands for text editing
    :Gstatus                  => - to add selected file to commit list
                              => p show selected file patchs changes | git add --patch
                              => C to commit
+   :Gdiff                    => show diff between current file and the index
+   :Gdiff ~3                 => Diff between current file and current file 3 commits ago
     .....
 
   |vim-zoom|
