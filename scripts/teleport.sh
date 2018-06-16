@@ -69,7 +69,8 @@ done
 check_args(){
 if [[ $# -eq 0 ]] ; then
   print_dic
-  read -ep "\nHere to go?$(echo $'\n> ')" choice
+  echo ""
+  read -ep "Here to go?$(echo $'\n> ')" choice
 elif [[ $# -eq 1 ]] ; then
   choice=$1
 elif [[ $# -eq 2 ]] && [[ $1 =~ -a ]] ; then

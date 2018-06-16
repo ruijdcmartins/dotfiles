@@ -197,6 +197,7 @@ alias ..='cd ..'
 alias du='du -sh'
 alias df='df -h'
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+alias teleport.sh="source teleport.sh"
 # type nvim >/dev/null 2>&1 && alias vim='nvim'
 alias showEnvVar='( set -o posix ; set ) | cat'   # printenv also works
 calculator() { echo $* | awk '{printf "%.17g\n", '"$*"'}' ; } # simple calculator
