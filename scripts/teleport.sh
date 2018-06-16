@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 location_of_dic=~/.dotfiles/localFiles/teleport_folders.sh
+location_folder_dic=~/.dotfiles/localFiles
+
+if [[ ! -d $location_folder_dic ]]; then
+  mkdir -p $location_folder_dic
+fi
 
 if [[ -e $location_of_dic ]]; then
   source $location_of_dic
