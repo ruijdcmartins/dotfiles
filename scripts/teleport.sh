@@ -9,7 +9,7 @@ fi
 
 if [[ -e $location_of_dic ]]; then
   source $location_of_dic
-else 
+else
   declare -A dic_folders
 fi
 
@@ -27,7 +27,7 @@ dic_folders+=(["$folder_alias"]="$folder")
 print_dic(){
 echo ""
 counter=1
-for key in "${!dic_folders[@]}"; do 
+for key in "${!dic_folders[@]}"; do
   echo "$counter => $key - ${dic_folders[$key]}";
   ((counter++))
 done
@@ -35,7 +35,7 @@ done
 
 save_to_file(){
 echo "declare -A dic_folders=(" > $location_of_dic
-for key in "${!dic_folders[@]}"; do 
+for key in "${!dic_folders[@]}"; do
   echo "[\"$key\"]=\"${dic_folders[$key]}\"" >> $location_of_dic;
 done
 echo ")" >> $location_of_dic
@@ -44,7 +44,7 @@ echo ")" >> $location_of_dic
 folder_by_index(){
 if [[ $1 -le "${#dic_folders[@]}" ]]; then
   counter=1
-  for key in "${!dic_folders[@]}"; do 
+  for key in "${!dic_folders[@]}"; do
     if [[ $1 -ne $counter ]]; then
       ((counter++))
       continue
@@ -57,7 +57,7 @@ fi
 }
 
 folder_by_key(){
-for key in "${!dic_folders[@]}"; do 
+for key in "${!dic_folders[@]}"; do
   if [[ $key =~ $1 ]]; then
     cd ${dic_folders[$key]}
     break
@@ -94,3 +94,17 @@ esac
 
 check_args $@
 
+unset location_of_dic
+unset location_folder_dic
+unset dic_folders
+unset folder_alias
+unset folder
+unset counter
+unset key
+unset choice
+unset -f add_destination
+unset -f print_dic
+unset -f save_to_file
+unset -f folder_by_key
+unset -f folder_by_index
+unset -f check_args
