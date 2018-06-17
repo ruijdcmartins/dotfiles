@@ -21,6 +21,7 @@ else
 fi
 echo -e "\nName this teleportation destination:"
 read -ep "$folder $(echo $'\n> ')" folder_alias
+unset dic_folders["$folder_alias"]
 dic_folders+=(["$folder_alias"]="$folder")
 }
 
@@ -49,7 +50,7 @@ if [[ $1 -le "${#dic_folders[@]}" ]]; then
       ((counter++))
       continue
     else
-      cd ${dic_folders[$key]}
+      cd "${dic_folders[$key]}"
       break
     fi
   done
@@ -59,7 +60,7 @@ fi
 folder_by_key(){
 for key in "${!dic_folders[@]}"; do
   if [[ $key =~ $1 ]]; then
-    cd ${dic_folders[$key]}
+    cd "${dic_folders[$key]}"
     break
   fi
 done
